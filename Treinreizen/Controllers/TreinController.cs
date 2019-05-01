@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Treinreizen.Service;
 using Treinreizen.ViewModel;
 
@@ -12,10 +13,13 @@ namespace Treinreizen.Controllers
 {
     public class TreinController : Controller
     {
+        private StedenService stedenService;
+
         // GET: /<controller>/
         [HttpGet]
         public IActionResult Home()
         {
+            //ViewBag.lstSteden = new SelectList(stedenService.GetAll(),"StadId","Naam");
             return View();
         }
 
@@ -27,8 +31,10 @@ namespace Treinreizen.Controllers
         // GET: /<controller>/
         public IActionResult Wie()
         {
-            return View();
+            var list = stedenService.GetAll();
+            return View(list);
         }
+
         public IActionResult Wat()
         {
             return View();
