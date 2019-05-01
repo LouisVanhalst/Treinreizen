@@ -9,6 +9,14 @@
         "jquery-ui.min.js",
         "jquery-ui.min.css"
       ]
+    },
+    {
+      "library": "datatables@1.10.19",
+      "destination": "wwwroot/lib/datatables/",
+      "files": [
+        "js/jquery.dataTables.min.js",
+        "css/jquery.dataTables.min.css"
+      ]
     }
   ]
 }

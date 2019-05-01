@@ -49,10 +49,23 @@ namespace Treinreizen.Controllers
             routesService = new RoutesService();
         }
 
-        public IActionResult Route()
+        //DATA TYPE NIET JUIST dateTime  & Date bij view?
+        public IActionResult RouteMetFilter()
         {
-            var lijst = routesService.GetAll();
-            return View(lijst);
+            
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RouteMetFilter(DateTime vertrek)
+        {
+            if (vertrek == null)
+            {
+                return NotFound();
+            }
+            var routeList = routesService.GetTreinenBijVertrek(vertrek);
+            return View(vertrek);
+
         }
     
 
