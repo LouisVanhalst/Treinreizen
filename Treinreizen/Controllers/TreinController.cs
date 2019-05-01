@@ -31,8 +31,7 @@ namespace Treinreizen.Controllers
         // GET: /<controller>/
         public IActionResult Wie()
         {
-            var list = stedenService.GetAll();
-            return View(list);
+            return View();
         }
 
         public IActionResult Wat()
@@ -54,7 +53,12 @@ namespace Treinreizen.Controllers
             var lijst = routesService.GetAll();
             return View(lijst);
         }
-    
+
+        public IActionResult Steden()
+        {
+            var list = stedenService.GetAll();
+            return View(list);
+        }
 
 }
 }
