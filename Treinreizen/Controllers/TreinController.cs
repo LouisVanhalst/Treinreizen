@@ -20,14 +20,17 @@ namespace Treinreizen.Controllers
         public IActionResult Home()
         {
             //ViewBag.lstSteden = new SelectList(stedenService.GetAll(),"StadId","Naam");
+
             return View();
         }
 
         [HttpPost]
         public IActionResult Home(ZoekVM zoekVM)
         {
-            return View();
+
+            return View(zoekVM);
         }
+
         // GET: /<controller>/
         public IActionResult Wie()
         {
@@ -49,23 +52,23 @@ namespace Treinreizen.Controllers
         }
 
         //DATA TYPE NIET JUIST dateTime  & Date bij view?
-        public IActionResult RouteMetFilter()
+        public IActionResult Route()
         {
             
             return View();
         }
-
         [HttpPost]
-        public IActionResult RouteMetFilter(DateTime vertrek)
+        public IActionResult Route(string vertrek)
         {
+
             if (vertrek == null)
             {
                 return NotFound();
             }
             var routeList = routesService.GetTreinenBijVertrek(vertrek);
-            return View(vertrek);
-
+            return View(routeList);
         }
+
 
         public IActionResult Steden()
         {

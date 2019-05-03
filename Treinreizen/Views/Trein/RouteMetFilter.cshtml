@@ -30,16 +30,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RouteId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReisMogelijkhedenId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Vertrekdatum)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TreinNummer)
+                @Html.DisplayNameFor(model => model.ReisMogelijkheden.VertrekNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReisMogelijkheden.AankomstNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreinNummerNavigation.TreinNaam)
             </th>
             <th></th>
         </tr>
@@ -48,24 +48,25 @@
         @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.RouteId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReisMogelijkhedenId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Vertrekdatum)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TreinNummer)
+                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam )
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam )
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TreinNummerNavigation.TreinNaam)
+            </td>
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
-}
+} 
 </tbody>
 </table>
 }

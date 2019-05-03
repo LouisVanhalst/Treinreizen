@@ -6,6 +6,8 @@ using Treinreizen.Storage;
 
 namespace Treinreizen.Service
 {
+
+
     public class RoutesService
     {
         private RoutesDAO routesDAO;
@@ -18,7 +20,7 @@ namespace Treinreizen.Service
             return routesDAO.GetAll();
         }
 
-        public IEnumerable<TreinRoutes> GetTreinenBijVertrek(DateTime vertrek)
+        public IEnumerable<TreinRoutes> GetTreinenBijVertrek(string vertrek)
         {
             return routesDAO.GetTreinenBijVertrek(vertrek);
         }

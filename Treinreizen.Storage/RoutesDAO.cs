@@ -21,10 +21,12 @@ namespace Treinreizen.Storage
         {
             return _dbContext.TreinRoutes.ToList();
         }
-        public IEnumerable<TreinRoutes> GetTreinenBijVertrek(DateTime vertrek)
+        public IEnumerable<TreinRoutes> GetTreinenBijVertrek(string vertrek)
         {
-            return _dbContext.TreinRoutes.Where(t => t.Vertrekdatum == vertrek)
-                .Include(t => t.ReisMogelijkheden).ToList();
+            return _dbContext.TreinRoutes.Where(t => t.ReisMogelijkheden.VertrekNavigation.Naam == vertrek)
+                .Include(t => t.ReisMogelijkheden.AankomstNavigation)
+                .Include(s => s.TreinNummerNavigation)
+                .Include(t => t.ReisMogelijkheden.VertrekNavigation).ToList();
         }
     }
 }
