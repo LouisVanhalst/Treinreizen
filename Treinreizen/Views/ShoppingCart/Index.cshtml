@@ -1,0 +1,173 @@
+﻿@model Treinreizen.ViewModel.ShoppingCartVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Uw Winkelmand</h2>
+
+@if (Model != null)
+{
+
+    <form asp-action="Payment">
+        <table>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].AantalTickets)
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].TreinNaam)
+
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].Vertrek)
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].Aankomst)
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Class)
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Prijs)
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Boekingsdatum)
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Status)
+
+                </th>
+                <th>
+                    Subtotaal
+                </th>
+            </tr>
+            @{ float total = 0;}
+            @for (var i = 0; i < Model.Cart.Count; i++)
+            {
+                <tr>
+                    <!--we willen biernr wel binnenkrijgen dus moeten we het ergens hidden zetten-->
+                    @Html.HiddenFor(m => Model.Cart[i].OrderId)
+
+                    <td>
+                        <input asp-for="@Model.Cart[i].AantalTickets" type="number" min="1" max="5" data-aantal=@i />
+                    </td>
+                    @for (var j = 0; j < Model.Cart[i].Overstappen.Count; j++)
+                    {
+                        <td>
+                            <input asp-for="@Model.Cart[i].Overstappen[j].TreinNaam " readonly="readonly" class="form-control" />
+                        </td>
+                        <td>
+                            <input asp-for="@Model.Cart[i].Overstappen[j].Vertrek " readonly="readonly" class="form-control" />
+                        </td>
+                        <td>
+                            <input asp-for="@Model.Cart[i].Overstappen[j].Aankomst " readonly="readonly" class="form-control" />
+                        </td>
+                    }
+                    <td>
+                        <input asp-for="@Model.Cart[i].Class" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Prijs" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Boekingsdatum" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Status" readonly="readonly" class="form-control" />
+                    </td>
+
+                    <td>
+                        <input asp-for="@Model.Cart[i].Prijs" type="number" readonly="readonly" />
+                        @{ var subtotaal = Model.Cart[i].Prijs * Model.Cart[i].AantalTickets;
+                            total += subtotaal;
+                        }
+                    </td>
+
+                    <td>
+                        <input id="@("txtSubTotal" + @i)" value="@subtotaal" type="number" readonly="readonly" />
+                    </td>
+                    <td>
+                        <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-bierNR="@Model.Cart[i].OrderId">
+                            <img src="~/images/delete.jpg" style="width:30px" />
+                        </a>
+
+                    </td>
+                </tr>
+
+            }
+            <tr>
+                <td>
+                    Total
+                </td>
+                <td></td>
+                <td></td>
+                <td id="cart-total">
+                    <input id="txtTotal" value="@total" type="number" readonly="readonly" />
+
+                </td>
+
+            </tr>
+
+            <tr>
+                <td> <input type="submit" value="Checkout" class="btn btn-default" /></td>
+            </tr>
+
+
+
+        </table>
+    </form>
+}
+else
+{
+    @Html.Raw("Your shoppingcart is empty at the moment")
+}
+<a asp-controller="Trein"
+   asp-action="Home">
+
+    Continue
+</a>
+
+@section Scripts{
+    <script>
+        //is het zelfde als window.addlistener(load,script)... van vorig jaar
+        $(() => {
+            //selecteer alle input elementen die eindigen met aantal
+            //selecteer alle ids die eindigen met 'aantal' en plaats daar een change listerner op
+            $("[id$=Aantal]").on('change', (e) =>{
+                console.log("change");
+                //geef het object en neem het dataatribuut "AANTAL"
+                let number = $(e.currentTarget).data("aantal");
+                let selectorPrice = "Cart_" + number + "_Prijs";
+                //geef mij de waarde van selectorPrice
+                let price = $("#" + selectorPrice).val();
+
+                let selector = "txtSubTotal" + number;
+                //toont de waarde op de console (hoeft niet)
+                console.log($(e.currentTarget).val() * price);
+                //plaatst de waarde van de hoeveelheid * de prijs in het subtotaaal.
+                $("#" + selector).val($(e.currentTarget).val() * price);
+
+                //selecteer alle subtotalen en tel deze op
+                let sum = 0;
+                $('[id^=txtSubTotal]').each((e) => {
+                    //zit er wele iets in de current target, zo ja dan begin ik ze pas op te tellen!
+                    if (!isNaN(e.currentTarget.value) && e.currentTarget.value.length != 0) {
+
+                        sum += parseFloat(e.currentTarget.value);
+                    }
+                });
+                //ik steek het totaal in het veld Total
+                $('#txtTotal').val(sum);
+            }
+    </script>
+}
+
+
