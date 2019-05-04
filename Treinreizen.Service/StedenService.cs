@@ -17,6 +17,7 @@ namespace Treinreizen.Service
 
         public IEnumerable<Steden> GetAll()
         {
+
             return stedenDAO.GetAll();
         }
     }

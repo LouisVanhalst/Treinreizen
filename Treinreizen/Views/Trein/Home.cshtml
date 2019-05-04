@@ -13,44 +13,47 @@
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="isEnkel" /> @Html.DisplayNameFor(model => model.isEnkel)
+                        <input asp-for="isEnkel" checked/> @Html.DisplayNameFor(model => model.isEnkel)
                     </label>
                 </div>
             </div>
             <div class="form-group">
-                @*<label for="Van" class="control-label"></label>
-                <select name="StadId" id="stadId" asp-items="@ViewBag.lstSteden">
-                    <option>Please select </option>
+                <label for="Van" class="control-label">Van</label>
+                <select name="StadId" id="vanId" asp-items="@ViewBag.lstSteden">
+                    <option selected disabled>Please select </option>
                 </select>
-                <label asp-for="Van" class="control-label"></label>
+                @*<label asp-for="Van" class="control-label"></label>
                 <input asp-for="Van" class="form-control" />
                 <span asp-validation-for="Van" class="text-danger"></span>*@
             </div>
             <div class="form-group">
                 <label asp-for="Naar" class="control-label"></label>
-                <input asp-for="Naar" class="form-control" />
-                <span asp-validation-for="Naar" class="text-danger"></span>
+                <select name="StadId" id="naarId" asp-items="@ViewBag.lstSteden">
+                    <option selected disabled>Please select </option>
+                </select>
+                @*<input asp-for="Naar" class="form-control" />
+                <span asp-validation-for="Naar" class="text-danger"></span>*@
             </div>
             <div class="form-group">
                 <label asp-for="HeenDate" class="control-label"></label>
                 <input asp-for="HeenDate" class="form-control" />
                 <span asp-validation-for="HeenDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group"> TIJD VERWIJDEREN
                 <label asp-for="HeenTime" class="control-label"></label>
                 <input asp-for="HeenTime" class="form-control" />
                 <span asp-validation-for="HeenTime" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="TerugDate" class="control-label"></label>
                 <input asp-for="TerugDate" class="form-control" />
                 <span asp-validation-for="TerugDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group"> TIJD VERWIJDEREN
                 <label asp-for="TerugTime" class="control-label"></label>
                 <input asp-for="TerugTime" class="form-control" />
                 <span asp-validation-for="TerugTime" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Aantal" class="control-label"></label>
                 <input asp-for="Aantal" class="form-control" />
