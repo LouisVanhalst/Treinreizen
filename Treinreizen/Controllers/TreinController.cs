@@ -14,43 +14,6 @@ namespace Treinreizen.Controllers
 {
     public class TreinController : Controller
     {
-        private StedenService stedenService;
-
-        // GET: /<controller>/
-        [HttpGet]
-        public IActionResult Home()
-        {
-            stedenService = new StedenService();
-
-            ViewBag.lstSteden = new SelectList(stedenService.GetAll(),"StadId","Naam");
-
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Home(int vanId, int naarId)
-        {
-            /**if (vanId == null || naarId == null)
-            {
-                return NotFound();
-            }**/
-
-            if (vanId == naarId)
-            {
-                return NotFound();
-            }
-
-            routesService = new RoutesService();
-
-           
-            stedenService = new StedenService();
-
-            ViewBag.lstSteden = new SelectList(stedenService.GetAll(), "StadId", "Naam");
-
-            return View();
-        }
-
-        // GET: /<controller>/
         public IActionResult Wie()
         {
             return View();
@@ -92,15 +55,15 @@ namespace Treinreizen.Controllers
 
         public IActionResult Steden()
         {
-            stedenService = new StedenService();
+            StedenService stedenService = new StedenService();
             var list = stedenService.GetAll();
             return View(list);
         }
 
         [HttpGet]
-        public IActionResult HomeVM()
+        public IActionResult Home()
         {
-            stedenService = new StedenService();
+            StedenService stedenService = new StedenService();
 
             ZoekListVM zoekListVM = new ZoekListVM();
 
@@ -110,8 +73,10 @@ namespace Treinreizen.Controllers
         }
 
         [HttpPost]
-        public IActionResult HomeVM(ZoekListVM zoekListVM)
+        public IActionResult Home(ZoekListVM zoekListVM)
         {
+            ModelState.Clear();
+
             if (zoekListVM == null)
             {
                 return NotFound();
@@ -122,7 +87,7 @@ namespace Treinreizen.Controllers
                 return NotFound(); liever foutboodschap
             }**/
 
-            stedenService = new StedenService();
+            StedenService stedenService = new StedenService();
 
             routesService = new RoutesService();
             zoekListVM.Steden = new SelectList(stedenService.GetAll(), "StadId", "Naam");
@@ -137,7 +102,9 @@ namespace Treinreizen.Controllers
              * 7 Moskou
             */
 
-            if (zoekListVM.Van == 2 && zoekListVM.Naar == 7) //Londen - Moskou      stop: Brussel + Berlijn
+            
+            
+                if (zoekListVM.Van == 2 && zoekListVM.Naar == 7) //Londen - Moskou      stop: Brussel + Berlijn
             {
                 zoekListVM.Routes = routesService.GetTrainenBijVanEnNaarId2Stops(Convert.ToInt16(zoekListVM.Van), 1, 5, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate, zoekListVM.TerugDate);
             }
@@ -145,20 +112,31 @@ namespace Treinreizen.Controllers
             {
                 zoekListVM.Routes = routesService.GetTrainenBijVanEnNaarId2Stops(Convert.ToInt16(zoekListVM.Van), 5, 1, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate, zoekListVM.TerugDate);
             }
-            else if (zoekListVM.Van == 2 || zoekListVM.Naar == 2 || ( zoekListVM.Van == 4 && zoekListVM.Naar == 3)
-                || (zoekListVM.Van == 3 && zoekListVM.Naar == 4) || (zoekListVM.Van == 4 && zoekListVM.Naar == 6) 
-                || (zoekListVM.Van == 6 && zoekListVM.Naar == 4)) 
-                //Londen - ?  || ? - Londen || Amsterdam - Parijs || Parijs - Amsterdam || Amsterdam - Rome || Rome - Amsterdam     stop: Brussel
+            else if (zoekListVM.Van == 2 || zoekListVM.Naar == 2 || (zoekListVM.Van == 4 && zoekListVM.Naar == 3)
+                || (zoekListVM.Van == 3 && zoekListVM.Naar == 4) || (zoekListVM.Van == 4 && zoekListVM.Naar == 6)
+                || (zoekListVM.Van == 6 && zoekListVM.Naar == 4))
+            //Londen - ?  || ? - Londen || Amsterdam - Parijs || Parijs - Amsterdam || Amsterdam - Rome || Rome - Amsterdam     stop: Brussel
             {
                 zoekListVM.Routes = routesService.GetTrainenBijVanEnNaarId1Stop(Convert.ToInt16(zoekListVM.Van), 1, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate, zoekListVM.TerugDate);
+            }
+            else if (zoekListVM.Van == 7 || zoekListVM.Naar == 7) //Moskou - ? || ? - Moskou        stop: Berlijn
+            {
+                zoekListVM.Routes = routesService.GetTrainenBijVanEnNaarId1Stop(Convert.ToInt16(zoekListVM.Van), 5, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate, zoekListVM.TerugDate);
             }
             else
             {
                 zoekListVM.Routes = routesService.GetTrainenBijVanEnNaarId(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate, zoekListVM.TerugDate);
             }
 
-
-            return View(zoekListVM);
+            if (ModelState.IsValid)
+            {
+                return View(zoekListVM);
+            }
+            else
+            {
+                zoekListVM.Routes = null;
+                return View(zoekListVM);
+            }
         }
 
     }

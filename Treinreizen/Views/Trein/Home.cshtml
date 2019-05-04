@@ -1,11 +1,11 @@
-﻿@model Treinreizen.ViewModel.ZoekVM
+﻿@model Treinreizen.ViewModel.ZoekListVM
 
 @{
     ViewData["Title"] = "Home";
 }
 
-<h2>Home</h2>
-<hr />
+<h2>HomeVM</h2>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Home">
@@ -13,47 +13,32 @@
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="isEnkel" checked/> @Html.DisplayNameFor(model => model.isEnkel)
+                        <input checked asp-for="isEnkel" /> @Html.DisplayNameFor(model => model.isEnkel)
                     </label>
                 </div>
             </div>
             <div class="form-group">
-                <label for="Van" class="control-label">Van</label>
-                <select name="StadId" id="vanId" asp-items="@ViewBag.lstSteden">
+                <label asp-for="Van" class="control-label"></label>
+                <select asp-for="Van" asp-items="@Model.Steden">
                     <option selected disabled>Please select </option>
                 </select>
-                @*<label asp-for="Van" class="control-label"></label>
-                <input asp-for="Van" class="form-control" />
-                <span asp-validation-for="Van" class="text-danger"></span>*@
             </div>
             <div class="form-group">
                 <label asp-for="Naar" class="control-label"></label>
-                <select name="StadId" id="naarId" asp-items="@ViewBag.lstSteden">
+                <select asp-for="Naar" asp-items="@Model.Steden">
                     <option selected disabled>Please select </option>
                 </select>
-                @*<input asp-for="Naar" class="form-control" />
-                <span asp-validation-for="Naar" class="text-danger"></span>*@
             </div>
             <div class="form-group">
                 <label asp-for="HeenDate" class="control-label"></label>
                 <input asp-for="HeenDate" class="form-control" />
                 <span asp-validation-for="HeenDate" class="text-danger"></span>
             </div>
-            @*<div class="form-group"> TIJD VERWIJDEREN
-                <label asp-for="HeenTime" class="control-label"></label>
-                <input asp-for="HeenTime" class="form-control" />
-                <span asp-validation-for="HeenTime" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
                 <label asp-for="TerugDate" class="control-label"></label>
                 <input asp-for="TerugDate" class="form-control" />
                 <span asp-validation-for="TerugDate" class="text-danger"></span>
             </div>
-            @*<div class="form-group"> TIJD VERWIJDEREN
-                <label asp-for="TerugTime" class="control-label"></label>
-                <input asp-for="TerugTime" class="form-control" />
-                <span asp-validation-for="TerugTime" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
                 <label asp-for="Aantal" class="control-label"></label>
                 <input asp-for="Aantal" class="form-control" />
@@ -66,9 +51,119 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@*
+    <div>
+        <h4>ZoekListVM</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.isEnkel)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.isEnkel)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Van)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Van)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Naar)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Naar)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.HeenDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.HeenDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TerugDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TerugDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Aantal)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Aantal)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>
+*@
+
+@if (Model.Routes != null)
+{
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Routes.First().Vertrekdatum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Routes.First().ReisMogelijkheden.Vertrektijd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Routes.First().ReisMogelijkheden.VertrekNavigation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Routes.First().ReisMogelijkheden.Aankomsttijd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Routes.First().ReisMogelijkheden.AankomstNavigation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Routes.First().TreinNummerNavigation.TreinNaam)
+                </th>
+                <th>
+                    Reistijd
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Routes)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vertrekdatum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreinNummerNavigation.TreinNaam)
+                </td>
+                <td>
+                    
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -114,5 +209,3 @@
 
     </script>
 }
-
-

@@ -17,17 +17,20 @@ namespace Treinreizen.ViewModel
         public int? Van { get; set; }
 
         [Required(ErrorMessage = "Vul de bestemming in.")]
+        //testen naar != van
         public int? Naar { get; set; }
 
-        [Display(Name = "Vertrek datum heenreis")]
+        [Display(Name = "Vertrekdatum heenreis")]
         [Required(ErrorMessage = "Vul datum van vertrek heenreis in.")]
         public string HeenDate { get; set; }
 
-        [Display(Name = "Vertrek datum terugreis")]
+        [Display(Name = "Vertrekdatum terugreis")]
         [Required(ErrorMessage = "Vul datum van vertrek terugreis in.")]
         public string TerugDate { get; set; }
 
+        [Display(Name = "Aantal Tickets")]
         [Required(ErrorMessage = "Vul het aantal passagiers in.")]
+        [Range(1, 9, ErrorMessage = "Er kunnen maximum 9 tickets besteld worden. Indien u er meer wenst gelieve contact op te nemen.")]
         public int Aantal { get; set; }
 
         public SelectList Steden { get; set; }
