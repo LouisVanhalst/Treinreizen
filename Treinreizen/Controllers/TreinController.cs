@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Treinreizen.Domain.Entities;
 using Treinreizen.Service;
 using Treinreizen.ViewModel;
 
@@ -19,16 +20,34 @@ namespace Treinreizen.Controllers
         [HttpGet]
         public IActionResult Home()
         {
-            //ViewBag.lstSteden = new SelectList(stedenService.GetAll(),"StadId","Naam");
+            stedenService = new StedenService();
+
+            ViewBag.lstSteden = new SelectList(stedenService.GetAll(),"StadId","Naam");
 
             return View();
         }
 
         [HttpPost]
-        public IActionResult Home(ZoekVM zoekVM)
+        public IActionResult Home(int vanId, int naarId)
         {
+            /**if (vanId == null || naarId == null)
+            {
+                return NotFound();
+            }**/
 
-            return View(zoekVM);
+            if (vanId == naarId)
+            {
+                return NotFound();
+            }
+
+            routesService = new RoutesService();
+
+           
+            stedenService = new StedenService();
+
+            ViewBag.lstSteden = new SelectList(stedenService.GetAll(), "StadId", "Naam");
+
+            return View();
         }
 
         // GET: /<controller>/
@@ -57,6 +76,7 @@ namespace Treinreizen.Controllers
             
             return View();
         }
+
         [HttpPost]
         public IActionResult Route(string vertrek)
         {
@@ -72,9 +92,74 @@ namespace Treinreizen.Controllers
 
         public IActionResult Steden()
         {
+            stedenService = new StedenService();
             var list = stedenService.GetAll();
             return View(list);
         }
 
-}
+        [HttpGet]
+        public IActionResult HomeVM()
+        {
+            stedenService = new StedenService();
+
+            ZoekListVM zoekListVM = new ZoekListVM();
+
+            zoekListVM.Steden = new SelectList(stedenService.GetAll(), "StadId", "Naam");
+
+            return View(zoekListVM);
+        }
+
+        [HttpPost]
+        public IActionResult HomeVM(ZoekListVM zoekListVM)
+        {
+            if (zoekListVM == null)
+            {
+                return NotFound();
+            }
+
+            /**if (zoekListVM.Van == zoekListVM.Naar)
+            {
+                return NotFound(); liever foutboodschap
+            }**/
+
+            stedenService = new StedenService();
+
+            routesService = new RoutesService();
+            zoekListVM.Steden = new SelectList(stedenService.GetAll(), "StadId", "Naam");
+
+            /*
+             * 1 Brussel
+             * 2 Londen
+             * 3 Parijs
+             * 4 Amsterdam
+             * 5 Berlijn
+             * 6 Rome
+             * 7 Moskou
+            */
+
+            if (zoekListVM.Van == 2 && zoekListVM.Naar == 7) //Londen - Moskou      stop: Brussel + Berlijn
+            {
+                zoekListVM.Routes = routesService.GetTrainenBijVanEnNaarId2Stops(Convert.ToInt16(zoekListVM.Van), 1, 5, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate, zoekListVM.TerugDate);
+            }
+            else if (zoekListVM.Van == 7 && zoekListVM.Naar == 2) //Moskou - Londen stop: Berlijn + Brussel
+            {
+                zoekListVM.Routes = routesService.GetTrainenBijVanEnNaarId2Stops(Convert.ToInt16(zoekListVM.Van), 5, 1, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate, zoekListVM.TerugDate);
+            }
+            else if (zoekListVM.Van == 2 || zoekListVM.Naar == 2 || ( zoekListVM.Van == 4 && zoekListVM.Naar == 3)
+                || (zoekListVM.Van == 3 && zoekListVM.Naar == 4) || (zoekListVM.Van == 4 && zoekListVM.Naar == 6) 
+                || (zoekListVM.Van == 6 && zoekListVM.Naar == 4)) 
+                //Londen - ?  || ? - Londen || Amsterdam - Parijs || Parijs - Amsterdam || Amsterdam - Rome || Rome - Amsterdam     stop: Brussel
+            {
+                zoekListVM.Routes = routesService.GetTrainenBijVanEnNaarId1Stop(Convert.ToInt16(zoekListVM.Van), 1, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate, zoekListVM.TerugDate);
+            }
+            else
+            {
+                zoekListVM.Routes = routesService.GetTrainenBijVanEnNaarId(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate, zoekListVM.TerugDate);
+            }
+
+
+            return View(zoekListVM);
+        }
+
+    }
 }
