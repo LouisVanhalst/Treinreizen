@@ -46,7 +46,8 @@ namespace Treinreizen.Storage
                 || (t.ReisMogelijkheden.Vertrek == stop1 && t.ReisMogelijkheden.Aankomst == van && t.Vertrekdatum == DateTime.Parse(datumterug)))
                 .Include(t => t.ReisMogelijkheden.AankomstNavigation)
                 .Include(s => s.TreinNummerNavigation)
-                .Include(t => t.ReisMogelijkheden.VertrekNavigation).ToList();
+                .Include(t => t.ReisMogelijkheden.VertrekNavigation)
+                .ToList();
         }
 
         public IEnumerable<TreinRoutes> GetTreinenBijVanEnNaarId2Stops(int van, int stop1, int stop2, int naar, string datumheen, string datumterug)

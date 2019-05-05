@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +32,17 @@ namespace Treinreizen
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            //session
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Name = ".Trein.Session";
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                //standaard is dit 20 minuten ipv van de 60 seconden hier
+                options.IdleTimeout = TimeSpan.FromSeconds(60);
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>

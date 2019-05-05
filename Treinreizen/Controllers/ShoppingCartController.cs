@@ -15,13 +15,25 @@ namespace Treinreizen.Controllers
     {
         public IActionResult Index()
         {
+            ShoppingCartVM shopping;
 
-            ShoppingCartVM cartList = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+            if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
+            {
+                shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+            }
+            else
+            {
+                shopping = new ShoppingCartVM();
+                shopping.Cart = new List<CartVM>();
+                
+            }
+
+           
 
             var SessionId = HttpContext.Session.Id;
 
 
-            return View(cartList);
+            return View(shopping);
         }
 
         //nog de implementeren
