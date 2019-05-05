@@ -233,11 +233,9 @@
                 Ga een kijkje nemen in ons sortiment van hotels bij jouw in de buurt!
             </p>
         </div>
-        <form asp-action="Hotels">
-            <div class="form-group">
-
-                <input type="submit" value="Boek Nu!" class="btn btn-default" />
-            </div>
+        
+        <form method="post">
+            <input type="submit" asp-controller="Trein" asp-action="Hotels" asp-route-stadId="@Model.Naar" value="Boek nu!" class="btn btn-default"/>
         </form>
     </div>
    

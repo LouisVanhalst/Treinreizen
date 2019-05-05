@@ -146,7 +146,18 @@ namespace Treinreizen.Controllers
                 return View("Home",zoekListVM);
             }
         }
-        
+
+        public IActionResult Hotels(int stadId)
+        {
+            HotelsService hotelsService = new HotelsService();
+            var hotelList = hotelsService.GetHotelsVanStad(stadId);
+            return View(hotelList);
+        }
+        [HttpPost]
+        public IActionResult Home(string aankomst)
+        {
+            return View("Hotels", aankomst);
+        }
 
 
 
