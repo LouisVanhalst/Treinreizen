@@ -9,7 +9,7 @@
 /* Basic */
 
 body {
-    background: white;
+    background: #888888
 }
 
 body, input, select, textarea {
@@ -549,7 +549,6 @@ input[type="button"],
     border-radius: 10px;
     color: white;
     min-width: 12em;
-    padding: 1em 0;
 }
 
     .dropotron > li {
@@ -566,10 +565,6 @@ input[type="button"],
             color: #FFF;
         }
 
-    .dropotron.level-0 {
-        border-radius: 0 10px 10px 10px;
-        font-size: 1em;
-    }
 
 /* Banner */
 
@@ -655,3 +650,4 @@ input[type="button"],
     #footer a {
         color: inherit;
     }
+
