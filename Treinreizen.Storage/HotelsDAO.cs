@@ -15,6 +15,10 @@ namespace Treinreizen.Storage
         {
             _dbContext = new treinrittenDBContext();
         }
+        public Hotels Get(int id)
+        {
+            return _dbContext.Hotels.Where(h => h.StadId == id).First();
+        }
         public IEnumerable<Hotels> GetAll()
         {
             return _dbContext.Hotels.ToList();

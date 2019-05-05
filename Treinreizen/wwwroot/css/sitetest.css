@@ -9,7 +9,7 @@
 /* Basic */
 
 body {
-    background: #888888
+    background: #ffffff
 }
 
 body, input, select, textarea {
@@ -504,150 +504,142 @@ input[type="button"],
     font-size: 2em;
 }
 
-#nav > ul {
-    margin: 0;
-}
-
-    #nav > ul > li {
-        border-radius: 10px 10px 0 0;
-        display: inline-block;
-        margin-left: 0.5em;
-        padding: 0.5em 1.5em;
-    }
-
-        #nav > ul > li a {
-            color: #FFF;
-            text-decoration: none;
-            font-size: 1.2em;
-        }
-
-        #nav > ul > li:first-child {
-            margin-left: 0;
-        }
-
-        #nav > ul > li:hover a {
-            color: #fff;
-        }
-
-        #nav > ul > li.active {
-            background: #3ac984;
-        }
-
-            #nav > ul > li.active a {
-                color: white;
-            }
-
-        #nav > ul > li > ul {
-            display: none;
-        }
-
 /* Dropotron */
 
-.dropotron {
-    margin-top: -2px;
-    background: #3ac984;
-    border-radius: 10px;
-    color: white;
-    min-width: 12em;
-}
-
-    .dropotron > li {
-        line-height: 2em;
-        padding: 0 1em;
+    .dropotron {
+        margin-top: -2px;
+        background: #3ac984;
+        border-radius: 10px;
+        color: white;
+        min-width: 12em;
     }
 
-        .dropotron > li > a {
+        .dropotron > li {
+            line-height: 2em;
+            padding: 0 1em;
+        }
+
+            .dropotron > li > a {
+                color: #FFF;
+                text-decoration: none;
+            }
+
+            .dropotron > li.active > a, .dropotron > li:hover > a {
+                color: #FFF;
+            }
+
+
+    /* Banner */
+
+    #banner {
+        text-align: center;
+        padding: 4em 0 0 0;
+    }
+
+        #banner .major h2 {
+            font-size: 3.5em;
+        }
+
+        #banner .major .byline {
+            display: block;
+            margin: 0em 2em;
+            line-height: 1.6em;
+            font-size: 1.5em;
+        }
+
+        #banner a {
+            color: inherit;
+        }
+
+    /* Main */
+
+    .no-sidebar #main .major, .left-sidebar #main .major, .right-sidebar #main .major {
+        text-align: left;
+    }
+
+    .homepage #main .major {
+        text-align: center;
+    }
+
+    #main {
+        padding: 6em 0;
+    }
+
+        #main .sidebar .major {
+            padding-bottom: 2em;
+        }
+
+            #main .sidebar .major h2 {
+                font-size: 1.8em;
+            }
+
+        #main .sidebar .default li {
+            border-color: #cdcdcd;
+        }
+
+        #main .sidebar .default a {
+            color: #464646;
+        }
+
+        #main .sidebar > :first-child {
+            margin-bottom: 3em;
+        }
+
+    /* Footer */
+
+    #footer {
+        padding: 4em 0;
+        color: #fff;
+    }
+
+        #footer .major h2 {
+            font-size: 2em;
             color: #FFF;
+        }
+
+        #footer .major .byline {
+            font-size: 1.1em;
+        }
+
+        #footer .copyright {
+            margin-top: 3em;
+            padding-top: 3em;
+            border-top: 1px solid;
+            border-color: rgba(192, 192, 192, 0.15);
+            text-align: center;
+            color: inherit;
+        }
+
+        #footer a {
+            color: inherit;
+        }
+
+
+
+    .tile {
+        background-color: #3ac984;
+        color: #888888 -ms-border-radius: 10px;
+        border-radius: 10px;
+        padding: 10px 20px;
+        transition: all .1s ease-in-out;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+
+
+
+        .tile a:hover, .tile a:link, .tile a:visited, .tile a:active {
+            color: #ffffff;
             text-decoration: none;
         }
 
-        .dropotron > li.active > a, .dropotron > li:hover > a {
-            color: #FFF;
+        .tile .title {
+            font-weight: bold;
+            align-content: center;
+            margin: 5px;
+            font-size: 15px;
         }
 
-
-/* Banner */
-
-#banner {
-    text-align: center;
-    padding: 4em 0 0 0;
-}
-
-    #banner .major h2 {
-        font-size: 3.5em;
-    }
-
-    #banner .major .byline {
-        display: block;
-        margin: 0em 2em;
-        line-height: 1.6em;
-        font-size: 1.5em;
-    }
-
-    #banner a {
-        color: inherit;
-    }
-
-/* Main */
-
-.no-sidebar #main .major, .left-sidebar #main .major, .right-sidebar #main .major {
-    text-align: left;
-}
-
-.homepage #main .major {
-    text-align: center;
-}
-
-#main {
-    padding: 6em 0;
-}
-
-    #main .sidebar .major {
-        padding-bottom: 2em;
-    }
-
-        #main .sidebar .major h2 {
-            font-size: 1.8em;
+        .tile .beschrijving {
+            align-content: initial;
         }
-
-    #main .sidebar .default li {
-        border-color: #cdcdcd;
-    }
-
-    #main .sidebar .default a {
-        color: #464646;
-    }
-
-    #main .sidebar > :first-child {
-        margin-bottom: 3em;
-    }
-
-/* Footer */
-
-#footer {
-    padding: 4em 0;
-    color: #fff;
-}
-
-    #footer .major h2 {
-        font-size: 2em;
-        color: #FFF;
-    }
-
-    #footer .major .byline {
-        font-size: 1.1em;
-    }
-
-    #footer .copyright {
-        margin-top: 3em;
-        padding-top: 3em;
-        border-top: 1px solid;
-        border-color: rgba(192, 192, 192, 0.15);
-        text-align: center;
-        color: inherit;
-    }
-
-    #footer a {
-        color: inherit;
-    }
-

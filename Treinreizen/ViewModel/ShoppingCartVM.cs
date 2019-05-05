@@ -26,4 +26,12 @@ namespace Treinreizen.ViewModel
         public string Aankomst { get; set; }
         public string TreinNaam { get; set; }
     }
+    public class HotelOrderVM
+    {
+        public int OrderId { get; set; }
+        public string HotelNaam { get; set; }
+        public string StadNaam { get; set; }
+        public string Foto { get; set; }
+    }
+  
 }

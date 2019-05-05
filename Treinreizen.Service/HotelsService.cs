@@ -17,6 +17,10 @@ namespace Treinreizen.Service
         {
             return hotelsDAO.GetAll();
         }
+        public Hotels Get(int id)
+        {
+            return hotelsDAO.Get(id);
+        }
 
         public IEnumerable<Hotels> GetHotelsVanStad(int stadId)
         {
@@ -24,7 +28,7 @@ namespace Treinreizen.Service
         }
         public IEnumerable<Hotels> GetHotelsMetAankomst(string aankomst)
         {
-            return dao.GetHotelsMetAankomst(aankomst);
+            return hotelsDAO.GetHotelsMetAankomst(aankomst);
 
         }
     }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Treinreizen.Domain.Entities;
+using Treinreizen.Extensions;
 using Treinreizen.Service;
 using Treinreizen.ViewModel;
 
@@ -14,6 +15,7 @@ namespace Treinreizen.Controllers
 {
     public class TreinController : Controller
     {
+        HotelsService hotelsService = new HotelsService();
         public IActionResult Wie()
         {
             return View();
@@ -31,25 +33,6 @@ namespace Treinreizen.Controllers
         public TreinController()
         {
             routesService = new RoutesService();
-        }
-
-        //DATA TYPE NIET JUIST dateTime  & Date bij view?
-        public IActionResult Route()
-        {
-            
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Route(string vertrek)
-        {
-
-            if (vertrek == null)
-            {
-                return NotFound();
-            }
-            var routeList = routesService.GetTreinenBijVertrek(vertrek);
-            return View(routeList);
         }
 
 
@@ -79,8 +62,8 @@ namespace Treinreizen.Controllers
             return View(zoekListVM);
         }
 
-        [HttpPost (Name ="Zoek Route")]
-        
+        [HttpPost(Name = "Zoek Route")]
+
         public IActionResult Home(ZoekListVM zoekListVM)
         {
             ModelState.Clear();
@@ -110,9 +93,9 @@ namespace Treinreizen.Controllers
              * 7 Moskou
             */
 
-            
-            
-                if (zoekListVM.Van == 2 && zoekListVM.Naar == 7) //Londen - Moskou      stop: Brussel + Berlijn
+
+
+            if (zoekListVM.Van == 2 && zoekListVM.Naar == 7) //Londen - Moskou      stop: Brussel + Berlijn
             {
                 zoekListVM.Routes = routesService.GetTrainenBijVanEnNaarId2Stops(Convert.ToInt16(zoekListVM.Van), 1, 5, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate, zoekListVM.TerugDate);
             }
@@ -143,30 +126,14 @@ namespace Treinreizen.Controllers
             else
             {
                 zoekListVM.Routes = null;
-                return View("Home",zoekListVM);
+                return View("Home", zoekListVM);
             }
         }
-
-        public IActionResult Hotels(int stadId)
-        {
-            HotelsService hotelsService = new HotelsService();
-            var hotelList = hotelsService.GetHotelsVanStad(stadId);
-            return View(hotelList);
-        }
-        [HttpPost]
-        public IActionResult Home(string aankomst)
-        {
-            return View("Hotels", aankomst);
-        }
-
-
-
-
-
-
-        }
-
-
-
+    }
 }
+
+      
+
+
+
 
