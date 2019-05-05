@@ -13,6 +13,7 @@ namespace Treinreizen.ViewModel
         [Display(Name = "Heen en terug")]
         public bool isEnkel { get; set; }
 
+
         [Required(ErrorMessage = "Vul de plaats van vertrek in.")]
         public int? Van { get; set; }
 
