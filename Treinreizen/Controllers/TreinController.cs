@@ -60,6 +60,13 @@ namespace Treinreizen.Controllers
             return View(list);
         }
 
+        public IActionResult ReisMogelijkheden()
+        {
+            ReisMogelijkhedenService reisMogelijkhedenService = new ReisMogelijkhedenService();
+            var list = reisMogelijkhedenService.GetAll();
+            return View(list);
+        }
+
         [HttpGet]
         public IActionResult Home()
         {

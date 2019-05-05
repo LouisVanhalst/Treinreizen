@@ -15,7 +15,7 @@ namespace Treinreizen.Domain.Entities
         public int Aankomst { get; set; }
         public TimeSpan? Vertrektijd { get; set; }
         public TimeSpan? Aankomsttijd { get; set; }
-        public decimal Prijs { get; set; }
+        public Decimal? Prijs { get; set; }
 
         public Steden AankomstNavigation { get; set; }
         public Steden VertrekNavigation { get; set; }

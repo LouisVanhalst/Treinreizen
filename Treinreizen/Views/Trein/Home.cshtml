@@ -124,6 +124,9 @@
                     @Html.DisplayNameFor(model => model.Routes.First().TreinNummerNavigation.TreinNaam)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Routes.First().ReisMogelijkheden.Prijs)
+                </th>
+                <th>
                     Reistijd
                 </th>
                 <th></th>
@@ -132,32 +135,35 @@
         <tbody>
             @foreach (var item in Model.Routes)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Vertrekdatum)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TreinNummerNavigation.TreinNaam)
-                    </td>
-                    <td></td>
-                    <td>
-                        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-                        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vertrekdatum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreinNummerNavigation.TreinNaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
+                </td>
+                <td></td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
             }
         </tbody>
     </table>
