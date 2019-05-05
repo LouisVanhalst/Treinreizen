@@ -28,5 +28,7 @@ namespace Treinreizen.Storage
         {
             return _dbContext.Hotels.Where(s => s.StadId == stadId).ToList();
         }
+       
+
     }
 }

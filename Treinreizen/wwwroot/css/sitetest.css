@@ -618,7 +618,8 @@ input[type="button"],
 
     .tile {
         background-color: #3ac984;
-        color: #888888 -ms-border-radius: 10px;
+        color: #888888 ;
+        -ms-border-radius: 10px;
         border-radius: 10px;
         padding: 10px 20px;
         transition: all .1s ease-in-out;
