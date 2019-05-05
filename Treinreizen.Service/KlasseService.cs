@@ -6,16 +6,21 @@ using Treinreizen.Storage;
 
 namespace Treinreizen.Service
 {
-    class KlasseService
+    public class KlasseService
     {
-        private KlasseDAO dao;
+        private KlasseDAO klasseDAO;
         public KlasseService()
         {
-            this.dao = new KlasseDAO();
+            this.klasseDAO = new KlasseDAO();
         }
         public IEnumerable<Klasse> GetAll()
         {
-            return dao.GetAll();
+            return klasseDAO.GetAll();
+        }
+
+        public IEnumerable<Klasse> GetKlasseVanId(int klasseId)
+        {
+            return klasseDAO.GetKlasseVanId(klasseId);
         }
     }
 }

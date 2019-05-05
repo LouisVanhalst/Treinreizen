@@ -54,16 +54,18 @@ namespace Treinreizen.Controllers
         public IActionResult Home()
         {
             StedenService stedenService = new StedenService();
+            KlasseService klasseService = new KlasseService();
 
             ZoekListVM zoekListVM = new ZoekListVM();
 
             zoekListVM.Steden = new SelectList(stedenService.GetAll(), "StadId", "Naam");
 
+            zoekListVM.Klasses = new SelectList(klasseService.GetAll(), "KlasseId", "Klassenaam");
+
             return View(zoekListVM);
         }
 
-        [HttpPost(Name = "Zoek Route")]
-
+        [HttpPost (Name ="Zoek Route")]
         public IActionResult Home(ZoekListVM zoekListVM)
         {
             ModelState.Clear();
@@ -82,6 +84,10 @@ namespace Treinreizen.Controllers
 
             routesService = new RoutesService();
             zoekListVM.Steden = new SelectList(stedenService.GetAll(), "StadId", "Naam");
+
+            KlasseService klasseService = new KlasseService();
+            zoekListVM.Klasses = new SelectList(klasseService.GetAll(), "KlasseId", "Klassenaam");
+            zoekListVM.GeselecteerdeKlasse = klasseService.GetKlasseVanId(zoekListVM.Klasse);
 
             /*
              * 1 Brussel

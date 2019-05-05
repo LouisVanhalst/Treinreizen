@@ -28,11 +28,5 @@ namespace Treinreizen.Storage
         {
             return _dbContext.Hotels.Where(s => s.StadId == stadId).ToList();
         }
-        public IEnumerable<Hotels> GetHotelsMetAankomst(string aankomst)
-        {
-            return _dbContext.Hotels.Where(a => a.Stad.Naam.Equals(aankomst))
-                .Include(a => a.Stad.Naam).ToList();
-
-        }
     }
 }
