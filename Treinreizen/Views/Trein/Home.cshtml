@@ -4,6 +4,22 @@
     ViewData["Title"] = "Home";
 }
 
+@{
+    var totalePrijsMessage = "";
+    if (Model.Routes != null)
+    {
+        decimal totalePrijs = 0;
+        foreach (var item in Model.Routes)
+        {
+            if (item.ReisMogelijkheden.Prijs != null)
+            {
+                totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
+            }
+        }
+        totalePrijsMessage += "Prijs: € " + totalePrijs;
+    }
+}
+
 <h2>HomeVM</h2>
 
 <div class="row">
@@ -135,38 +151,42 @@
         <tbody>
             @foreach (var item in Model.Routes)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Vertrekdatum)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TreinNummerNavigation.TreinNaam)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
-                </td>
-                <td></td>
-                <td>
-                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Vertrekdatum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TreinNummerNavigation.TreinNaam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
+                    </td>
+                    <td></td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
+
+    <div>
+        @totalePrijsMessage
+    </div>
 }
 
 @section Scripts {
@@ -210,6 +230,26 @@
             });
         })
 
+        var opties = document.getElementById("Naar").getElementsByTagName("option");
+        for (var i = 0; i < opties.length; i++) {
+            if (opties[i].value == document.getElementById("Van").getSelection) {
+                console.log(document.getElementById("Van").getSelection)
+                opties[i].disabled = true;
+            }
+            else {
+                opties[i].disabled = false;
+            }
+        }
 
+        @*function disableNext(Van, Naar) {
+            var van = document.getElementById(Van);
+            var naar = document.getElementById(Naar);
+
+            if (van == naar) {
+                naar.disabled = true;
+            }
+        }*@
     </script>
+
+
 }
