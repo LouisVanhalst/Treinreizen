@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Treinreizen.Domain.Entities.ReisMogelijkheden>
+
+@{
+    ViewData["Title"] = "ReisMogelijkheden";
+}
+
+<h2>ReisMogelijkheden</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Vertrektijd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aankomsttijd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vertrek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aankomst)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vertrektijd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aankomsttijd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prijs)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vertrektijd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aankomsttijd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vertrek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aankomst)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vertrektijd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aankomsttijd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prijs)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ReisMogelijkhedenId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ReisMogelijkhedenId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ReisMogelijkhedenId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

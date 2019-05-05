@@ -124,6 +124,9 @@
                     @Html.DisplayNameFor(model => model.Routes.First().TreinNummerNavigation.TreinNaam)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Routes.First().ReisMogelijkheden.Prijs)
+                </th>
+                <th>
                     Reistijd
                 </th>
                 <th></th>
@@ -152,8 +155,9 @@
                     @Html.DisplayFor(modelItem => item.TreinNummerNavigation.TreinNaam)
                 </td>
                 <td>
-                    
+                    @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
                 </td>
+                <td></td>
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
