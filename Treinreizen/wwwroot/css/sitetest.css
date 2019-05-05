@@ -331,7 +331,7 @@ ul {
     }
 
     ul.style .fa {
-        float: left;
+        /*float: left;*/
         display: inline-block;
         width: 80px;
         height: 80px;

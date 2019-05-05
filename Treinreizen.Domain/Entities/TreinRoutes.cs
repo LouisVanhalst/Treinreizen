@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Treinreizen.Domain.Entities
 {
@@ -12,6 +13,8 @@ namespace Treinreizen.Domain.Entities
 
         public int RouteId { get; set; }
         public int ReisMogelijkhedenId { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime Vertrekdatum { get; set; }
         public int TreinNummer { get; set; }
 
