@@ -20,5 +20,6 @@ namespace Treinreizen.Service
 
             return stedenDAO.GetAll();
         }
+
     }
 }

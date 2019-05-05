@@ -79,7 +79,8 @@ namespace Treinreizen.Controllers
             return View(zoekListVM);
         }
 
-        [HttpPost]
+        [HttpPost (Name ="Zoek Route")]
+        
         public IActionResult Home(ZoekListVM zoekListVM)
         {
             ModelState.Clear();
@@ -145,13 +146,18 @@ namespace Treinreizen.Controllers
                 return View("Home",zoekListVM);
             }
         }
-       
+        [HttpPost]
+        public IActionResult Home(string aankomst)
+        {
+            return View("Hotels", aankomst);
+        }
 
 
 
 
 
-    }
+
+        }
 
 
 

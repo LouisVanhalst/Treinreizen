@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,12 @@ namespace Treinreizen.Storage
         public IEnumerable<Hotels> GetAll()
         {
             return _dbContext.Hotels.ToList();
+        }
+        public IEnumerable<Hotels> GetHotelsMetAankomst(string aankomst)
+        {
+            return _dbContext.Hotels.Where(a => a.Stad.Naam.Equals(aankomst))
+                .Include(a => a.Stad.Naam).ToList();
+
         }
     }
 }
