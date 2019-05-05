@@ -42,7 +42,7 @@ namespace Treinreizen.Domain.Entities
             if (!optionsBuilder.IsConfigured)
             {
 
-                optionsBuilder.UseSqlServer("Server=.\\SQL_VIVES3; Database=treinrittenDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQL_VIVES; Database=treinrittenDB;Trusted_Connection=True;");
             }
         }
 

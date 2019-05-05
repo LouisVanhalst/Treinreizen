@@ -135,9 +135,18 @@ namespace Treinreizen.Controllers
             else
             {
                 zoekListVM.Routes = null;
-                return View(zoekListVM);
+                return View("Home",zoekListVM);
             }
         }
+       
+
+
+
+
 
     }
+
+
+
 }
+
