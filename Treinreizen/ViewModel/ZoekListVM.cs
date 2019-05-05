@@ -34,6 +34,12 @@ namespace Treinreizen.ViewModel
         [Range(1, 9, ErrorMessage = "Er kunnen maximum 9 tickets besteld worden. Indien u er meer wenst gelieve contact op te nemen.")]
         public int Aantal { get; set; }
 
+        public int Klasse { get; set; }
+
+        public SelectList Klasses { get; set; }
+
+        public IEnumerable<Klasse> GeselecteerdeKlasse { get; set; }
+
         public SelectList Steden { get; set; }
 
         public IEnumerable<TreinRoutes> Routes { get; set; }
