@@ -22,5 +22,10 @@ namespace Treinreizen.Service
         {
             return hotelsDAO.GetHotelsVanStad(stadId);
         }
+        public IEnumerable<Hotels> GetHotelsMetAankomst(string aankomst)
+        {
+            return dao.GetHotelsMetAankomst(aankomst);
+
+        }
     }
 }
