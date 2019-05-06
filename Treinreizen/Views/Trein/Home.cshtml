@@ -6,15 +6,38 @@
 
 @{
     var totalePrijsMessage = "";
-    if (Model.Routes != null)
+    var reistijdHeenreis = "";
+    var reistijdTerugreis = "";
+    if (Model.RoutesHeen != null)
     {
         decimal totalePrijs = 0;
-        foreach (var item in Model.Routes)
+
+        var tijdHeen = Model.RoutesHeen.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesHeen.ElementAt(Model.RoutesHeen.Count()-1).ReisMogelijkheden.Vertrektijd;
+
+        foreach (var item in Model.RoutesHeen)
         {
             if (item.ReisMogelijkheden.Prijs != null)
             {
                 totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
             }
+            //var tijd += item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+        }
+
+        reistijdHeenreis = "Duur van de heenreis: " + tijdHeen + " uur";
+
+        if (Model.RoutesTerug != null)
+        {
+            var tijdTerug = Model.RoutesTerug.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesTerug.ElementAt(Model.RoutesTerug.Count() - 1).ReisMogelijkheden.Vertrektijd;
+
+            foreach (var item in Model.RoutesTerug)
+            {
+                if (item.ReisMogelijkheden.Prijs != null)
+                {
+                    totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
+                }
+            }
+
+            reistijdTerugreis = "Duur van de terugreis: " + tijdTerug + " uur";
         }
 
         totalePrijs = totalePrijs * (1 + Convert.ToDecimal(Model.GeselecteerdeKlasse.ElementAt(0).Toeslag));
@@ -40,7 +63,6 @@
                 <label asp-for="Van" class="control-label"></label>
                 <select asp-for="Van" asp-items="@Model.Steden" class="form-control ">
                     <option selected disabled>Please select </option>
-                    <link href="~/css/sitetest.css" rel="stylesheet" />
                 </select>
             </div>
             <div class="form-group">
@@ -92,11 +114,11 @@
                 </div>
 
                 <div class="item">
-                    <img src="~/images/slide3.jpeg" >
+                    <img src="~/images/slide3.jpeg">
                 </div>
 
                 <div class="item">
-                    <img src="~/images/slide4.jpeg" >
+                    <img src="~/images/slide4.jpeg">
                 </div>
             </div>
 
@@ -111,7 +133,7 @@
             </a>
         </div>
     </div>
-    
+
 </div>
 
 @*
@@ -163,31 +185,32 @@
     </div>
 *@
 
-@if (Model.Routes != null)
+<h3>Heenreis</h3>
+@if (Model.RoutesHeen != null)
 {
     <table class="table" id="myTable">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Routes.First().Vertrekdatum)
+                    @Html.DisplayNameFor(model => model.RoutesHeen.First().Vertrekdatum)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Routes.First().ReisMogelijkheden.Vertrektijd)
+                    @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.Vertrektijd)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Routes.First().ReisMogelijkheden.VertrekNavigation)
+                    @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.VertrekNavigation)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Routes.First().ReisMogelijkheden.Aankomsttijd)
+                    @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.Aankomsttijd)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Routes.First().ReisMogelijkheden.AankomstNavigation)
+                    @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.AankomstNavigation)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Routes.First().TreinNummerNavigation.TreinNaam)
+                    @Html.DisplayNameFor(model => model.RoutesHeen.First().TreinNummerNavigation.TreinNaam)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Routes.First().ReisMogelijkheden.Prijs)
+                    @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.Prijs)
                 </th>
                 <th>
                     Reistijd
@@ -196,7 +219,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Routes)
+            @foreach (var item in Model.RoutesHeen)
             {
                 <tr>
                     <td>
@@ -231,8 +254,81 @@
         </tbody>
     </table>
 
+    <div><p>@reistijdHeenreis</p></div>
+
+    @if (Model.RoutesTerug != null)
+    {
+        <h3>Terugreis</h3>
+
+        <table class="table" id="myTable">
+            @*<thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoutesTerug.First().Vertrekdatum)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Vertrektijd)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.VertrekNavigation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Aankomsttijd)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.AankomstNavigation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoutesTerug.First().TreinNummerNavigation.TreinNaam)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Prijs)
+                        </th>
+                        <th>
+                            Reistijd
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>*@
+            <tbody>
+                @foreach (var item in Model.RoutesTerug)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vertrekdatum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreinNummerNavigation.TreinNaam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
+                        </td>
+                        <td></td>
+                        <td>
+                            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                            @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
     <div>
-        @totalePrijsMessage
+        <p>@reistijdTerugreis</p>
+        <p>@totalePrijsMessage</p>
     </div>
     <div>
         <div>
@@ -242,12 +338,18 @@
                 Ga een kijkje nemen in ons assortiment van hotels bij jouw in de buurt!
             </p>
         </div>
-        
+
         <form method="post">
-            <input type="submit" asp-controller="Hotel" asp-action="Hotels" asp-route-stadId="@Model.Naar" value="Boek nu!" class="btn btn-default"/>
+            <input type="submit" asp-controller="Hotel" asp-action="Hotels" asp-route-stadId="@Model.Naar" value="Boek nu!" class="btn btn-default" />
         </form>
     </div>
-   
+
+    <div>
+        <form method="post">
+            <input type="submit" asp-controller="Trein" asp-action="Passagiers" asp-route-zoekListVM="@Model.Naar" aps-route-prijs="@totalePrijsMessage" value="Verder" class="btn btn-default" />
+        </form>
+    </div>
+
 }
 
 @section Scripts {
@@ -291,7 +393,7 @@
             });
         })
 
-        var opties = document.getElementById("Naar").getElementsByTagName("option");
+        @*var opties = document.getElementById("Naar").getElementsByTagName("option");
         for (var i = 0; i < opties.length; i++) {
             if (opties[i].value == document.getElementById("Van").getSelection) {
                 console.log(document.getElementById("Van").getSelection)
@@ -302,7 +404,7 @@
             }
         }
 
-        @*function disableNext(Van, Naar) {
+        function disableNext(Van, Naar) {
             var van = document.getElementById(Van);
             var naar = document.getElementById(Naar);
 

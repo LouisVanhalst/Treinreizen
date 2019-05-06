@@ -25,16 +25,16 @@ namespace Treinreizen.Service
             return dao.GetTreinenBijVertrek(vertrek);
         }
 
-        public IEnumerable<TreinRoutes> GetTrainenBijVanEnNaarId(int van, int naar, string datumheen, string datumterug)
+        public IEnumerable<TreinRoutes> GetTrainenBijVanEnNaarId(int van, int naar, string datumvertrek)
         {
             return dao.GetTreinenBijVanEnNaarId(van, naar, datumheen, datumterug);
         }
-        public IEnumerable<TreinRoutes> GetTrainenBijVanEnNaarId1Stop(int van, int stop1, int naar, string datumheen, string datumterug)
+        public IEnumerable<TreinRoutes> GetTrainenBijVanEnNaarId1Stop(int van, int stop1, int naar, string datumvertrek)
         {
             return dao.GetTreinenBijVanEnNaarId1Stop(van, stop1, naar, datumheen, datumterug);
         }
 
-        public IEnumerable<TreinRoutes> GetTrainenBijVanEnNaarId2Stops(int van, int stop1, int stop2, int naar, string datumheen, string datumterug)
+        public IEnumerable<TreinRoutes> GetTrainenBijVanEnNaarId2Stops(int van, int stop1, int stop2, int naar, string datumvertrek)
         {
             return dao.GetTreinenBijVanEnNaarId2Stops(van, stop1, stop2, naar, datumheen, datumterug);
         }

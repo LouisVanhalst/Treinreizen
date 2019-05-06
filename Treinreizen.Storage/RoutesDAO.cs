@@ -30,34 +30,29 @@ namespace Treinreizen.Storage
                 .Include(t => t.ReisMogelijkheden.VertrekNavigation).ToList();
         }
 
-        public IEnumerable<TreinRoutes> GetTreinenBijVanEnNaarId(int van, int naar, string datumheen, string datumterug)
+        public IEnumerable<TreinRoutes> GetTreinenBijVanEnNaarId(int van, int naar, string datumvertrek)
         {
-            return _dbContext.TreinRoutes.Where(t => (t.ReisMogelijkheden.Vertrek == van && t.ReisMogelijkheden.Aankomst == naar && t.Vertrekdatum == DateTime.Parse(datumheen)) || (t.ReisMogelijkheden.Vertrek == naar && t.ReisMogelijkheden.Aankomst == van && t.Vertrekdatum == DateTime.Parse(datumterug)))
+            return _dbContext.TreinRoutes.Where(t => (t.ReisMogelijkheden.Vertrek == van && t.ReisMogelijkheden.Aankomst == naar && t.Vertrekdatum == DateTime.Parse(datumvertrek)))
                 .Include(t => t.ReisMogelijkheden.AankomstNavigation)
                 .Include(s => s.TreinNummerNavigation)
                 .Include(t => t.ReisMogelijkheden.VertrekNavigation).ToList();
         }
 
-        public IEnumerable<TreinRoutes> GetTreinenBijVanEnNaarId1Stop(int van, int stop1, int naar, string datumheen, string datumterug)
+        public IEnumerable<TreinRoutes> GetTreinenBijVanEnNaarId1Stop(int van, int stop1, int naar, string datumvertrek)
         {
-            return _dbContext.TreinRoutes.Where(t => (t.ReisMogelijkheden.Vertrek == van && t.ReisMogelijkheden.Aankomst == stop1 && t.Vertrekdatum == DateTime.Parse(datumheen))
-                || (t.ReisMogelijkheden.Vertrek == stop1 && t.ReisMogelijkheden.Aankomst == naar && t.Vertrekdatum == DateTime.Parse(datumheen))
-                || (t.ReisMogelijkheden.Vertrek == naar && t.ReisMogelijkheden.Aankomst == stop1 && t.Vertrekdatum == DateTime.Parse(datumterug))
-                || (t.ReisMogelijkheden.Vertrek == stop1 && t.ReisMogelijkheden.Aankomst == van && t.Vertrekdatum == DateTime.Parse(datumterug)))
+            return _dbContext.TreinRoutes.Where(t => (t.ReisMogelijkheden.Vertrek == van && t.ReisMogelijkheden.Aankomst == stop1 && t.Vertrekdatum == DateTime.Parse(datumvertrek))
+                || (t.ReisMogelijkheden.Vertrek == stop1 && t.ReisMogelijkheden.Aankomst == naar && t.Vertrekdatum == DateTime.Parse(datumvertrek)))
                 .Include(t => t.ReisMogelijkheden.AankomstNavigation)
                 .Include(s => s.TreinNummerNavigation)
                 .Include(t => t.ReisMogelijkheden.VertrekNavigation)
                 .ToList();
         }
 
-        public IEnumerable<TreinRoutes> GetTreinenBijVanEnNaarId2Stops(int van, int stop1, int stop2, int naar, string datumheen, string datumterug)
+        public IEnumerable<TreinRoutes> GetTreinenBijVanEnNaarId2Stops(int van, int stop1, int stop2, int naar, string datumvertek)
         {
-            return _dbContext.TreinRoutes.Where(t => (t.ReisMogelijkheden.Vertrek == van && t.ReisMogelijkheden.Aankomst == stop1 && t.Vertrekdatum == DateTime.Parse(datumheen)) 
-                || (t.ReisMogelijkheden.Vertrek == stop1 && t.ReisMogelijkheden.Aankomst == stop2 && t.Vertrekdatum == DateTime.Parse(datumheen))
-                || (t.ReisMogelijkheden.Vertrek == stop2 && t.ReisMogelijkheden.Aankomst == naar && t.Vertrekdatum == DateTime.Parse(datumheen))
-                || (t.ReisMogelijkheden.Vertrek == naar && t.ReisMogelijkheden.Aankomst == stop2 && t.Vertrekdatum == DateTime.Parse(datumterug))
-                || (t.ReisMogelijkheden.Vertrek == stop2 && t.ReisMogelijkheden.Aankomst == stop1 && t.Vertrekdatum == DateTime.Parse(datumterug))
-                || (t.ReisMogelijkheden.Vertrek == stop1 && t.ReisMogelijkheden.Aankomst == van && t.Vertrekdatum == DateTime.Parse(datumterug)))
+            return _dbContext.TreinRoutes.Where(t => (t.ReisMogelijkheden.Vertrek == van && t.ReisMogelijkheden.Aankomst == stop1 && t.Vertrekdatum == DateTime.Parse(datumvertek)) 
+                || (t.ReisMogelijkheden.Vertrek == stop1 && t.ReisMogelijkheden.Aankomst == stop2 && t.Vertrekdatum == DateTime.Parse(datumvertek))
+                || (t.ReisMogelijkheden.Vertrek == stop2 && t.ReisMogelijkheden.Aankomst == naar && t.Vertrekdatum == DateTime.Parse(datumvertek)))
                 .Include(t => t.ReisMogelijkheden.AankomstNavigation)
                 .Include(s => s.TreinNummerNavigation)
                 .Include(t => t.ReisMogelijkheden.VertrekNavigation).ToList();
