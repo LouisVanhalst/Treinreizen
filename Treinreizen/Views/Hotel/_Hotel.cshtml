@@ -5,25 +5,26 @@
     <div class="col-md-4">
         <div class="tile">
 
-                <div class="title">
-                    
-                    @Model.Naam
+            <div class="foto">
+                @*foto's instellen volgens hotelID*@
+                <img class="foto" src="~/images/hotels/1.jpg" />
+            </div>
+            <div class="title">
 
-                </div>
-                <div class="foto">
-                    @Model.Foto
-                </div>
-                <div class="beschrijving">
-                    @Model.Beschrijving
-                </div>
-                <div class="website">
-                    website:  @Model.Site
-                </div>
-                <div class="form-group btn btn-default">
-                    <a  class="button" asp-action="select" asp-route-id="@Model.HotelId">Boeken</a>
+                @Model.Naam
 
-                </div>
-            
+            </div>
+            <div class="beschrijving">
+                @Model.Beschrijving
+            </div>
+            <div class="website">
+                website:  @Model.Site
+            </div>
+            <div class="knop">
+                <a class="button" asp-action="select" asp-route-id="@Model.HotelId">Boeken</a>
+
+            </div>
+
 
         </div>
     </div>

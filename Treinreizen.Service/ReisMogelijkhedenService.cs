@@ -21,5 +21,16 @@ namespace Treinreizen.Service
         {
             return dao.GetAllLocaties();
         }
+        public void Update(ReisMogelijkheden entity)
+        {
+            dao.Update(entity);
+        }
+
+        public void Create(ReisMogelijkheden entity)
+        {
+
+            dao.Create(entity);
+
+        }
     }
 }

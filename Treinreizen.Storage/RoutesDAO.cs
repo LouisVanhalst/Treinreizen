@@ -62,5 +62,15 @@ namespace Treinreizen.Storage
                 .Include(s => s.TreinNummerNavigation)
                 .Include(t => t.ReisMogelijkheden.VertrekNavigation).ToList();
         }
+        public void Update(TreinRoutes entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+        }
+        public void Create(TreinRoutes entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Added;
+            _dbContext.SaveChanges();
+        }
     }
 }

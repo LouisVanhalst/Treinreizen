@@ -17,5 +17,16 @@ namespace Treinreizen.Service
         {
             return dao.GetAll();
         }
+        public void Update(Zitplaats entity)
+        {
+            dao.Update(entity);
+        }
+
+        public void Create(Zitplaats entity)
+        {
+
+            dao.Create(entity);
+
+        }
     }
 }

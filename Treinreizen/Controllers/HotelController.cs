@@ -17,7 +17,7 @@ namespace Treinreizen.Controllers
         HotelsService hotelsService = new HotelsService();
         public IActionResult Hotels(int stadId)
         {
-
+            stadId = 1;
             var hotelList = hotelsService.GetHotelsVanStad(stadId);
             return View(hotelList);
         }

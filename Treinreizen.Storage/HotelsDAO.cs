@@ -28,7 +28,16 @@ namespace Treinreizen.Storage
         {
             return _dbContext.Hotels.Where(s => s.StadId == stadId).ToList();
         }
-       
+        public void Update(Hotels entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+        }
+        public void Create(Hotels entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Added;
+            _dbContext.SaveChanges();
+        }
 
     }
 }

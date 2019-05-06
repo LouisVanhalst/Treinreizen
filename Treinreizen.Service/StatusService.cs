@@ -19,5 +19,16 @@ namespace Treinreizen.Service
         {
             return dao.GetAll();
         }
+        public void Update(Status entity)
+        {
+            dao.Update(entity);
+        }
+
+        public void Create(Status entity)
+        {
+
+            dao.Create(entity);
+
+        }
     }
 }

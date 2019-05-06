@@ -37,6 +37,7 @@ em, i {
     font-style: italic;
 }
 
+
 p, ul, ol, dl, table, blockquote {
     margin: 0 0 2em 0;
 }
@@ -470,8 +471,9 @@ input[type="button"],
 
 /* Header */
 
+
 #header {
-    background: #333333 url("../images/pic01.jpg") no-repeat;
+    background: #333333;
     background-size: cover;
     color: #fff;
     padding: 6em 0;
@@ -616,31 +618,49 @@ input[type="button"],
 
 
 
-    .tile {
-        background-color: #3ac984;
-        color: #888888 ;
-        -ms-border-radius: 10px;
-        border-radius: 10px;
-        padding: 10px 20px;
-        transition: all .1s ease-in-out;
-        margin-bottom: 20px;
-        overflow: hidden;
+
+.tile-container {
+    display: table; 
+    width: 100%;
+}
+
+.tile {
+    background-color: #fff;
+    text-align: center;
+    border: 2px solid black;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #e8e7e7;
+    
+    display: table-cell;
+}
+    .tile .foto {
+        width: 20em;
+        align-content: center;
+
+    }
+
+    .tile .title {
+        margin-top: 0px;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+        color: #3ac984;
+
+    }
+
+    .tile .beschrijving {
+        font-style: normal;
+        font-size: 17px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 40px;
+
+    }
+    .tile .knop {
+        margin: 10px;
+
     }
 
 
-
-        .tile a:hover, .tile a:link, .tile a:visited, .tile a:active {
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        .tile .title {
-            font-weight: bold;
-            align-content: center;
-            margin: 5px;
-            font-size: 15px;
-        }
-
-        .tile .beschrijving {
-            align-content: initial;
-        }
+       

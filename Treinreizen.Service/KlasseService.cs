@@ -8,19 +8,30 @@ namespace Treinreizen.Service
 {
     public class KlasseService
     {
-        private KlasseDAO klasseDAO;
+        private KlasseDAO dao;
         public KlasseService()
         {
-            this.klasseDAO = new KlasseDAO();
+            this.dao = new KlasseDAO();
         }
         public IEnumerable<Klasse> GetAll()
         {
-            return klasseDAO.GetAll();
+            return dao.GetAll();
         }
 
         public IEnumerable<Klasse> GetKlasseVanId(int klasseId)
         {
-            return klasseDAO.GetKlasseVanId(klasseId);
+            return dao.GetKlasseVanId(klasseId);
+        }
+        public void Update(Klasse entity)
+        {
+            dao.Update(entity);
+        }
+
+        public void Create(Klasse entity)
+        {
+
+            dao.Create(entity);
+
         }
     }
 }

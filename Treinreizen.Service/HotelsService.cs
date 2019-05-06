@@ -8,23 +8,34 @@ namespace Treinreizen.Service
 {
     public class HotelsService
     {
-        private HotelsDAO hotelsDAO;
+        private HotelsDAO dao;
         public HotelsService()
         {
-            this.hotelsDAO = new HotelsDAO();
+            this.dao = new HotelsDAO();
         }
         public IEnumerable<Hotels> GetAll()
         {
-            return hotelsDAO.GetAll();
+            return dao.GetAll();
         }
         public Hotels Get(int id)
         {
-            return hotelsDAO.Get(id);
+            return dao.Get(id);
         }
 
         public IEnumerable<Hotels> GetHotelsVanStad(int stadId)
         {
-            return hotelsDAO.GetHotelsVanStad(stadId);
+            return dao.GetHotelsVanStad(stadId);
+        }
+        public void Update(Hotels entity)
+        {
+            dao.Update(entity);
+        }
+
+        public void Create(Hotels entity)
+        {
+
+            dao.Create(entity);
+
         }
     }
 }

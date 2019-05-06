@@ -7,7 +7,7 @@
     {
     <h1>Hotels in de buurt</h1>
 }
-<div class="row">
+<div class="tile-container">
     @foreach (var item in Model)
     {
         @await Html.PartialAsync("_Hotel", item)

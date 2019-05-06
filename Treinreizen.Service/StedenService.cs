@@ -8,17 +8,28 @@ namespace Treinreizen.Service
 {
     public class StedenService
     {
-        private StedenDAO stedenDAO;
+        private StedenDAO dao;
 
         public StedenService()
         {
-            stedenDAO = new StedenDAO();
+            dao = new StedenDAO();
         }
 
         public IEnumerable<Steden> GetAll()
         {
 
-            return stedenDAO.GetAll();
+            return dao.GetAll();
+        }
+        public void Update(Steden entity)
+        {
+            dao.Update(entity);
+        }
+
+        public void Create(Steden entity)
+        {
+
+            dao.Create(entity);
+
         }
 
     }

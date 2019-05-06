@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,16 @@ namespace Treinreizen.Storage
         public IEnumerable<Zitplaats> GetAll()
         {
             return _dbContext.Zitplaats.ToList();
+        }
+        public void Update(Zitplaats entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+        }
+        public void Create(Zitplaats entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Added;
+            _dbContext.SaveChanges();
         }
     }
 }
