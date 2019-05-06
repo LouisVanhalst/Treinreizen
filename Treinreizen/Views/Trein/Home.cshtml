@@ -12,7 +12,7 @@
     {
         decimal totalePrijs = 0;
 
-        var tijdHeen = Model.RoutesHeen.ElementAt(0).ReisMogelijkheden.Aankomst - Model.RoutesHeen.ElementAt(Model.RoutesHeen.Count()-1).ReisMogelijkheden.Vertrek;
+        var tijdHeen = Model.RoutesHeen.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesHeen.ElementAt(Model.RoutesHeen.Count()-1).ReisMogelijkheden.Vertrektijd;
 
         foreach (var item in Model.RoutesHeen)
         {
@@ -27,7 +27,7 @@
 
         if (Model.RoutesTerug != null)
         {
-            var tijdTerug = Model.RoutesHeen.ElementAt(0).ReisMogelijkheden.Aankomst - Model.RoutesHeen.ElementAt(Model.RoutesHeen.Count() - 1).ReisMogelijkheden.Vertrek;
+            var tijdTerug = Model.RoutesTerug.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesTerug.ElementAt(Model.RoutesTerug.Count() - 1).ReisMogelijkheden.Vertrektijd;
 
             foreach (var item in Model.RoutesTerug)
             {
@@ -63,7 +63,6 @@
                 <label asp-for="Van" class="control-label"></label>
                 <select asp-for="Van" asp-items="@Model.Steden" class="form-control ">
                     <option selected disabled>Please select </option>
-                    <link href="~/css/sitetest.css" rel="stylesheet" />
                 </select>
             </div>
             <div class="form-group">
@@ -345,6 +344,12 @@
         </form>
     </div>
 
+    <div>
+        <form method="post">
+            <input type="submit" asp-controller="Trein" asp-action="Passagiers" asp-route-zoekListVM="@Model.Naar" aps-route-prijs="@totalePrijsMessage" value="Verder" class="btn btn-default" />
+        </form>
+    </div>
+
 }
 
 @section Scripts {
@@ -388,7 +393,7 @@
             });
         })
 
-        var opties = document.getElementById("Naar").getElementsByTagName("option");
+        @*var opties = document.getElementById("Naar").getElementsByTagName("option");
         for (var i = 0; i < opties.length; i++) {
             if (opties[i].value == document.getElementById("Van").getSelection) {
                 console.log(document.getElementById("Van").getSelection)
@@ -399,7 +404,7 @@
             }
         }
 
-        @*function disableNext(Van, Naar) {
+        function disableNext(Van, Naar) {
             var van = document.getElementById(Van);
             var naar = document.getElementById(Naar);
 

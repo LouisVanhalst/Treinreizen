@@ -143,6 +143,11 @@ namespace Treinreizen.Controllers
                 return View("Home", zoekListVM);
             }
         }
+
+        public IActionResult Passagiers(ZoekListVM zoekListVM, Decimal prijs)
+        {
+            return View(zoekListVM);
+        }
     }
 }
 
