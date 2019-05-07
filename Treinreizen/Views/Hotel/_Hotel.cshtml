@@ -7,7 +7,10 @@
 
             <div class="foto">
                 @*foto's instellen volgens hotelID*@
-                <img class="foto" src="~/images/hotels/1.jpg" />
+                @{ 
+                    var file = "images/hotels/" + Model.HotelId + ".jpg" ;
+                }
+                <img class="foto" src="@file" />
             </div>
             <div class="title">
 

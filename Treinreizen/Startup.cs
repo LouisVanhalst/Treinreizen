@@ -76,7 +76,8 @@ namespace Treinreizen
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
+            app.UseSession();
+                app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
