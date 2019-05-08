@@ -7,7 +7,7 @@ namespace Treinreizen.Domain.Entities
     {
         public Treinen()
         {
-            TreinRoutes = new HashSet<TreinRoutes>();
+            ReisMogelijkheden = new HashSet<ReisMogelijkheden>();
             Zitplaats = new HashSet<Zitplaats>();
         }
 
@@ -16,7 +16,7 @@ namespace Treinreizen.Domain.Entities
         public int AantalPlaatsenEc { get; set; }
         public int AantalPlaatsenBus { get; set; }
 
-        public ICollection<TreinRoutes> TreinRoutes { get; set; }
+        public ICollection<ReisMogelijkheden> ReisMogelijkheden { get; set; }
         public ICollection<Zitplaats> Zitplaats { get; set; }
     }
 }

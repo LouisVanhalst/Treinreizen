@@ -8,28 +8,28 @@ namespace Treinreizen.Service
 {
     public class ReisMogelijkhedenService
     {
-        private ReisMogelijkhedenDAO dao;
+        private ReisMogelijkhedenDAO reisMogelijkhedenDAO;
         public ReisMogelijkhedenService()
         {
-            this.dao = new ReisMogelijkhedenDAO();
+            this.reisMogelijkhedenDAO = new ReisMogelijkhedenDAO();
         }
         public IEnumerable<ReisMogelijkheden> GetAll()
         {
-            return dao.GetAll();
+            return reisMogelijkhedenDAO.GetAll();
         }
-        public IEnumerable<ReisMogelijkheden>GetAllLocaties()
+        /*public IEnumerable<ReisMogelijkheden>GetAllLocaties()
         {
             return dao.GetAllLocaties();
-        }
+        }*/
         public void Update(ReisMogelijkheden entity)
         {
-            dao.Update(entity);
+            reisMogelijkhedenDAO.Update(entity);
         }
 
         public void Create(ReisMogelijkheden entity)
         {
 
-            dao.Create(entity);
+            reisMogelijkhedenDAO.Create(entity);
 
         }
     }

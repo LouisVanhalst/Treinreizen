@@ -15,7 +15,7 @@ namespace Treinreizen.Controllers
 {
     public class TreinController : Controller
     {
-        HotelsService hotelsService = new HotelsService();
+        //HotelsService hotelsService = new HotelsService();
         public IActionResult Wie()
         {
             return View();
@@ -29,27 +29,27 @@ namespace Treinreizen.Controllers
         {
             return View();
         }
-        private RoutesService routesService;
-        public TreinController()
+        //private RoutesService routesService;
+        /*public TreinController()
         {
             routesService = new RoutesService();
         }
 
-
+            */
         public IActionResult Steden()
         {
             StedenService stedenService = new StedenService();
             var list = stedenService.GetAll();
             return View(list);
         }
-
+        
         public IActionResult ReisMogelijkheden()
         {
             ReisMogelijkhedenService reisMogelijkhedenService = new ReisMogelijkhedenService();
             var list = reisMogelijkhedenService.GetAll();
             return View(list);
         }
-
+        
         [HttpGet]
         public IActionResult Home()
         {
@@ -78,16 +78,22 @@ namespace Treinreizen.Controllers
             /**if (zoekListVM.Van == zoekListVM.Naar)
             {
                 return NotFound(); liever foutboodschap
-            }**/
+            }*/
 
             StedenService stedenService = new StedenService();
 
-            routesService = new RoutesService();
+            //routesService = new RoutesService();
             zoekListVM.Steden = new SelectList(stedenService.GetAll(), "StadId", "Naam");
 
             KlasseService klasseService = new KlasseService();
             zoekListVM.Klasses = new SelectList(klasseService.GetAll(), "KlasseId", "Klassenaam");
             zoekListVM.GeselecteerdeKlasse = klasseService.GetKlasseVanId(zoekListVM.Klasse);
+
+            RittenService rittenService = new RittenService();
+
+            zoekListVM.RoutesHeen = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
+
+            zoekListVM.RoutesTerug = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van));
 
             /*
              * 1 Brussel
@@ -101,7 +107,7 @@ namespace Treinreizen.Controllers
 
 
 
-            if (zoekListVM.Van == 2 && zoekListVM.Naar == 7) //Londen - Moskou      stop: Brussel + Berlijn
+            /*if (zoekListVM.Van == 2 && zoekListVM.Naar == 7) //Londen - Moskou      stop: Brussel + Berlijn
             {
                 zoekListVM.RoutesHeen = routesService.GetTrainenBijVanEnNaarId2Stops(Convert.ToInt16(zoekListVM.Van), 1, 5, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate);
                 zoekListVM.RoutesTerug = routesService.GetTrainenBijVanEnNaarId2Stops(Convert.ToInt16(zoekListVM.Naar), 5, 1, Convert.ToInt16(zoekListVM.Van), zoekListVM.TerugDate);
@@ -131,7 +137,7 @@ namespace Treinreizen.Controllers
             {
                 zoekListVM.RoutesHeen = routesService.GetTrainenBijVanEnNaarId(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate);
                 zoekListVM.RoutesTerug = routesService.GetTrainenBijVanEnNaarId(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van), zoekListVM.HeenDate);
-            }
+            }*/
 
             if (ModelState.IsValid)
             {
@@ -144,9 +150,46 @@ namespace Treinreizen.Controllers
             }
         }
 
+        /*
         public IActionResult Passagiers(ZoekListVM zoekListVM, Decimal prijs)
         {
             return View(zoekListVM);
+        }
+
+        public IActionResult RoutesStringFilter()
+        {
+            //var list = routesService.GetTreinenBijVertrek("Brussel");
+
+            return View();
+        }
+        */
+        
+        /*
+        public IActionResult AlleReismogelijkheden()
+        {
+            ReisMogelijkhedenService reisMogelijkhedenService = new ReisMogelijkhedenService();
+
+            var list = reisMogelijkhedenService.GetAll();
+
+            return View(list);
+        }*/
+
+        public IActionResult AlleRitten()
+        {
+            TrajectService trajectService = new TrajectService();
+
+            var list = trajectService.GetRitten(Convert.ToInt16(1), Convert.ToInt16(7));
+
+            return View(list);
+        }
+
+        public IActionResult AlleRittenVanTraject()
+        {
+            RittenService rittenService = new RittenService();
+
+            var list = rittenService.GetRittenVanTraject(Convert.ToInt16(2), Convert.ToInt16(7));
+
+            return View(list);
         }
     }
 }

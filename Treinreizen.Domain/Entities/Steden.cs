@@ -10,6 +10,8 @@ namespace Treinreizen.Domain.Entities
             Hotels = new HashSet<Hotels>();
             ReisMogelijkhedenAankomstNavigation = new HashSet<ReisMogelijkheden>();
             ReisMogelijkhedenVertrekNavigation = new HashSet<ReisMogelijkheden>();
+            TrajectAankomstStadNavigation = new HashSet<Traject>();
+            TrajectVertrekStadNavigation = new HashSet<Traject>();
         }
 
         public int StadId { get; set; }
@@ -18,5 +20,7 @@ namespace Treinreizen.Domain.Entities
         public ICollection<Hotels> Hotels { get; set; }
         public ICollection<ReisMogelijkheden> ReisMogelijkhedenAankomstNavigation { get; set; }
         public ICollection<ReisMogelijkheden> ReisMogelijkhedenVertrekNavigation { get; set; }
+        public ICollection<Traject> TrajectAankomstStadNavigation { get; set; }
+        public ICollection<Traject> TrajectVertrekStadNavigation { get; set; }
     }
 }

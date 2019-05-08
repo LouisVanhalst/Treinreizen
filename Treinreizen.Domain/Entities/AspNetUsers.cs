@@ -11,6 +11,7 @@ namespace Treinreizen.Domain.Entities
             AspNetUserLogins = new HashSet<AspNetUserLogins>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
             AspNetUserTokens = new HashSet<AspNetUserTokens>();
+            Order = new HashSet<Order>();
         }
 
         public string Id { get; set; }
@@ -33,5 +34,6 @@ namespace Treinreizen.Domain.Entities
         public ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         public ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
+        public ICollection<Order> Order { get; set; }
     }
 }
