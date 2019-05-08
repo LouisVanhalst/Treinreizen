@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-/*using Treinreizen.Domain.Entities;
+using Treinreizen.Domain.Entities;
 using Treinreizen.Extensions;
 using Treinreizen.Service;
 using Treinreizen.ViewModel;
@@ -68,4 +68,4 @@ namespace Treinreizen.Controllers
     }
 }
 
-    */
+    

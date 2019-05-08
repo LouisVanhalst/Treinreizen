@@ -37,6 +37,7 @@ namespace Treinreizen.ViewModel
         public int Klasse { get; set; }
 
         public SelectList Klasses { get; set; }
+        public int TrajectId{ get; set; }
 
         public IEnumerable<Klasse> GeselecteerdeKlasse { get; set; }
 

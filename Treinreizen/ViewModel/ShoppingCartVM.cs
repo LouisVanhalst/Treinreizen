@@ -12,20 +12,16 @@ namespace Treinreizen.ViewModel
     public class CartVM
     {
         public int OrderId { get; set; }
+        public int TrajectId { get; set; }
         public int AantalTickets { get; set; }
-        public List<OverstappenVM> Overstappen { get; set; }
         public string Class { get; set; }
-        public float Prijs  { get; set; }
-        public System.DateTime Boekingsdatum { get; set; }
-        public string Status { get; set; }
+        public decimal Prijs  { get; set; }
+    }
 
-    }
-    public class OverstappenVM
-    {
-        public string Vertrek { get; set; }
-        public string Aankomst { get; set; }
-        public string TreinNaam { get; set; }
-    }
+
+
+
+
     public class HotelOrderVM
     {
         public int OrderId { get; set; }

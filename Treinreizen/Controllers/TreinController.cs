@@ -90,54 +90,13 @@ namespace Treinreizen.Controllers
             zoekListVM.GeselecteerdeKlasse = klasseService.GetKlasseVanId(zoekListVM.Klasse);
 
             RittenService rittenService = new RittenService();
+            TrajectService trajectService = new TrajectService();
 
             zoekListVM.RoutesHeen = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
-
+            zoekListVM.TrajectId = trajectService.GetTrajectId(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
             zoekListVM.RoutesTerug = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van));
 
-            /*
-             * 1 Brussel
-             * 2 Londen
-             * 3 Parijs
-             * 4 Amsterdam
-             * 5 Berlijn
-             * 6 Rome
-             * 7 Moskou
-            */
-
-
-
-            /*if (zoekListVM.Van == 2 && zoekListVM.Naar == 7) //Londen - Moskou      stop: Brussel + Berlijn
-            {
-                zoekListVM.RoutesHeen = routesService.GetTrainenBijVanEnNaarId2Stops(Convert.ToInt16(zoekListVM.Van), 1, 5, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate);
-                zoekListVM.RoutesTerug = routesService.GetTrainenBijVanEnNaarId2Stops(Convert.ToInt16(zoekListVM.Naar), 5, 1, Convert.ToInt16(zoekListVM.Van), zoekListVM.TerugDate);
-            }
-            else if (zoekListVM.Van == 7 && zoekListVM.Naar == 2) //Moskou - Londen stop: Berlijn + Brussel
-            {
-                zoekListVM.RoutesHeen = routesService.GetTrainenBijVanEnNaarId2Stops(Convert.ToInt16(zoekListVM.Van), 5, 1, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate);
-                zoekListVM.RoutesTerug = routesService.GetTrainenBijVanEnNaarId2Stops(Convert.ToInt16(zoekListVM.Naar), 1, 5, Convert.ToInt16(zoekListVM.Van), zoekListVM.HeenDate);
-
-            }
-            else if (zoekListVM.Van == 2 || zoekListVM.Naar == 2 && zoekListVM.Van != 1 && zoekListVM.Naar != 1 || (zoekListVM.Van == 4 && zoekListVM.Naar == 3)
-                || (zoekListVM.Van == 3 && zoekListVM.Naar == 4) || (zoekListVM.Van == 4 && zoekListVM.Naar == 6)
-                || (zoekListVM.Van == 6 && zoekListVM.Naar == 4)) //TODO Londen-brussel niet x2 
-            //Londen - ?  || ? - Londen || Amsterdam - Parijs || Parijs - Amsterdam || Amsterdam - Rome || Rome - Amsterdam     stop: Brussel
-            {
-                zoekListVM.RoutesHeen = routesService.GetTrainenBijVanEnNaarId1Stop(Convert.ToInt16(zoekListVM.Van), 1, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate);
-                zoekListVM.RoutesTerug= routesService.GetTrainenBijVanEnNaarId1Stop(Convert.ToInt16(zoekListVM.Naar), 1, Convert.ToInt16(zoekListVM.Van), zoekListVM.TerugDate);
-
-            }
-            else if (zoekListVM.Van == 7 || zoekListVM.Naar == 7) //Moskou - ? || ? - Moskou        stop: Berlijn
-            {
-                zoekListVM.RoutesHeen = routesService.GetTrainenBijVanEnNaarId1Stop(Convert.ToInt16(zoekListVM.Van), 5, Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate);
-                zoekListVM.RoutesTerug = routesService.GetTrainenBijVanEnNaarId1Stop(Convert.ToInt16(zoekListVM.Naar), 5, Convert.ToInt16(zoekListVM.Van), zoekListVM.TerugDate);
-
-            }
-            else
-            {
-                zoekListVM.RoutesHeen = routesService.GetTrainenBijVanEnNaarId(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar), zoekListVM.HeenDate);
-                zoekListVM.RoutesTerug = routesService.GetTrainenBijVanEnNaarId(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van), zoekListVM.HeenDate);
-            }*/
+           
 
             if (ModelState.IsValid)
             {
@@ -148,86 +107,52 @@ namespace Treinreizen.Controllers
                 zoekListVM.RoutesHeen = null;
                 return View("Home", zoekListVM);
             }
-        }
 
-        /*
-        public IActionResult Passagiers(ZoekListVM zoekListVM, Decimal prijs)
-        {
-            return View(zoekListVM);
         }
 
 
-        //TODO: DEZE CODE INORDE MAKEN
-        //public IActionResult Boeken(ZoekListVM boek)
+        //public IActionResult Passagiers(ZoekListVM zoekListVM, Decimal prijs)
         //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    routesService = new RoutesService();
-        //    TreinRoutes route = routesService.Get(Convert.ToInt16(id));
-
-        //    OverstappenVM deelItem = new OverstappenVM
-        //    {
-        //        Vertrek = 
-        //    }
-
-        //    CartVM item = new CartVM
-        //    {
-        //        Biernr = bier.Biernr,
-        //        Aantal = 1,
-        //        Prijs = 15,
-        //        DateCreated = DateTime.Now,
-        //        Naam = bier.Naam
-        //    };
-
-        //    ShoppingCartVM shopping;
-
-        //    if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
-        //    {
-        //        shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
-        //    }
-        //    else
-        //    {
-        //        shopping = new ShoppingCartVM();
-        //        shopping.Cart = new List<CartVM>();
-        //    }
-
-        //    shopping.Cart.Add(item);
-        //    HttpContext.Session.SetObject("ShoppingCart", shopping);
-
-
-        //    return RedirectToAction("Validatie", "Trein");
+        //    return View(zoekListVM);
         //}
 
 
-        public IActionResult RoutesStringFilter()
+        //TODO: DEZE CODE INORDE MAKEN
+        public IActionResult Boeken(ZoekListVM boeken, decimal prijs)
         {
-            //var list = routesService.GetTreinenBijVertrek("Brussel");
+            if (boeken == null)
+            {
+                return NotFound();
+            }
 
-            return View();
+            CartVM item = new CartVM
+            {
+
+                //AantalTickets = boeken.Aantal,
+                //Class = boeken.GeselecteerdeKlasse.ToString(),
+                //TrajectId = boeken.TrajectId,
+                Prijs = prijs
+            };
+
+            ShoppingCartVM shopping;
+
+            if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
+            {
+                shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+            }
+            else
+            {
+                shopping = new ShoppingCartVM();
+                shopping.Cart = new List<CartVM>();
+            }
+
+            shopping.Cart.Add(item);
+            HttpContext.Session.SetObject("ShoppingCart", shopping);
+
+
+            return RedirectToAction("Index", "ShoppingCart");
         }
-        */
-        
-        /*
-        public IActionResult AlleReismogelijkheden()
-        {
-            ReisMogelijkhedenService reisMogelijkhedenService = new ReisMogelijkhedenService();
 
-            var list = reisMogelijkhedenService.GetAll();
-
-            return View(list);
-        }*/
-
-        public IActionResult AlleRitten()
-        {
-            TrajectService trajectService = new TrajectService();
-
-            var list = trajectService.GetRitten(Convert.ToInt16(1), Convert.ToInt16(7));
-
-            return View(list);
-        }
 
         public IActionResult AlleRittenVanTraject()
         {
@@ -237,6 +162,7 @@ namespace Treinreizen.Controllers
 
             return View(list);
         }
+        
     }
 }
 

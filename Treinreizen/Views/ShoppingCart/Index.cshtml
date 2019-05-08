@@ -13,22 +13,26 @@
         <table>
             <tr>
                 <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].TrajectId)
+
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Cart[0].AantalTickets)
 
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].TreinNaam)
+                @*<th>
+            @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].TreinNaam)
 
-                </th>
+        </th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].Vertrek)
+        <th>
+            @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].Vertrek)
 
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].Aankomst)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].Aankomst)
 
-                </th>
+        </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Cart[0].Class)
 
@@ -37,14 +41,14 @@
                     @Html.DisplayNameFor(model => model.Cart[0].Prijs)
 
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Boekingsdatum)
+                @*<th>
+            @Html.DisplayNameFor(model => model.Cart[0].Boekingsdatum)
 
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cart[0].Status)
 
-                </th>
+        </th>*@
                 <th>
                     Subtotaal
                 </th>
@@ -52,54 +56,41 @@
             @{ float total = 0;}
             @for (var i = 0; i < Model.Cart.Count; i++)
             {
-                <tr>
-                    @Html.HiddenFor(m => Model.Cart[i].OrderId)
+            <tr>
+                @Html.HiddenFor(m => Model.Cart[i].OrderId)
+                <td>
+                    <input asp-for="@Model.Cart[i].TrajectId" readonly="readonly" class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].AantalTickets" type="number" min="1" max="5" data-aantal=@i />
+                </td>
 
-                    <td>
-                        <input asp-for="@Model.Cart[i].AantalTickets" type="number" min="1" max="5" data-aantal=@i />
-                    </td>
-                    @for (var j = 0; j < Model.Cart[i].Overstappen.Count; j++)
-                    {
-                        <td>
-                            <input asp-for="@Model.Cart[i].Overstappen[j].TreinNaam " readonly="readonly" class="form-control" />
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].Overstappen[j].Vertrek " readonly="readonly" class="form-control" />
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].Overstappen[j].Aankomst " readonly="readonly" class="form-control" />
-                        </td>
-                    }
-                    <td>
-                        <input asp-for="@Model.Cart[i].Class" readonly="readonly" class="form-control" />
-                    </td>
-                    <td>
-                        <input asp-for="@Model.Cart[i].Prijs" readonly="readonly" class="form-control" />
-                    </td>
-                    <td>
-                        <input asp-for="@Model.Cart[i].Boekingsdatum" readonly="readonly" class="form-control" />
-                    </td>
-                    <td>
-                        <input asp-for="@Model.Cart[i].Status" readonly="readonly" class="form-control" />
-                    </td>
+                @*@for (var j = 0; j < Model.Cart[i].Overstappen.Count; j++)
+        {
+            <td>
+                <input asp-for="@Model.Cart[i].Overstappen[j].TreinNaam " readonly="readonly" class="form-control" />
+            </td>
+            <td>
+                <input asp-for="@Model.Cart[i].Overstappen[j].Vertrek " readonly="readonly" class="form-control" />
+            </td>
+            <td>
+                <input asp-for="@Model.Cart[i].Overstappen[j].Aankomst " readonly="readonly" class="form-control" />
+            </td>
+        }*@
+                <td>
+                    <input asp-for="@Model.Cart[i].Class" readonly="readonly" class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].Prijs" readonly="readonly" class="form-control" />
+                </td>
 
-                    <td>
-                        <input asp-for="@Model.Cart[i].Prijs" type="number" readonly="readonly" />
-                        @{ var subtotaal = Model.Cart[i].Prijs * Model.Cart[i].AantalTickets;
-                            total += subtotaal;
-                        }
-                    </td>
+                <td>
+                    <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-bierNR="@Model.Cart[i].OrderId">
+                        <img src="~/images/delete.jpg" style="width:30px" />
+                    </a>
 
-                    <td>
-                        <input id="@("txtSubTotal" + @i)" value="@subtotaal" type="number" readonly="readonly" />
-                    </td>
-                    <td>
-                        <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-bierNR="@Model.Cart[i].OrderId">
-                            <img src="~/images/delete.jpg" style="width:30px" />
-                        </a>
-
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
             }
             <tr>
