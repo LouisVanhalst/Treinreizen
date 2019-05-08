@@ -118,6 +118,7 @@ namespace Treinreizen.Controllers
 
 
         //TODO: DEZE CODE INORDE MAKEN
+        [HttpPost]
         public IActionResult Boeken(ZoekListVM boeken, decimal prijs)
         {
             if (boeken == null)
@@ -128,9 +129,9 @@ namespace Treinreizen.Controllers
             CartVM item = new CartVM
             {
 
-                //AantalTickets = boeken.Aantal,
-                //Class = boeken.GeselecteerdeKlasse.ToString(),
-                //TrajectId = boeken.TrajectId,
+                AantalTickets = boeken.Aantal,
+                Class = boeken.GeselecteerdeKlasse.ToString(),
+                TrajectId = boeken.TrajectId,
                 Prijs = prijs
             };
 
