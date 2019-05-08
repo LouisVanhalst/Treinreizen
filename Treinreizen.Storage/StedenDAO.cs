@@ -30,7 +30,5 @@ namespace Treinreizen.Storage
             _dbContext.Entry(entity).State = EntityState.Added;
             _dbContext.SaveChanges();
         }
-
-
     }
 }

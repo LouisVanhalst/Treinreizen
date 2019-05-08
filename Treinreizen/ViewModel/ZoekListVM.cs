@@ -42,8 +42,8 @@ namespace Treinreizen.ViewModel
 
         public SelectList Steden { get; set; }
 
-        public IEnumerable<TreinRoutes> RoutesHeen { get; set; }
+        public IEnumerable<Ritten> RoutesHeen { get; set; }
 
-        public IEnumerable<TreinRoutes> RoutesTerug { get; set; }
+        public IEnumerable<Ritten> RoutesTerug { get; set; }
     }
 }

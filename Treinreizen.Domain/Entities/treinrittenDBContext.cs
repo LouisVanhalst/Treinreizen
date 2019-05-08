@@ -27,22 +27,22 @@ namespace Treinreizen.Domain.Entities
         public virtual DbSet<Klasse> Klasse { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<ReisMogelijkheden> ReisMogelijkheden { get; set; }
+        public virtual DbSet<Ritten> Ritten { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Steden> Steden { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
+        public virtual DbSet<Traject> Traject { get; set; }
         public virtual DbSet<Treinen> Treinen { get; set; }
         public virtual DbSet<TreinenVanOrder> TreinenVanOrder { get; set; }
-        public virtual DbSet<TreinRoutes> TreinRoutes { get; set; }
+        public virtual DbSet<Vakanties> Vakanties { get; set; }
         public virtual DbSet<Zitplaats> Zitplaats { get; set; }
-
-        // Unable to generate entity type for table 'dbo.Vakanties'. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-
-                optionsBuilder.UseSqlServer("Server=.\\SQL_VIVES; Database=treinrittenDB;Trusted_Connection=True;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=.\\SQL_VIVES3; Database=treinrittenDB;Trusted_Connection=True;");
             }
         }
 
@@ -242,7 +242,9 @@ namespace Treinreizen.Domain.Entities
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Prijs).HasColumnType("decimal(19, 0)");
+                entity.Property(e => e.KlantId).HasMaxLength(450);
+
+                entity.Property(e => e.Prijs).HasColumnType("money");
 
                 entity.HasOne(d => d.Hotel)
                     .WithMany(p => p.Order)
@@ -253,7 +255,6 @@ namespace Treinreizen.Domain.Entities
                 entity.HasOne(d => d.Klant)
                     .WithMany(p => p.Order)
                     .HasForeignKey(d => d.KlantId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Heeft geboekt");
 
                 entity.HasOne(d => d.Status)
@@ -269,17 +270,41 @@ namespace Treinreizen.Domain.Entities
                     .HasName("ReisMogelijkheden_ReisMogelijkhedenId")
                     .IsUnique();
 
+                entity.Property(e => e.Prijs).HasColumnType("money");
+
                 entity.HasOne(d => d.AankomstNavigation)
                     .WithMany(p => p.ReisMogelijkhedenAankomstNavigation)
                     .HasForeignKey(d => d.Aankomst)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Heeft als bestemming");
 
+                entity.HasOne(d => d.Trein)
+                    .WithMany(p => p.ReisMogelijkheden)
+                    .HasForeignKey(d => d.TreinId)
+                    .HasConstraintName("Heeft als trein");
+
                 entity.HasOne(d => d.VertrekNavigation)
                     .WithMany(p => p.ReisMogelijkhedenVertrekNavigation)
                     .HasForeignKey(d => d.Vertrek)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Vertrekt vanuit");
+            });
+
+            modelBuilder.Entity<Ritten>(entity =>
+            {
+                entity.HasKey(e => new { e.ReisMogelijkhedenId, e.TrajectId });
+
+                entity.HasOne(d => d.ReisMogelijkheden)
+                    .WithMany(p => p.Ritten)
+                    .HasForeignKey(d => d.ReisMogelijkhedenId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Reis heeft als rit");
+
+                entity.HasOne(d => d.Traject)
+                    .WithMany(p => p.Ritten)
+                    .HasForeignKey(d => d.TrajectId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Traject bevat de rit");
             });
 
             modelBuilder.Entity<Status>(entity =>
@@ -337,6 +362,23 @@ namespace Treinreizen.Domain.Entities
                     .HasConstraintName("FKTicket314765");
             });
 
+            modelBuilder.Entity<Traject>(entity =>
+            {
+                entity.HasIndex(e => e.TrajectId)
+                    .HasName("TreinRoutes_RouteId")
+                    .IsUnique();
+
+                entity.HasOne(d => d.AankomstStadNavigation)
+                    .WithMany(p => p.TrajectAankomstStadNavigation)
+                    .HasForeignKey(d => d.AankomstStad)
+                    .HasConstraintName("Heeft bestemming");
+
+                entity.HasOne(d => d.VertrekStadNavigation)
+                    .WithMany(p => p.TrajectVertrekStadNavigation)
+                    .HasForeignKey(d => d.VertrekStad)
+                    .HasConstraintName("Vertrekt uit");
+            });
+
             modelBuilder.Entity<Treinen>(entity =>
             {
                 entity.HasKey(e => e.TreinNummer);
@@ -353,13 +395,17 @@ namespace Treinreizen.Domain.Entities
 
             modelBuilder.Entity<TreinenVanOrder>(entity =>
             {
-                entity.HasKey(e => new { e.OrderId, e.RouteId });
+                entity.HasKey(e => new { e.OrderId, e.TrajectId });
 
                 entity.HasIndex(e => e.OrderId)
                     .HasName("TreinenVanOrder_OrderId");
 
-                entity.HasIndex(e => e.RouteId)
+                entity.HasIndex(e => e.TrajectId)
                     .HasName("TreinenVanOrder_RouteId");
+
+                entity.Property(e => e.Aankomstdatum).HasColumnType("date");
+
+                entity.Property(e => e.Vertrekdatum).HasColumnType("date");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.TreinenVanOrder)
@@ -367,34 +413,22 @@ namespace Treinreizen.Domain.Entities
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("heeft treinen van");
 
-                entity.HasOne(d => d.Route)
+                entity.HasOne(d => d.Traject)
                     .WithMany(p => p.TreinenVanOrder)
-                    .HasForeignKey(d => d.RouteId)
+                    .HasForeignKey(d => d.TrajectId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("zit in trip van");
             });
 
-            modelBuilder.Entity<TreinRoutes>(entity =>
+            modelBuilder.Entity<Vakanties>(entity =>
             {
-                entity.HasKey(e => e.RouteId);
+                entity.HasKey(e => e.VakantieId);
 
-                entity.HasIndex(e => e.RouteId)
-                    .HasName("TreinRoutes_RouteId")
-                    .IsUnique();
+                entity.Property(e => e.Begin).HasColumnType("date");
 
-                entity.Property(e => e.Vertrekdatum).HasColumnType("date");
+                entity.Property(e => e.Einde).HasColumnType("date");
 
-                entity.HasOne(d => d.ReisMogelijkheden)
-                    .WithMany(p => p.TreinRoutes)
-                    .HasForeignKey(d => d.ReisMogelijkhedenId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Heeft als route");
-
-                entity.HasOne(d => d.TreinNummerNavigation)
-                    .WithMany(p => p.TreinRoutes)
-                    .HasForeignKey(d => d.TreinNummer)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FKTreinRoute536929");
+                entity.Property(e => e.IsKerst).HasColumnName("isKerst");
             });
 
             modelBuilder.Entity<Zitplaats>(entity =>

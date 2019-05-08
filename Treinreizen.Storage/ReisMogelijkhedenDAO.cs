@@ -18,10 +18,12 @@ namespace Treinreizen.Storage
         {
             return _db.ReisMogelijkheden.ToList();
         }
+
         public IEnumerable<ReisMogelijkheden> GetAllLocaties()
         {
             return _db.ReisMogelijkheden.Include(a => a.AankomstNavigation).Include(v => v.VertrekNavigation).ToList();
         }
+
         public void Update(ReisMogelijkheden entity)
         {
             _db.Entry(entity).State = EntityState.Modified;
@@ -32,7 +34,7 @@ namespace Treinreizen.Storage
             _db.Entry(entity).State = EntityState.Added;
             _db.SaveChanges();
         }
-
+        
     }
    
 }
