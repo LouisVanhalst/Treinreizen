@@ -53,7 +53,6 @@
             @for (var i = 0; i < Model.Cart.Count; i++)
             {
                 <tr>
-                    <!--we willen biernr wel binnenkrijgen dus moeten we het ergens hidden zetten-->
                     @Html.HiddenFor(m => Model.Cart[i].OrderId)
 
                     <td>
@@ -117,7 +116,11 @@
             </tr>
 
             <tr>
-                <td> <input type="submit" value="Checkout" class="btn btn-default" /></td>
+                <td>
+         
+                        <input type="submit" value="Checkout" class="btn btn-default" />
+                 
+                </td>
             </tr>
 
 

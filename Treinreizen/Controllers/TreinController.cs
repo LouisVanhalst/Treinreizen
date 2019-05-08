@@ -148,6 +148,52 @@ namespace Treinreizen.Controllers
         {
             return View(zoekListVM);
         }
+
+
+        //TODO: DEZE CODE INORDE MAKEN
+        //public IActionResult Boeken(ZoekListVM boek)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    routesService = new RoutesService();
+        //    TreinRoutes route = routesService.Get(Convert.ToInt16(id));
+
+        //    OverstappenVM deelItem = new OverstappenVM
+        //    {
+        //        Vertrek = 
+        //    }
+
+        //    CartVM item = new CartVM
+        //    {
+        //        Biernr = bier.Biernr,
+        //        Aantal = 1,
+        //        Prijs = 15,
+        //        DateCreated = DateTime.Now,
+        //        Naam = bier.Naam
+        //    };
+
+        //    ShoppingCartVM shopping;
+
+        //    if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
+        //    {
+        //        shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+        //    }
+        //    else
+        //    {
+        //        shopping = new ShoppingCartVM();
+        //        shopping.Cart = new List<CartVM>();
+        //    }
+
+        //    shopping.Cart.Add(item);
+        //    HttpContext.Session.SetObject("ShoppingCart", shopping);
+
+
+        //    return RedirectToAction("Validatie", "Trein");
+        //}
+
     }
 }
 

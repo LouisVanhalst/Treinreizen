@@ -35,3 +35,142 @@ body {
         display: none;
     }
 }
+table {
+    width: 100%;
+}
+
+    table.default {
+        width: 100%;
+    }
+
+        table.default tbody tr {
+            border-bottom: solid 1px #888888;
+        }
+
+        table.default td {
+            padding: 0.5em 1em 0.5em 1em;
+        }
+
+        table.default th {
+            font-weight: 700;
+            padding: 0.5em 1em 0.5em 1em;
+            text-align: left;
+        }
+
+        table.default thead {
+            background: #555555;
+            color: #fff;
+        }
+
+/* Button */
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+.button {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -o-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    -moz-transition: background-color 0.2s ease-in-out;
+    -webkit-transition: background-color 0.2s ease-in-out;
+    -o-transition: background-color 0.2s ease-in-out;
+    -ms-transition: background-color 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
+    background: #3ac984;
+    border-radius: 40px;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.80em 2em;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.4em;
+    font-weight: 600;
+    min-width: 10em;
+}
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover,
+    input[type="button"]:hover,
+    .button:hover {
+        background-color: #32b777;
+    }
+
+    input[type="submit"].fit,
+    input[type="reset"].fit,
+    input[type="button"].fit,
+    .button.fit {
+        width: 100%;
+    }
+
+    input[type="submit"].small,
+    input[type="reset"].small,
+    input[type="button"].small,
+    .button.small {
+        font-size: 0.8em;
+    }
+
+
+
+.tile-container {
+    display: table;
+    width: 100%;
+
+}
+
+.tile {
+    background-color: #fff;
+    text-align: center;
+    align-content: center;
+    border: 1px solid black;
+    padding: 5px;
+    background-color: #e8e7e7;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+
+}
+
+    .tile .foto {
+        margin:-1em;
+
+        background-size:cover;
+    }
+
+    .tile .title {
+        margin-top: 0px;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+        color: #3ac984;
+        margin: 20px;
+    }
+
+    .website {
+        margin-bottom: 10px;
+
+    }
+
+    .tile .beschrijving {
+        font-style: normal;
+        font-size: 17px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 40px;
+        display: block;
+        position: inherit;
+    }
+
+    .knop{
+        margin: 10px;
+
+        
+        bottom: 0;
+    }
+.tile .button {
+    width:100%;
+}
+

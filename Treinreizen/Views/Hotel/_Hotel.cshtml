@@ -2,13 +2,13 @@
 
 @if (Model != null)
 {
-    <div class="col-md-4">
+    <div class="col-lg-4">
         <div class="tile">
 
-            <div class="foto">
+            <div>
                 @*foto's instellen volgens hotelID*@
                 @{ 
-                    var file = "images/hotels/" + Model.HotelId + ".jpg" ;
+                    var file = "/images/hotels/" + Model.HotelId + ".jpg" ;
                 }
                 <img class="foto" src="@file" />
             </div>
@@ -20,10 +20,14 @@
             <div class="beschrijving">
                 @Model.Beschrijving
             </div>
-            <div class="website">
-                website:  @Model.Site
-            </div>
-            <div class="knop">
+            
+
+            <div class="boeken">
+
+                <div class="website">
+                    website:  @Model.Site
+                </div>
+
                 <a class="button" asp-action="select" asp-route-id="@Model.HotelId">Boeken</a>
 
             </div>
