@@ -33,32 +33,34 @@ namespace Treinreizen.Controllers
             hotelsService = new HotelsService();
             Hotels hotel = hotelsService.Get(Convert.ToInt16(id));
 
+            return View();
+
             //Order aanmaken?
-            HotelOrderVM item = new HotelOrderVM
-            {
-                HotelNaam = hotel.Naam,
-                StadNaam = hotel.Stad.Naam,
-                Foto = hotel.Foto
+            //HotelOrderVM item = new HotelOrderVM
+            //{
+            //    HotelNaam = hotel.Naam,
+            //    StadNaam = hotel.Stad.Naam,
+            //    Foto = hotel.Foto
 
-            };
+            //};
 
-            HotelOrderVM hotelOrderVM;
+            //HotelOrderVM hotelOrderVM;
 
-            if (HttpContext.Session.GetObject<HotelOrderVM>("ShoppingCart") != null)
-            {
-                hotelOrderVM = HttpContext.Session.GetObject<HotelOrderVM>("ShoppingCart");
-            }
-            else
-            {
-                hotelOrderVM = new HotelOrderVM();
+            //if (HttpContext.Session.GetObject<HotelOrderVM>("ShoppingCart") != null)
+            //{
+            //    hotelOrderVM = HttpContext.Session.GetObject<HotelOrderVM>("ShoppingCart");
+            //}
+            //else
+            //{
+            //    hotelOrderVM = new HotelOrderVM();
 
-            }
+            //}
 
-            //hotelOrderVM.Add(item);
-            HttpContext.Session.SetObject("ShoppingCart", hotelOrderVM);
+            ////hotelOrderVM.Add(item);
+            //HttpContext.Session.SetObject("ShoppingCart", hotelOrderVM);
 
 
-            return RedirectToAction("Index", "ShoppingCart");
+            //return RedirectToAction("Index", "ShoppingCart");
         }
 
 

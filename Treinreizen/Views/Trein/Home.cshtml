@@ -5,24 +5,24 @@
 }
 
 @{
-    decimal totalePrijs = 0;
+    //decimal totalePrijs = 0;
     var totalePrijsMessage = "";
     var reistijdHeenreis = "";
     var reistijdTerugreis = "";
     if (Model.RoutesHeen != null)
     {
-        
+
 
         var tijdHeen = Model.RoutesHeen.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesHeen.ElementAt(Model.RoutesHeen.Count() - 1).ReisMogelijkheden.Vertrektijd;
 
-        foreach (var item in Model.RoutesHeen)
-        {
-            if (item.ReisMogelijkheden.Prijs != null)
-            {
-                totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
-            }
-            //var tijd += item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-        }
+        //foreach (var item in Model.RoutesHeen)
+        //{
+        //    if (item.ReisMogelijkheden.Prijs != null)
+        //    {
+        //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
+        //    }
+        //    //var tijd += item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+        //}
 
         reistijdHeenreis = "Duur van de heenreis: " + tijdHeen + " uur";
 
@@ -30,20 +30,20 @@
         {
             var tijdTerug = Model.RoutesTerug.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesTerug.ElementAt(Model.RoutesTerug.Count() - 1).ReisMogelijkheden.Vertrektijd;
 
-            foreach (var item in Model.RoutesTerug)
-            {
-                if (item.ReisMogelijkheden.Prijs != null)
-                {
-                    totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
-                }
-            }
+            //foreach (var item in Model.RoutesTerug)
+            //{
+            //    if (item.ReisMogelijkheden.Prijs != null)
+            //    {
+            //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
+            //    }
+            //}
 
             reistijdTerugreis = "Duur van de terugreis: " + tijdTerug + " uur";
         }
 
-        totalePrijs = totalePrijs * (1 + Convert.ToDecimal(Model.GeselecteerdeKlasse.ElementAt(0).Toeslag));
-        totalePrijs = totalePrijs * Model.Aantal;
-        totalePrijsMessage += "Prijs: € " + totalePrijs;
+        //totalePrijs = totalePrijs * (1 + Convert.ToDecimal(Model.GeselecteerdeKlasse.Toeslag));
+        //totalePrijs = totalePrijs * Model.Aantal;
+        totalePrijsMessage += "Prijs: € " + ViewBag.PrijsTicket;
     }
 }
 
@@ -104,13 +104,14 @@
                 </select>
             </div>
             <div class="form-group">
+
+                @*<input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-aantal="@Model.Aantal" asp-route-prijs="@totalePrijs" value="Boeken" class="btn btn-default" />*@
+                <input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-prijs="@ViewBag.PrijsTicket" class="btn btn-default" value="Boeken"/>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Zoek Route" class="btn btn-default" />
             </div>
-            <div>
-                
-             <input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-boeken="@Model" asp-route-prijs="@totalePrijs" value="Boeken" class="btn btn-default" />
-               
-            </div>
+
         </form>
     </div>
 
@@ -152,58 +153,9 @@
 
 </div>
 
-@*
-    <div>
-        <h4>ZoekListVM</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.isEnkel)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.isEnkel)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Van)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Van)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Naar)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Naar)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.HeenDate)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.HeenDate)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.TerugDate)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.TerugDate)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Aantal)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Aantal)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
-    </div>
-*@
-
-
 @if (Model.RoutesHeen != null)
 {
+    <p>@Model.TrajectId</p>
     <h3>Heenreis</h3>
     <table class="table" id="myTable">
         <thead>

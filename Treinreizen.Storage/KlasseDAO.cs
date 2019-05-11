@@ -20,9 +20,14 @@ namespace Treinreizen.Storage
             return _dbContext.Klasse.ToList();
         }
 
-        public IEnumerable<Klasse> GetKlasseVanId(int klasseId)
+        public Klasse GetKlasseVanId(int klasseId)
         {
-            return _dbContext.Klasse.Where(k => k.KlasseId == klasseId).ToList();
+            return _dbContext.Klasse.Where(k => k.KlasseId == klasseId).First();
+        }
+
+        public string GetNaamKlasseVanId(int klasseId)
+        {
+            return _dbContext.Klasse.Where(k => k.KlasseId == klasseId).First().Klassenaam;
         }
         public void Update(Klasse entity)
         {

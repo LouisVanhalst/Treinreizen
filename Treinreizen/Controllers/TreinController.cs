@@ -65,7 +65,7 @@ namespace Treinreizen.Controllers
             return View(zoekListVM);
         }
 
-        [HttpPost (Name ="Zoek Route")]
+        [HttpPost]
         public IActionResult Home(ZoekListVM zoekListVM)
         {
             ModelState.Clear();
@@ -74,6 +74,12 @@ namespace Treinreizen.Controllers
             {
                 return NotFound();
             }
+            
+            
+            
+                
+                
+            
 
             /**if (zoekListVM.Van == zoekListVM.Naar)
             {
@@ -82,21 +88,41 @@ namespace Treinreizen.Controllers
 
             StedenService stedenService = new StedenService();
 
-            //routesService = new RoutesService();
             zoekListVM.Steden = new SelectList(stedenService.GetAll(), "StadId", "Naam");
 
             KlasseService klasseService = new KlasseService();
             zoekListVM.Klasses = new SelectList(klasseService.GetAll(), "KlasseId", "Klassenaam");
             zoekListVM.GeselecteerdeKlasse = klasseService.GetKlasseVanId(zoekListVM.Klasse);
-
+            
             RittenService rittenService = new RittenService();
             TrajectService trajectService = new TrajectService();
 
             zoekListVM.RoutesHeen = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
-            zoekListVM.TrajectId = trajectService.GetTrajectId(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
+            //zoekListVM.TrajectId = trajectService.GetTrajectId(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
+            
+
             zoekListVM.RoutesTerug = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van));
 
-           
+            double totalePrijs = 0;
+
+            foreach (var item in zoekListVM.RoutesHeen)
+            {
+                if (item.ReisMogelijkheden.Prijs != null)
+                {
+                    totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
+                }
+
+            }
+
+            foreach (var item in zoekListVM.RoutesTerug)
+            {
+                if (item.ReisMogelijkheden.Prijs != null)
+                {
+                    totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
+                }
+            }
+
+            ViewBag.PrijsTicket = totalePrijs * (1 + Convert.ToDouble(zoekListVM.GeselecteerdeKlasse.Toeslag));
 
             if (ModelState.IsValid)
             {
@@ -119,20 +145,49 @@ namespace Treinreizen.Controllers
 
         //TODO: DEZE CODE INORDE MAKEN
         [HttpPost]
-        public IActionResult Boeken(ZoekListVM boeken, decimal prijs)
+        public IActionResult Boeken(ZoekListVM zoekListVM, double prijs)
         {
-            
-            if (boeken == null)
-            {
-                return NotFound();
-            }
+
+            //if (boeken == null)
+            //{
+            //    return NotFound();
+            //}
+
+            TrajectService trajectService = new TrajectService();
+            Traject traject = trajectService.GetTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
+
+            KlasseService klasseService = new KlasseService();
+            Klasse klasse = klasseService.GetKlasseVanId(zoekListVM.Klasse);
+
+            //double totalePrijs = 0;
+
+            //foreach (var item in zoekListVM.RoutesHeen)
+            //{
+            //    if (item.ReisMogelijkheden.Prijs != null)
+            //    {
+            //        totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
+            //    }
+
+            //}
+
+
+            //foreach (var item in zoekListVM.RoutesTerug)
+            //{
+            //    if (item.ReisMogelijkheden.Prijs != null)
+            //    {
+            //        totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
+            //    }
+            //}
+
+            //ViewBag.PrijsTicket = (totalePrijs * zoekListVM.Aantal) * (1 + zoekListVM.GeselecteerdeKlasse.Toeslag);
 
             CartVM item = new CartVM
             {
-
-                AantalTickets = boeken.Aantal,
-                Class = boeken.GeselecteerdeKlasse.ToString(),
-                TrajectId = boeken.TrajectId,
+                TrajectId = zoekListVM.TrajectId,
+                Van = traject.VertrekStadNavigation.Naam,
+                Naar = traject.AankomstStadNavigation.Naam,
+                AantalTickets = zoekListVM.Aantal,
+                Class = klasse.Klassenaam,
                 Prijs = prijs
             };
 

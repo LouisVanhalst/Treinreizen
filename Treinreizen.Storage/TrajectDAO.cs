@@ -22,10 +22,19 @@ namespace Treinreizen.Storage
         {
             return _dbContext.Traject.Include(t => t.VertrekStadNavigation).Include(t => t.AankomstStadNavigation).ToList();
         }
+
         public int GetTrajectId(int vertrek, int aankomst)
         {
             return _dbContext.Traject.Where(t => t.VertrekStad == vertrek && t.AankomstStad == aankomst).First().TrajectId;
         }
+
+        public Traject GetTraject(int vertrek, int aankomst)
+        {
+            return _dbContext.Traject.Where(t => t.VertrekStad == vertrek && t.AankomstStad == aankomst)
+                .Include(t => t.VertrekStadNavigation)
+                .Include(t => t.AankomstStadNavigation).First();
+        }
+
         public void Update(Traject entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;

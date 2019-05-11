@@ -42,7 +42,7 @@ namespace Treinreizen.Domain.Entities
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQL_VIVES; Database=treinrittenDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQL_VIVES3; Database=treinrittenDB;Trusted_Connection=True;");
             }
         }
 

@@ -18,38 +18,43 @@ namespace Treinreizen.Controllers
     {
         public IActionResult Index()
         {
-            ShoppingCartVM shopping;
+            //ShoppingCartVM shopping;
 
-            if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
-            {
-                shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
-            }
-            else
-            {
-                shopping = new ShoppingCartVM();
-                shopping.Cart = new List<CartVM>();
-                
-            }
+            //if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
+            //{
+            //    shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+            //}
+            //else
+            //{
+            //    shopping = new ShoppingCartVM();
+            //    shopping.Cart = new List<CartVM>();
 
-           
+            //}
+
+            //var SessionId = HttpContext.Session.Id;
+
+            //return View(shopping);
+
+            //OM ER VOOR TE ZORGEN DAT EMPTYCART WERKT:
+            ShoppingCartVM cartList = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
 
             var SessionId = HttpContext.Session.Id;
 
-
-            return View(shopping);
+            return View(cartList);
         }
 
         //nog de implementeren
 
-        public ActionResult Delete(int? orderId)
+        public ActionResult Delete(int? trajectId)
         {
-            if (orderId == null)
+            if (trajectId == null)
             {
                 return NotFound();
             }
+
             ShoppingCartVM cartList = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
 
-            var itemToRemove = cartList.Cart.FirstOrDefault(r => r.OrderId == orderId);
+            var itemToRemove = cartList.Cart.FirstOrDefault(r => r.TrajectId == trajectId);
             if (itemToRemove != null)
             {
                 cartList.Cart.Remove(itemToRemove);

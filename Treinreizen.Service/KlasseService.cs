@@ -17,10 +17,14 @@ namespace Treinreizen.Service
         {
             return dao.GetAll();
         }
-
-        public IEnumerable<Klasse> GetKlasseVanId(int klasseId)
+        public Klasse GetKlasseVanId(int klasseId)
         {
             return dao.GetKlasseVanId(klasseId);
+        }
+
+        public string GetNaamKlasseVanId(int klasseId)
+        {
+            return dao.GetNaamKlasseVanId(klasseId);
         }
         public void Update(Klasse entity)
         {

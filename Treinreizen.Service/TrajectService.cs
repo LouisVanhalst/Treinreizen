@@ -23,6 +23,12 @@ namespace Treinreizen.Service
         {
             return trajectDAO.GetTrajectId(vertrek, aankomst);
         }
+
+        public Traject GetTraject(int vertrek, int aankomst)
+        {
+            return trajectDAO.GetTraject(vertrek, aankomst);
+        }
+
         public void Update(Traject entity)
         {
             trajectDAO.Update(entity);
