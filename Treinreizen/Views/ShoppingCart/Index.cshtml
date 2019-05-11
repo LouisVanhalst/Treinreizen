@@ -81,7 +81,7 @@
                     <input asp-for="@Model.Cart[i].Class" readonly="readonly" class="form-control" />
                 </td>
                 <td>
-                    <input asp-for="@Model.Cart[i].Prijs" readonly="readonly" class="form-control" />
+                    <input  asp-for="@Model.Cart[i].Prijs" readonly="readonly" class="form-control" />
                 </td>
 
                 <td>
@@ -130,7 +130,7 @@ else
 </a>
 
 @section Scripts{
-    <script>
+    @*<script>
         //is het zelfde als window.addlistener(load,script)... van vorig jaar
         $(() => {
             //selecteer alle input elementen die eindigen met aantal
@@ -161,7 +161,7 @@ else
                 //ik steek het totaal in het veld Total
                 $('#txtTotal').val(sum);
             }
-    </script>
+    </script>*@
 }
 
 

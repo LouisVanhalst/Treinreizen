@@ -121,6 +121,7 @@ namespace Treinreizen.Controllers
         [HttpPost]
         public IActionResult Boeken(ZoekListVM boeken, decimal prijs)
         {
+            
             if (boeken == null)
             {
                 return NotFound();
@@ -134,6 +135,7 @@ namespace Treinreizen.Controllers
                 TrajectId = boeken.TrajectId,
                 Prijs = prijs
             };
+
 
             ShoppingCartVM shopping;
 

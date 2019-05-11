@@ -104,9 +104,13 @@
                 </select>
             </div>
             <div class="form-group">
-               <input type="submit" value="Zoek Route" class="btn btn-default" />
+                <input type="submit" value="Zoek Route" class="btn btn-default" />
             </div>
-
+            <div>
+                
+             <input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-boeken="@Model" asp-route-prijs="@totalePrijs" value="Boeken" class="btn btn-default" />
+               
+            </div>
         </form>
     </div>
 
@@ -341,11 +345,7 @@
         }
     </div>
 
-    <div>
-        <form method="post">
-            <input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-boeken="@Model" aps-route-prijs="@totalePrijs" value="Boeken" class="btn btn-default" />
-        </form>
-    </div>
+    
      
 
     <div>
