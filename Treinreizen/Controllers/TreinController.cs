@@ -122,7 +122,7 @@ namespace Treinreizen.Controllers
                 }
             }
 
-            ViewBag.PrijsTicket = totalePrijs * (1 + Convert.ToDouble(zoekListVM.GeselecteerdeKlasse.Toeslag));
+            ViewBag.PrijsTicket = Convert.ToDouble(totalePrijs);// * (1 + zoekListVM.GeselecteerdeKlasse.Toeslag));// Convert.ToDouble(zoekListVM.GeselecteerdeKlasse.Toeslag));
 
             if (ModelState.IsValid)
             {
@@ -181,6 +181,8 @@ namespace Treinreizen.Controllers
 
             //ViewBag.PrijsTicket = (totalePrijs * zoekListVM.Aantal) * (1 + zoekListVM.GeselecteerdeKlasse.Toeslag);
 
+            double p = prijs * (1 + Convert.ToDouble(klasse.Toeslag));
+
             CartVM item = new CartVM
             {
                 TrajectId = zoekListVM.TrajectId,
@@ -188,7 +190,7 @@ namespace Treinreizen.Controllers
                 Naar = traject.AankomstStadNavigation.Naam,
                 AantalTickets = zoekListVM.Aantal,
                 Class = klasse.Klassenaam,
-                Prijs = prijs
+                Prijs = p
             };
 
 

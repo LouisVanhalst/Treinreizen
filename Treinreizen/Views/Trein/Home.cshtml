@@ -218,6 +218,7 @@
     </table>
 
     <div><p>@reistijdHeenreis</p></div>
+    @Model.GeselecteerdeKlasse.Toeslag
 
     @if (Model.RoutesTerug != null)
     {
@@ -272,7 +273,10 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
                         </td>
-                        <td></td>
+                        <td>
+                            @{ var tijd = item.ReisMogelijkheden.Aankomst - item.ReisMogelijkheden.Vertrek;}
+                            @tijd
+                        </td>
                         <td>
                             @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
                             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })

@@ -12,7 +12,7 @@ namespace Treinreizen.Domain.Entities
 
         public int KlasseId { get; set; }
         public string Klassenaam { get; set; }
-        public float? Toeslag { get; set; }
+        public float? Toeslag { get; set; } //WAS float?
 
         public ICollection<Zitplaats> Zitplaats { get; set; }
     }
