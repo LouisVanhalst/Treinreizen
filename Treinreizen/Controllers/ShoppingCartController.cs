@@ -79,7 +79,7 @@ namespace Treinreizen.Controllers
 
                     EmailSender mail = new EmailSender();
                     await mail.TaskEmailAsync(email, "Bevestiging Bestelling", body);
-                    return RedirectToAction("Home","Trein");
+                    return RedirectToAction("Validation","ShoppingCart");
                    
                 }
                 catch (Exception ex)
