@@ -62,6 +62,7 @@ namespace Treinreizen.Controllers
             }
             return View("Index", cartList);
         }
+
         //[Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -103,7 +104,19 @@ namespace Treinreizen.Controllers
             //{ }
         }
 
-       
+        public IActionResult Passagiers()//int aantalPassagiers)
+        {
+            ViewBag.AantalPassagiers = 3;
+            ViewBag.LijstPassagiers = new List<PassagierVM>();
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult Passagiers(List<PassagierVM> listPassagierVM)//int aantalPassagiers)
+        {
+            ViewBag.AantalPassagiers = 3;
+            
+            return View();
+        }
     }
 }

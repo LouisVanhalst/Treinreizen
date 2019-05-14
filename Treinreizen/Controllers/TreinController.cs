@@ -74,17 +74,6 @@ namespace Treinreizen.Controllers
             {
                 return NotFound();
             }
-            
-            
-            
-                
-                
-            
-
-            /**if (zoekListVM.Van == zoekListVM.Naar)
-            {
-                return NotFound(); liever foutboodschap
-            }*/
 
             StedenService stedenService = new StedenService();
 

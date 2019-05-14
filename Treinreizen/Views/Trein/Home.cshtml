@@ -7,44 +7,46 @@
 @{
     //decimal totalePrijs = 0;
     var totalePrijsMessage = "";
-    var reistijdHeenreis = "";
-    var reistijdTerugreis = "";
+    var reistijdHeenreis =  0;
+    var reistijdTerugreis = 0;
+    var prijs = 0.0;
     if (Model.RoutesHeen != null)
-    {
+   {
 
 
-        var tijdHeen = Model.RoutesHeen.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesHeen.ElementAt(Model.RoutesHeen.Count() - 1).ReisMogelijkheden.Vertrektijd;
+    //    var tijdHeen = Model.RoutesHeen.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesHeen.ElementAt(Model.RoutesHeen.Count() - 1).ReisMogelijkheden.Vertrektijd;
 
-        //foreach (var item in Model.RoutesHeen)
-        //{
-        //    if (item.ReisMogelijkheden.Prijs != null)
-        //    {
-        //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
-        //    }
-        //    //var tijd += item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-        //}
+    //    //foreach (var item in Model.RoutesHeen)
+    //    //{
+    //    //    if (item.ReisMogelijkheden.Prijs != null)
+    //    //    {
+    //    //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
+    //    //    }
+    //    //    //var tijd += item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+    //    //}
 
-        reistijdHeenreis = "Duur van de heenreis: " + tijdHeen + " uur";
+    //    reistijdHeenreis = "Duur van de heenreis: " + tijdHeen + " uur";
 
-        if (Model.RoutesTerug != null)
-        {
-            var tijdTerug = Model.RoutesTerug.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesTerug.ElementAt(Model.RoutesTerug.Count() - 1).ReisMogelijkheden.Vertrektijd;
+    //    if (Model.RoutesTerug != null)
+    //    {
+    //        var tijdTerug = Model.RoutesTerug.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesTerug.ElementAt(Model.RoutesTerug.Count() - 1).ReisMogelijkheden.Vertrektijd;
 
-            //foreach (var item in Model.RoutesTerug)
-            //{
-            //    if (item.ReisMogelijkheden.Prijs != null)
-            //    {
-            //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
-            //    }
-            //}
+    //        //foreach (var item in Model.RoutesTerug)
+    //        //{
+    //        //    if (item.ReisMogelijkheden.Prijs != null)
+    //        //    {
+    //        //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
+    //        //    }
+    //        //}
 
-            reistijdTerugreis = "Duur van de terugreis: " + tijdTerug + " uur";
+    //        reistijdTerugreis = "Duur van de terugreis: " + tijdTerug + " uur";
+          prijs = ViewBag.PrijsTicket * (1 + Model.GeselecteerdeKlasse.Toeslag) * Model.Aantal;
         }
 
-        //totalePrijs = totalePrijs * (1 + Convert.ToDecimal(Model.GeselecteerdeKlasse.Toeslag));
-        //totalePrijs = totalePrijs * Model.Aantal;
-        totalePrijsMessage += "Prijs: € " + ViewBag.PrijsTicket;
-    }
+    //    //totalePrijs = totalePrijs * (1 + Convert.ToDecimal(Model.GeselecteerdeKlasse.Toeslag));
+    //    //totalePrijs = totalePrijs * Model.Aantal;
+    totalePrijsMessage += "Prijs: € " + prijs;
+}
 }
 
 <h2>HomeVM</h2>
@@ -206,7 +208,12 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
                     </td>
-                    <td></td>
+                    <td>
+                        @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+                            //reistijdHeenreis += Convert.ToInt16(tijd); 
+                        }
+                        @tijd
+                    </td>
                     <td>
                         @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
                         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
@@ -274,7 +281,9 @@
                             @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
                         </td>
                         <td>
-                            @{ var tijd = item.ReisMogelijkheden.Aankomst - item.ReisMogelijkheden.Vertrek;}
+                            @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+                                //reistijdTerugreis += Convert.ToInt16(tijd); 
+                            }
                             @tijd
                         </td>
                         <td>

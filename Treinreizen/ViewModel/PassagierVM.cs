@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Treinreizen.ViewModel
 {
-    public class PersoonVeldVM
+    public class PassagierVM
     {
 
         public string Voornaam { get; set; }
