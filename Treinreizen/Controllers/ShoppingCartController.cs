@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Treinreizen.Services;
+using Treinreizen.Domain.Entities;
 
 namespace Treinreizen.Controllers
 {
@@ -63,11 +64,33 @@ namespace Treinreizen.Controllers
             return View("Index", cartList);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Payment(List<CartVM> cart)
         {
+            string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+           
+            try
+            {
+                Order order;
+                foreach (CartVM c in cart)
+                {
+                    order = new Order();
+                    order.KlantId = userID;
+                    order.AantalTickets = c.AantalTickets;
+                    order.Class = c.Class;
+                    order.Prijs = (decimal) c.Prijs;
+                    order.HotelId = 1;
+                    order.StatusId = 1;
+                    order.Boekingsdatum = DateTime.UtcNow;
+                }
+                //call method to save
+            }
+            catch (Exception ex)
+            { }
+
             var email = User.Identity.Name;
 
             if (email != null)
@@ -93,15 +116,11 @@ namespace Treinreizen.Controllers
                 return RedirectToAction("/Account/Login", "Identity");
             }
             return View();
-            //string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            //try
-            //{
-
-            //    //call method to save
-            //}
-            //catch (Exception ex)
-            //{ }
+            
+        }
+        public IActionResult Validation()
+        {
+            return View();
         }
 
         public IActionResult Passagiers()//int aantalPassagiers)

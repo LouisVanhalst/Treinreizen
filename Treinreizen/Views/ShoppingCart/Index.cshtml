@@ -7,7 +7,7 @@
 
 <h2>Uw Winkelmand</h2>
 
-@if (Model.Cart.First() != null)
+@if (Model!= null)
 {
 
     <form asp-action="Payment">
@@ -22,19 +22,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Cart[0].AantalTickets)
                 </th>
-                @*<th>
-            @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].TreinNaam)
-
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].Vertrek)
-
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cart[0].Overstappen[0].Aankomst)
-
-        </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Cart[0].Class)
 
@@ -43,14 +30,7 @@
                     @Html.DisplayNameFor(model => model.Cart[0].Prijs)
 
                 </th>
-                @*<th>
-            @Html.DisplayNameFor(model => model.Cart[0].Boekingsdatum)
 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cart[0].Status)
-
-        </th>*@
                 <th>
                     Subtotaal
                 </th>
@@ -70,18 +50,6 @@
                     <input asp-for="@Model.Cart[i].AantalTickets" type="number" min="1" max="5" data-aantal=@i />
                 </td>
 
-                @*@for (var j = 0; j < Model.Cart[i].Overstappen.Count; j++)
-        {
-            <td>
-                <input asp-for="@Model.Cart[i].Overstappen[j].TreinNaam " readonly="readonly" class="form-control" />
-            </td>
-            <td>
-                <input asp-for="@Model.Cart[i].Overstappen[j].Vertrek " readonly="readonly" class="form-control" />
-            </td>
-            <td>
-                <input asp-for="@Model.Cart[i].Overstappen[j].Aankomst " readonly="readonly" class="form-control" />
-            </td>
-        }*@
                 <td>
                     <input asp-for="@Model.Cart[i].Class" readonly="readonly" class="form-control" />
                 </td>
@@ -130,7 +98,8 @@
 
 
         </table>
-    </form>
+        </form>
+    
 }
 else
 {
