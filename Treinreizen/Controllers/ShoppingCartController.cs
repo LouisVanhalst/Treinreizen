@@ -11,12 +11,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Treinreizen.Services;
 using Treinreizen.Domain.Entities;
+using Treinreizen.Service;
 
 namespace Treinreizen.Controllers
 {
 
     public class ShoppingCartController : Controller
     {
+        private OrderService orderService;
         public IActionResult Index()
         {
             //ShoppingCartVM shopping;
@@ -118,6 +120,43 @@ namespace Treinreizen.Controllers
             return View();
             
         }
+        public IActionResult Create([Bind("KlantId,AantalTickets,Class,Prijs,HotelId,StatusId,Boekingsdatum")]Order entity)
+        {
+            
+
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    orderService.Create(entity);
+                    return RedirectToAction("Index");
+                }
+            }
+            //catch (DataException ex)
+            //{
+            //    //Log the error (uncomment dex variable name and add a line here to write a log.
+            //    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+
+            //}
+
+            catch (Exception ex)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "call system administrator.");
+
+            }
+            //orderService = new OrderService();
+            //ViewBag.Brouwernr =
+            //    new SelectList(brouwerService.GetAll(), "Brouwernr", "Naam"
+            //                    , entity.Brouwernr);
+            //soortService = new SoortService();
+            //ViewBag.Soortnr =
+            //    new SelectList(soortService.GetAll(), "Soortnr", "Soortnaam"
+            //                , entity.Soortnr);
+            return View(entity);
+        }
+
         public IActionResult Validation()
         {
             return View();
