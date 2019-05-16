@@ -14,6 +14,10 @@ namespace Treinreizen.Service
         {
             dao = new StedenDAO();
         }
+        public Steden Get(int id)
+        {
+            return dao.Get(id);
+        }
 
         public IEnumerable<Steden> GetAll()
         {

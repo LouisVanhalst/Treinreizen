@@ -27,6 +27,7 @@ namespace Treinreizen.Storage
         public void Create(Zitplaats entity)
         {
             _dbContext.Entry(entity).State = EntityState.Added;
+            _dbContext.Zitplaats.Add(entity);
             _dbContext.SaveChanges();
         }
     }

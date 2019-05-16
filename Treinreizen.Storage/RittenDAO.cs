@@ -36,14 +36,15 @@ namespace Treinreizen.Storage
                 .ToList();
         }
 
-        public void Update(Status entity)
+        public void Update(Ritten entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
-        public void Create(Status entity)
+        public void Create(Ritten entity)
         {
             _dbContext.Entry(entity).State = EntityState.Added;
+            _dbContext.Ritten.Add(entity);
             _dbContext.SaveChanges();
         }
     }

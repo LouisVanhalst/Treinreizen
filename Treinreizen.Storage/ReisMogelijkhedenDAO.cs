@@ -32,6 +32,7 @@ namespace Treinreizen.Storage
         public void Create(ReisMogelijkheden entity)
         {
             _db.Entry(entity).State = EntityState.Added;
+            _db.ReisMogelijkheden.Add(entity);
             _db.SaveChanges();
         }
         
