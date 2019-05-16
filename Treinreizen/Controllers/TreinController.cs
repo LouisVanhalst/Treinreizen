@@ -88,9 +88,6 @@ namespace Treinreizen.Controllers
 
             zoekListVM.RoutesHeen = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
             //zoekListVM.TrajectId = trajectService.GetTrajectId(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
-            
-
-            zoekListVM.RoutesTerug = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van));
 
             double totalePrijs = 0;
 
@@ -103,13 +100,31 @@ namespace Treinreizen.Controllers
 
             }
 
-            foreach (var item in zoekListVM.RoutesTerug)
+            if (zoekListVM.TerugDate != null)
             {
-                if (item.ReisMogelijkheden.Prijs != null)
+                zoekListVM.RoutesTerug = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van));
+
+                foreach (var item in zoekListVM.RoutesTerug)
                 {
-                    totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
+                    if (item.ReisMogelijkheden.Prijs != null)
+                    {
+                        totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
+                    }
                 }
             }
+
+            var aankomstdatumheenreis = zoekListVM.HeenDate;
+            //overstap gemist (eerst sorteren dat de volgorde van de reismogelijkheden klopt)
+            if (zoekListVM.RoutesHeen.Count() > 1)
+            {
+                var aankomstTijdStation = 0;
+                foreach (var item in zoekListVM.RoutesHeen)
+                {
+
+                }
+            }
+
+            
 
             ViewBag.PrijsTicket = Convert.ToDouble(totalePrijs);// * (1 + zoekListVM.GeselecteerdeKlasse.Toeslag));// Convert.ToDouble(zoekListVM.GeselecteerdeKlasse.Toeslag));
 
@@ -171,6 +186,7 @@ namespace Treinreizen.Controllers
             //ViewBag.PrijsTicket = (totalePrijs * zoekListVM.Aantal) * (1 + zoekListVM.GeselecteerdeKlasse.Toeslag);
 
             double p = prijs * (1 + Convert.ToDouble(klasse.Toeslag));
+            p = Math.Round(p, 2);
 
             CartVM item = new CartVM
             {
@@ -198,7 +214,66 @@ namespace Treinreizen.Controllers
             shopping.Cart.Add(item);
             HttpContext.Session.SetObject("ShoppingCart", shopping);
 
+            if (zoekListVM.TerugDate != null)
+            {
+                //TrajectService trajectService = new TrajectService();
+                Traject trajectterug = trajectService.GetTraject(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van));
 
+                //KlasseService klasseService = new KlasseService();
+                //Klasse klasseterug = klasseService.GetKlasseVanId(zoekListVM.Klasse);
+
+                //double totalePrijs = 0;
+
+                //foreach (var item in zoekListVM.RoutesHeen)
+                //{
+                //    if (item.ReisMogelijkheden.Prijs != null)
+                //    {
+                //        totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
+                //    }
+
+                //}
+
+
+                //foreach (var item in zoekListVM.RoutesTerug)
+                //{
+                //    if (item.ReisMogelijkheden.Prijs != null)
+                //    {
+                //        totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
+                //    }
+                //}
+
+                //ViewBag.PrijsTicket = (totalePrijs * zoekListVM.Aantal) * (1 + zoekListVM.GeselecteerdeKlasse.Toeslag);
+
+                double pterug = prijs * (1 + Convert.ToDouble(klasse.Toeslag));
+
+
+                CartVM itemterug = new CartVM
+                {
+                    TrajectId = trajectterug.TrajectId,
+                    Van = trajectterug.VertrekStadNavigation.Naam,
+                    Naar = trajectterug.AankomstStadNavigation.Naam,
+                    AantalTickets = zoekListVM.Aantal,
+                    Class = klasse.Klassenaam,
+                    Prijs = pterug
+                };
+
+
+                //ShoppingCartVM shopping;
+
+                if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
+                {
+                    shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+                }
+                else
+                {
+                    shopping = new ShoppingCartVM();
+                    shopping.Cart = new List<CartVM>();
+                }
+
+                shopping.Cart.Add(item);
+                HttpContext.Session.SetObject("ShoppingCart", shopping);
+
+            }
             return RedirectToAction("Index", "ShoppingCart");
         }
 

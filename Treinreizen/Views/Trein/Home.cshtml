@@ -7,47 +7,48 @@
 @{
     //decimal totalePrijs = 0;
     var totalePrijsMessage = "";
-    var reistijdHeenreis =  0;
-    var reistijdTerugreis = 0;
+    //var reistijdHeenreis =  (TimeSpan) 00:00:00;
+    //var reistijdTerugreis = 0;
     var prijs = 0.0;
     if (Model.RoutesHeen != null)
-   {
+    {
 
 
-    //    var tijdHeen = Model.RoutesHeen.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesHeen.ElementAt(Model.RoutesHeen.Count() - 1).ReisMogelijkheden.Vertrektijd;
+        //    var tijdHeen = Model.RoutesHeen.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesHeen.ElementAt(Model.RoutesHeen.Count() - 1).ReisMogelijkheden.Vertrektijd;
 
-    //    //foreach (var item in Model.RoutesHeen)
-    //    //{
-    //    //    if (item.ReisMogelijkheden.Prijs != null)
-    //    //    {
-    //    //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
-    //    //    }
-    //    //    //var tijd += item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-    //    //}
+        //    //foreach (var item in Model.RoutesHeen)
+        //    //{
+        //    //    if (item.ReisMogelijkheden.Prijs != null)
+        //    //    {
+        //    //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
+        //    //    }
+        //    //    //var tijd += item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+        //    //}
 
-    //    reistijdHeenreis = "Duur van de heenreis: " + tijdHeen + " uur";
+        //    reistijdHeenreis = "Duur van de heenreis: " + tijdHeen + " uur";
 
-    //    if (Model.RoutesTerug != null)
-    //    {
-    //        var tijdTerug = Model.RoutesTerug.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesTerug.ElementAt(Model.RoutesTerug.Count() - 1).ReisMogelijkheden.Vertrektijd;
+        //    if (Model.RoutesTerug != null)
+        //    {
+        //        var tijdTerug = Model.RoutesTerug.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesTerug.ElementAt(Model.RoutesTerug.Count() - 1).ReisMogelijkheden.Vertrektijd;
 
-    //        //foreach (var item in Model.RoutesTerug)
-    //        //{
-    //        //    if (item.ReisMogelijkheden.Prijs != null)
-    //        //    {
-    //        //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
-    //        //    }
-    //        //}
+        //        //foreach (var item in Model.RoutesTerug)
+        //        //{
+        //        //    if (item.ReisMogelijkheden.Prijs != null)
+        //        //    {
+        //        //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
+        //        //    }
+        //        //}
 
-    //        reistijdTerugreis = "Duur van de terugreis: " + tijdTerug + " uur";
-          prijs = ViewBag.PrijsTicket * (1 + Model.GeselecteerdeKlasse.Toeslag) * Model.Aantal;
-        }
+        //        reistijdTerugreis = "Duur van de terugreis: " + tijdTerug + " uur";
+        prijs = ViewBag.PrijsTicket * (1 + Model.GeselecteerdeKlasse.Toeslag) * Model.Aantal;
+        prijs = Math.Round(prijs, 2);
+    }
 
     //    //totalePrijs = totalePrijs * (1 + Convert.ToDecimal(Model.GeselecteerdeKlasse.Toeslag));
     //    //totalePrijs = totalePrijs * Model.Aantal;
     totalePrijsMessage += "Prijs: € " + prijs;
 }
-}
+
 
 <h2>HomeVM</h2>
 
@@ -55,13 +56,13 @@
     <div class="col-md-4 ">
         <form asp-action="Home">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <div class="checkbox">
                     <label>
                         <input checked asp-for="isEnkel" /> @Html.DisplayNameFor(model => model.isEnkel)
                     </label>
                 </div>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Van" class="control-label"></label>
                 <select asp-for="Van" asp-items="@Model.Steden" class="form-control " id="vanAdres" onchange="disableSelected()">
@@ -157,7 +158,7 @@
 
 @if (Model.RoutesHeen != null)
 {
-    <p>@Model.TrajectId</p>
+    
     <h3>Heenreis</h3>
     <table class="table" id="myTable">
         <thead>
@@ -210,7 +211,6 @@
                     </td>
                     <td>
                         @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-                            //reistijdHeenreis += Convert.ToInt16(tijd); 
                         }
                         @tijd
                     </td>
@@ -223,10 +223,7 @@
             }
         </tbody>
     </table>
-
-    <div><p>@reistijdHeenreis</p></div>
-    @Model.GeselecteerdeKlasse.Toeslag
-
+    
     @if (Model.RoutesTerug != null)
     {
         <h3>Terugreis</h3>
@@ -282,7 +279,6 @@
                         </td>
                         <td>
                             @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-                                //reistijdTerugreis += Convert.ToInt16(tijd); 
                             }
                             @tijd
                         </td>
@@ -298,7 +294,6 @@
         </table>
     }
     <div>
-        <p>@reistijdTerugreis</p>
         <p>@totalePrijsMessage</p>
     </div>
     <div class="row" id="personenLoop">
