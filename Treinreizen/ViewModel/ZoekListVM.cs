@@ -10,8 +10,8 @@ namespace Treinreizen.ViewModel
 {
     public class ZoekListVM
     {
-        [Display(Name = "Heen en terug")]
-        public bool isEnkel { get; set; }
+        //[Display(Name = "Heen en terug")]
+        //public bool isEnkel { get; set; }
 
 
         [Required(ErrorMessage = "Vul de plaats van vertrek in.")]
@@ -26,7 +26,7 @@ namespace Treinreizen.ViewModel
         public string HeenDate { get; set; }
 
         [Display(Name = "Vertrekdatum terugreis")]
-        [Required(ErrorMessage = "Vul datum van vertrek terugreis in.")]
+        //[Required(ErrorMessage = "Vul datum van vertrek terugreis in.")]
         public string TerugDate { get; set; }
 
         [Display(Name = "Aantal Tickets")]
