@@ -83,7 +83,7 @@ namespace Treinreizen.Controllers
             StatusService statusService = new StatusService();
             AspNetUsersService klantService = new AspNetUsersService();
             StedenService stedenService = new StedenService();
-
+            orderService = new OrderService();
                        
             try
             {
@@ -140,41 +140,6 @@ namespace Treinreizen.Controllers
             
             
         }
-        //public IActionResult Wegschrijven([Bind("KlantId,AantalTickets,Class,Prijs,HotelId,StatusId,Boekingsdatum")]Order entity)
-        //{
-            
-
-        //    try
-        //    {
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            orderService.Create(entity);
-        //            return RedirectToAction("Validation");
-        //        }
-        //    }
-        //    catch (DataException ex)
-        //    {
-        //        //Log the error (uncomment dex variable name and add a line here to write a log.
-        //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //Log the error (uncomment dex variable name and add a line here to write a log.
-        //        ModelState.AddModelError("", "call system administrator.");
-
-        //    }
-        //    //orderService = new OrderService();
-        //    //ViewBag.Brouwernr =
-        //    //    new SelectList(brouwerService.GetAll(), "Brouwernr", "Naam"
-        //    //                    , entity.Brouwernr);
-        //    //soortService = new SoortService();
-        //    //ViewBag.Soortnr =
-        //    //    new SelectList(soortService.GetAll(), "Soortnr", "Soortnaam"
-        //    //                , entity.Soortnr);
-        //    return RedirectToAction("index");
-        //}
 
         public async Task<ActionResult>  Validation()
         {
