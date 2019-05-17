@@ -206,17 +206,41 @@ namespace Treinreizen.Controllers
 
         public IActionResult Passagiers()//int aantalPassagiers)
         {
-            ViewBag.AantalPassagiers = 3;
-            ViewBag.LijstPassagiers = new List<PassagierVM>();
-            return View();
+            //ViewBag.AantalPassagiers = 3;
+
+            PassagierslijstVM passagierslijst = new PassagierslijstVM();
+            passagierslijst.passagiers = new List<PassagierVM>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                PassagierVM passagier = new PassagierVM();
+                passagierslijst.passagiers.Add(passagier);
+            }
+
+            return View(passagierslijst);
         }
 
         [HttpPost]
-        public IActionResult Passagiers(List<PassagierVM> listPassagierVM)//int aantalPassagiers)
+        public IActionResult Passagiers(PassagierslijstVM passagierslijst)//int aantalPassagiers)
         {
-            ViewBag.AantalPassagiers = 3;
-            
-            return View();
+            //PassagierslijstVM psl = new PassagierslijstVM();
+            //passagierslijst.passagiers = new List<PassagierVM>();
+
+
+            //foreach (var item in passagierslijst.passagiers)
+            //{
+            //    PassagierVM passagier = new PassagierVM();
+            //    psl.passagiers.Add(item);
+            //}
+
+            //return View(psl);
+
+            return RedirectToAction("Ps", passagierslijst);
+        }
+
+        public IActionResult Ps(PassagierslijstVM passagierslijst)
+        {
+            return View(passagierslijst);
         }
     }
 }

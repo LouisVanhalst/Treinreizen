@@ -117,10 +117,12 @@ namespace Treinreizen.Controllers
             //overstap gemist (eerst sorteren dat de volgorde van de reismogelijkheden klopt)
             if (zoekListVM.RoutesHeen.Count() > 1)
             {
-                var aankomstTijdStation = 0;
-                foreach (var item in zoekListVM.RoutesHeen)
+                for(int i = 0; i < zoekListVM.RoutesHeen.Count()-1; i++)
                 {
-
+                    if (zoekListVM.RoutesHeen.ElementAt(i).ReisMogelijkheden.Aankomsttijd >= zoekListVM.RoutesHeen.ElementAt(i + 1).ReisMogelijkheden.Vertrektijd)
+                    {
+                        aankomstdatumheenreis = aankomstdatumheenreis + 1;
+                    }
                 }
             }
 
