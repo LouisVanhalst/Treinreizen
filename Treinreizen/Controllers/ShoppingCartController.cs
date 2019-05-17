@@ -82,28 +82,25 @@ namespace Treinreizen.Controllers
             try
             {
 
-                Order order = new Order();
-                order.Klant = klantService.Get(userID);
-                order.KlantId = userID;
-
-                //order.OrderId = 1;
-                order.AantalTickets = cart.First().AantalTickets;
-                order.Class = cart.First().Class;
-                order.Prijs = (decimal) cart.First().Prijs;
-                order.Hotel = hotelsService.Get(1);
-                //order.Hotel.Stad = stedenService.Get(hotelsService.Get(1).StadId);
-                order.HotelId = 1;
-                order.Status = statusService.Get(1);
-                order.StatusId = 1;
-                order.Boekingsdatum = DateTime.UtcNow;
-
-                orderService.Create(order);
-
+               
                 foreach (CartVM c in cart)
                 {
-                    
+                    Order order = new Order();
+                    order.Klant = klantService.Get(userID);
+                    order.KlantId = userID;
+                    order.AantalTickets = c.AantalTickets;
+                    order.Class = c.Class;
+                    order.Prijs = (decimal)c.Prijs;
+                    order.Hotel = hotelsService.Get(1);
+                    order.HotelId = 1;
+                    order.Status = statusService.Get(1);
+                    order.StatusId = 1;
+                    order.Boekingsdatum = DateTime.UtcNow;
 
-                    
+                    orderService.Create(order);
+
+
+
                 }
 
                 return RedirectToAction("Validation");
