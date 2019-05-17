@@ -17,7 +17,7 @@ namespace Treinreizen.Storage
         }
         public Hotels Get(int id)
         {
-            return _dbContext.Hotels.Where(h => h.StadId == id).First();
+            return _dbContext.Hotels.Where(h => h.HotelId == id).First();
         }
         public IEnumerable<Hotels> GetAll()
         {
@@ -36,6 +36,7 @@ namespace Treinreizen.Storage
         public void Create(Hotels entity)
         {
             _dbContext.Entry(entity).State = EntityState.Added;
+            _dbContext.Hotels.Add(entity);
             _dbContext.SaveChanges();
         }
 

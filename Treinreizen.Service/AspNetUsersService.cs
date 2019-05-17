@@ -6,33 +6,29 @@ using Treinreizen.Storage;
 
 namespace Treinreizen.Service
 {
-    public class StatusService
+    public class AspNetUsersService
     {
-        private StatusDAO dao;
+        private AspNetUsersDAO dao;
 
-        public StatusService()
+        public AspNetUsersService()
         {
-            dao = new StatusDAO();
+            this.dao = new AspNetUsersDAO();
         }
-        public Status Get(int id)
+        public AspNetUsers Get(string id)
         {
             return dao.Get(id);
         }
-
-        public IEnumerable<Status> GetAll()
+        public IEnumerable<AspNetUsers> GetAll()
         {
             return dao.GetAll();
         }
-        public void Update(Status entity)
+        public void Update(AspNetUsers entity)
         {
             dao.Update(entity);
         }
-
-        public void Create(Status entity)
+        public void Create(AspNetUsers entity)
         {
-
             dao.Create(entity);
-
         }
     }
 }

@@ -7,27 +7,31 @@ using Treinreizen.Domain.Entities;
 
 namespace Treinreizen.Storage
 {
-    public class TicketDAO
+    public class AspNetUsersDAO
     {
         private readonly treinrittenDBContext _dbContext;
 
-        public TicketDAO()
+        public AspNetUsersDAO()
         {
             _dbContext = new treinrittenDBContext();
         }
-        public IEnumerable<Ticket> GetAll()
+        public AspNetUsers Get(string id)
         {
-            return _dbContext.Ticket.ToList();
+            return _dbContext.AspNetUsers.Where(h => h.Id == id).First();
         }
-        public void Update(Ticket entity)
+        public IEnumerable<AspNetUsers> GetAll()
+        {
+            return _dbContext.AspNetUsers.ToList();
+        }
+        public void Update(AspNetUsers entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
-        public void Create(Ticket entity)
+        public void Create(AspNetUsers entity)
         {
             _dbContext.Entry(entity).State = EntityState.Added;
-            _dbContext.Ticket.Add(entity);
+            _dbContext.AspNetUsers.Add(entity);
             _dbContext.SaveChanges();
         }
     }

@@ -30,12 +30,12 @@ namespace Treinreizen.Service
             return rittenDAO.GetRittenVanTraject(vertrekStad, aankomstStad);
         }
 
-        public void Update(Status entity)
+        public void Update(Ritten entity)
         {
             rittenDAO.Update(entity);
         }
 
-        public void Create(Status entity)
+        public void Create(Ritten entity)
         {
 
             rittenDAO.Create(entity);

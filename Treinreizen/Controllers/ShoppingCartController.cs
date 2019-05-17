@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Treinreizen.Services;
 using Treinreizen.Domain.Entities;
 using Treinreizen.Service;
+using System.Data;
 
 namespace Treinreizen.Controllers
 {
@@ -19,6 +20,7 @@ namespace Treinreizen.Controllers
     public class ShoppingCartController : Controller
     {
         private OrderService orderService;
+
         public IActionResult Index()
         {
             //ShoppingCartVM shopping;
@@ -69,30 +71,101 @@ namespace Treinreizen.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Payment(List<CartVM> cart)
+        public IActionResult Payment(List<CartVM> cart)
         {
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
+            HotelsService hotelsService = new HotelsService();
+            StatusService statusService = new StatusService();
+            AspNetUsersService klantService = new AspNetUsersService();
+            StedenService stedenService = new StedenService();
            
             try
             {
+                
                 Order order;
                 foreach (CartVM c in cart)
                 {
                     order = new Order();
+                    order.Klant = klantService.Get(userID);
                     order.KlantId = userID;
+                    
+                    order.OrderId = 1;
                     order.AantalTickets = c.AantalTickets;
                     order.Class = c.Class;
                     order.Prijs = (decimal) c.Prijs;
+                    order.Hotel = hotelsService.Get(1);
+                    order.Hotel.Stad = stedenService.Get(hotelsService.Get(1).StadId);
                     order.HotelId = 1;
+                    order.Status = statusService.Get(1);
                     order.StatusId = 1;
                     order.Boekingsdatum = DateTime.UtcNow;
+
+                    orderService.Create(order);
+
+                    //hotelsService.Update(order.Hotel);
+                    //statusService.Update(order.Status);
+                    //klantService.Update(order.Klant);
+                    //stedenService.Update(order.Hotel.Stad);
+
+                    
                 }
-                //call method to save
+                
+            }
+            catch (DataException ex)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+
             }
             catch (Exception ex)
-            { }
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "call system administrator.");
 
+            }
+
+            return View("Index");
+            
+            
+        }
+        //public IActionResult Wegschrijven([Bind("KlantId,AantalTickets,Class,Prijs,HotelId,StatusId,Boekingsdatum")]Order entity)
+        //{
+            
+
+        //    try
+        //    {
+
+        //        if (ModelState.IsValid)
+        //        {
+        //            orderService.Create(entity);
+        //            return RedirectToAction("Validation");
+        //        }
+        //    }
+        //    catch (DataException ex)
+        //    {
+        //        //Log the error (uncomment dex variable name and add a line here to write a log.
+        //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //Log the error (uncomment dex variable name and add a line here to write a log.
+        //        ModelState.AddModelError("", "call system administrator.");
+
+        //    }
+        //    //orderService = new OrderService();
+        //    //ViewBag.Brouwernr =
+        //    //    new SelectList(brouwerService.GetAll(), "Brouwernr", "Naam"
+        //    //                    , entity.Brouwernr);
+        //    //soortService = new SoortService();
+        //    //ViewBag.Soortnr =
+        //    //    new SelectList(soortService.GetAll(), "Soortnr", "Soortnaam"
+        //    //                , entity.Soortnr);
+        //    return RedirectToAction("index");
+        //}
+
+        public async Task<ActionResult>  Validation()
+        {
             var email = User.Identity.Name;
 
             if (email != null)
@@ -105,8 +178,7 @@ namespace Treinreizen.Controllers
 
                     EmailSender mail = new EmailSender();
                     await mail.TaskEmailAsync(email, "Bevestiging Bestelling", body);
-                    return RedirectToAction("Validation","ShoppingCart");
-                   
+
                 }
                 catch (Exception ex)
                 {
@@ -117,48 +189,6 @@ namespace Treinreizen.Controllers
             {
                 return RedirectToAction("/Account/Login", "Identity");
             }
-            return View();
-            
-        }
-        public IActionResult Create([Bind("KlantId,AantalTickets,Class,Prijs,HotelId,StatusId,Boekingsdatum")]Order entity)
-        {
-            
-
-            try
-            {
-
-                if (ModelState.IsValid)
-                {
-                    orderService.Create(entity);
-                    return RedirectToAction("Index");
-                }
-            }
-            //catch (DataException ex)
-            //{
-            //    //Log the error (uncomment dex variable name and add a line here to write a log.
-            //    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-
-            //}
-
-            catch (Exception ex)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "call system administrator.");
-
-            }
-            //orderService = new OrderService();
-            //ViewBag.Brouwernr =
-            //    new SelectList(brouwerService.GetAll(), "Brouwernr", "Naam"
-            //                    , entity.Brouwernr);
-            //soortService = new SoortService();
-            //ViewBag.Soortnr =
-            //    new SelectList(soortService.GetAll(), "Soortnr", "Soortnaam"
-            //                , entity.Soortnr);
-            return View(entity);
-        }
-
-        public IActionResult Validation()
-        {
             return View();
         }
 

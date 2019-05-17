@@ -15,6 +15,10 @@ namespace Treinreizen.Storage
         {
             _dbContext = new treinrittenDBContext();
         }
+        public Steden Get(int id)
+        {
+            return _dbContext.Steden.Where(h => h.StadId == id).First();
+        }
 
         public IEnumerable<Steden> GetAll()
         {
@@ -28,6 +32,7 @@ namespace Treinreizen.Storage
         public void Create(Steden entity)
         {
             _dbContext.Entry(entity).State = EntityState.Added;
+            _dbContext.Steden.Add(entity);
             _dbContext.SaveChanges();
         }
     }

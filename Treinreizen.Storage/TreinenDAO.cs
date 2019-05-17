@@ -27,6 +27,7 @@ namespace Treinreizen.Storage
         public void Create(Treinen entity)
         {
             _dbContext.Entry(entity).State = EntityState.Added;
+            _dbContext.Treinen.Add(entity);
             _dbContext.SaveChanges();
         }
     }
