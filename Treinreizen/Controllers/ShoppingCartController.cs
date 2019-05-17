@@ -19,7 +19,6 @@ namespace Treinreizen.Controllers
 
     public class ShoppingCartController : Controller
     {
-        private OrderService orderService;
 
         public IActionResult Index()
         {
@@ -114,14 +113,15 @@ namespace Treinreizen.Controllers
 
                     orderService.Create(order);
 
-                    //hotelsService.Update(order.Hotel);
-                    //statusService.Update(order.Status);
-                    //klantService.Update(order.Klant);
-                    //stedenService.Update(order.Hotel.Stad);
+                foreach (CartVM c in cart)
+                {
+                    
 
                     
                 }
-                
+
+                return RedirectToAction("Validation");
+
             }
             catch (DataException ex)
             {

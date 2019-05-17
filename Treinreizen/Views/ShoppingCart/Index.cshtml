@@ -47,10 +47,10 @@
             <tr>
                 @Html.HiddenFor(m => Model.Cart[i].TrajectId)
                 <td>
-
+                    <input asp-for="@Model.Cart[i].Vertrekdatum" readonly="readonly" class="form-control" />
                 </td>
                 <td>
-
+                    <input asp-for="@Model.Cart[i].Aankomstdatum" readonly="readonly" class="form-control" />
                 </td>
                 <td>
                     <input asp-for="@Model.Cart[i].Van" readonly="readonly" class="form-control" />
@@ -59,9 +59,8 @@
                     <input asp-for="@Model.Cart[i].Naar" readonly="readonly" class="form-control" />
                 </td>
                 <td>
-                    <input asp-for="@Model.Cart[i].AantalTickets" type="number" min="1" max="5" data-aantal=@i />
+                    <input asp-for="@Model.Cart[i].AantalTickets" readonly="readonly" class="form-control" /> @*data-aantal=@i />*@
                 </td>
-
                 <td>
                     <input asp-for="@Model.Cart[i].Class" readonly="readonly" class="form-control" />
                 </td>
@@ -91,6 +90,8 @@
                 <td>
                     Totaal
                 </td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
