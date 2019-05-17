@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace Treinreizen.ViewModel
 {
+    public class PassagierslijstVM
+    {
+        public List<PassagierVM> passagiers { get; set; }
+    }
+
     public class PassagierVM
     {
 

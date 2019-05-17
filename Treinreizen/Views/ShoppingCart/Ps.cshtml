@@ -1,0 +1,34 @@
+﻿@model Treinreizen.ViewModel.PassagierslijstVM
+
+@{
+    ViewData["Title"] = "Ps";
+}
+
+<h2>Ps</h2>
+
+<div>
+    <h4>PassagierslijstVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @foreach (var item in Model.passagiers)
+        {
+            <p>Passagier  :</p>
+            <div class="form-group">
+                <label asp-for="@item.Voornaam" class="control-label"></label>
+                <input asp-for="@item.Voornaam" class="form-control" />
+                <span asp-validation-for="@item.Voornaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@item.Achternaam" class="control-label"></label>
+                <input asp-for="@item.Achternaam" class="form-control" />
+                <span asp-validation-for="@item.Achternaam" class="text-danger"></span>
+            </div>
+
+            
+        }
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
