@@ -17,6 +17,8 @@ namespace Treinreizen.ViewModel
         public int AantalTickets { get; set; }
         public string Class { get; set; }
         public double Prijs  { get; set; }
+        public DateTime Vertrekdatum { get; set; }
+        public DateTime Aankomstdatum { get; set; }
     }
 
 

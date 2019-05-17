@@ -192,12 +192,14 @@ namespace Treinreizen.Controllers
 
             CartVM item = new CartVM
             {
-                TrajectId = zoekListVM.TrajectId,
+                TrajectId = traject.TrajectId,
                 Van = traject.VertrekStadNavigation.Naam,
                 Naar = traject.AankomstStadNavigation.Naam,
                 AantalTickets = zoekListVM.Aantal,
                 Class = klasse.Klassenaam,
-                Prijs = p
+                Prijs = p,
+                Vertrekdatum = Convert.ToDateTime(zoekListVM.HeenDate),
+                Aankomstdatum = Convert.ToDateTime(zoekListVM.HeenDate)
             };
 
 

@@ -17,7 +17,7 @@ namespace Treinreizen.Storage
         }
         public Hotels Get(int id)
         {
-            return _dbContext.Hotels.Where(h => h.HotelId == id).First();
+            return _dbContext.Hotels.Where(h => h.HotelId == id).Include(h => h.Stad).First();
         }
         public IEnumerable<Hotels> GetAll()
         {
