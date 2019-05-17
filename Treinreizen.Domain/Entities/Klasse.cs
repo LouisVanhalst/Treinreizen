@@ -7,13 +7,13 @@ namespace Treinreizen.Domain.Entities
     {
         public Klasse()
         {
-            Zitplaats = new HashSet<Zitplaats>();
+            Order = new HashSet<Order>();
         }
 
         public int KlasseId { get; set; }
         public string Klassenaam { get; set; }
-        public float? Toeslag { get; set; } //WAS float?
+        public float? Toeslag { get; set; }
 
-        public ICollection<Zitplaats> Zitplaats { get; set; }
+        public ICollection<Order> Order { get; set; }
     }
 }

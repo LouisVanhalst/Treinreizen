@@ -42,14 +42,14 @@ namespace Treinreizen.Controllers
             var list = stedenService.GetAll();
             return View(list);
         }
-        
+
         public IActionResult ReisMogelijkheden()
         {
             ReisMogelijkhedenService reisMogelijkhedenService = new ReisMogelijkhedenService();
             var list = reisMogelijkhedenService.GetAll();
             return View(list);
         }
-        
+
         [HttpGet]
         public IActionResult Home()
         {
@@ -82,7 +82,7 @@ namespace Treinreizen.Controllers
             KlasseService klasseService = new KlasseService();
             zoekListVM.Klasses = new SelectList(klasseService.GetAll(), "KlasseId", "Klassenaam");
             zoekListVM.GeselecteerdeKlasse = klasseService.GetKlasseVanId(zoekListVM.Klasse);
-            
+
             RittenService rittenService = new RittenService();
             TrajectService trajectService = new TrajectService();
 
@@ -117,7 +117,7 @@ namespace Treinreizen.Controllers
             //overstap gemist (eerst sorteren dat de volgorde van de reismogelijkheden klopt)
             if (zoekListVM.RoutesHeen.Count() > 1)
             {
-                for(int i = 0; i < zoekListVM.RoutesHeen.Count()-1; i++)
+                for (int i = 0; i < zoekListVM.RoutesHeen.Count() - 1; i++)
                 {
                     if (zoekListVM.RoutesHeen.ElementAt(i).ReisMogelijkheden.Aankomsttijd >= zoekListVM.RoutesHeen.ElementAt(i + 1).ReisMogelijkheden.Vertrektijd)
                     {
@@ -126,7 +126,7 @@ namespace Treinreizen.Controllers
                 }
             }
 
-            
+
 
             ViewBag.PrijsTicket = Convert.ToDouble(totalePrijs);// * (1 + zoekListVM.GeselecteerdeKlasse.Toeslag));// Convert.ToDouble(zoekListVM.GeselecteerdeKlasse.Toeslag));
 
@@ -196,7 +196,7 @@ namespace Treinreizen.Controllers
                 Van = traject.VertrekStadNavigation.Naam,
                 Naar = traject.AankomstStadNavigation.Naam,
                 AantalTickets = zoekListVM.Aantal,
-                Class = klasse.Klassenaam,
+                Klasse = zoekListVM.Klasse,
                 Prijs = p,
                 Vertrekdatum = Convert.ToDateTime(zoekListVM.HeenDate),
                 Aankomstdatum = Convert.ToDateTime(zoekListVM.HeenDate)
@@ -257,7 +257,7 @@ namespace Treinreizen.Controllers
                     Van = trajectterug.VertrekStadNavigation.Naam,
                     Naar = trajectterug.AankomstStadNavigation.Naam,
                     AantalTickets = zoekListVM.Aantal,
-                    Class = klasse.Klassenaam,
+                    Klasse = zoekListVM.Klasse,
                     Prijs = pterug
                 };
 
@@ -290,11 +290,11 @@ namespace Treinreizen.Controllers
 
             return View(list);
         }
-        
+
     }
 }
 
-      
+
 
 
 

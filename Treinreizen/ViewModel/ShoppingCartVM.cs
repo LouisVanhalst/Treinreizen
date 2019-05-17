@@ -15,8 +15,8 @@ namespace Treinreizen.ViewModel
         public string Van { get; set; }
         public string Naar { get; set; }
         public int AantalTickets { get; set; }
-        public string Class { get; set; }
-        public double Prijs  { get; set; }
+        public int Klasse { get; set; }
+        public double Prijs { get; set; }
         public DateTime Vertrekdatum { get; set; }
         public DateTime Aankomstdatum { get; set; }
     }
@@ -32,5 +32,5 @@ namespace Treinreizen.ViewModel
     //    public string StadNaam { get; set; }
     //    public string Foto { get; set; }
     //}
-  
+
 }

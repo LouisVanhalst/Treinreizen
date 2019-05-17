@@ -8,10 +8,10 @@ using Treinreizen.Domain.Entities;
 
 namespace Treinreizen.Storage
 {
-    
+
     public class TrajectDAO
     {
-        
+
         private readonly treinrittenDBContext _dbContext;
 
         public TrajectDAO()

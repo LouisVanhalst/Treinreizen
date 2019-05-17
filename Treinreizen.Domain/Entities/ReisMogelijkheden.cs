@@ -8,6 +8,7 @@ namespace Treinreizen.Domain.Entities
         public ReisMogelijkheden()
         {
             Ritten = new HashSet<Ritten>();
+            Ticket = new HashSet<Ticket>();
         }
 
         public int ReisMogelijkhedenId { get; set; }
@@ -22,5 +23,6 @@ namespace Treinreizen.Domain.Entities
         public Treinen Trein { get; set; }
         public Steden VertrekNavigation { get; set; }
         public ICollection<Ritten> Ritten { get; set; }
+        public ICollection<Ticket> Ticket { get; set; }
     }
 }

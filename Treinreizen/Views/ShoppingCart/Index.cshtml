@@ -29,7 +29,7 @@
                     @Html.DisplayNameFor(model => model.Cart[0].AantalTickets)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Class)
+                    @Html.DisplayNameFor(model => model.Cart[0].Klasse)
 
                 </th>
                 <th>
@@ -62,7 +62,7 @@
                     <input asp-for="@Model.Cart[i].AantalTickets" readonly="readonly" class="form-control" /> @*data-aantal=@i />*@
                 </td>
                 <td>
-                    <input asp-for="@Model.Cart[i].Class" readonly="readonly" class="form-control" />
+                    <input asp-for="@Model.Cart[i].Klasse" readonly="readonly" class="form-control" />
                 </td>
                 <td>
                     <input asp-for="@Model.Cart[i].Prijs" readonly="readonly" class="form-control" />

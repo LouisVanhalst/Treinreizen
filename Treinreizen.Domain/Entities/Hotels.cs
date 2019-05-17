@@ -5,11 +5,6 @@ namespace Treinreizen.Domain.Entities
 {
     public partial class Hotels
     {
-        public Hotels()
-        {
-            Order = new HashSet<Order>();
-        }
-
         public int HotelId { get; set; }
         public string Naam { get; set; }
         public string Beschrijving { get; set; }
@@ -18,6 +13,5 @@ namespace Treinreizen.Domain.Entities
         public string Foto { get; set; }
 
         public Steden Stad { get; set; }
-        public ICollection<Order> Order { get; set; }
     }
 }

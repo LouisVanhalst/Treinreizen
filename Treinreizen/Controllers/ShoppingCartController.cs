@@ -67,7 +67,7 @@ namespace Treinreizen.Controllers
             return View("Index", cartList);
         }
 
-       
+
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
@@ -79,21 +79,21 @@ namespace Treinreizen.Controllers
             AspNetUsersService klantService = new AspNetUsersService();
             StedenService stedenService = new StedenService();
             OrderService orderService = new OrderService();
-           
+            KlasseService klasseService = new KlasseService();
+
             try
             {
 
-               
+
                 foreach (CartVM c in cart)
                 {
                     Order order = new Order();
                     order.Klant = klantService.Get(userID);
                     order.KlantId = userID;
                     order.AantalTickets = c.AantalTickets;
-                    order.Class = c.Class;
+                    order.KlasseId = c.Klasse;
+                    order.Klasse = klasseService.GetKlasseVanId(c.Klasse);
                     order.Prijs = (decimal)c.Prijs;
-                    order.Hotel = hotelsService.Get(1);
-                    order.HotelId = 1;
                     order.Status = statusService.Get(1);
                     order.StatusId = 1;
                     order.Boekingsdatum = DateTime.UtcNow;
@@ -121,11 +121,11 @@ namespace Treinreizen.Controllers
             }
 
             return View("Index");
-            
-            
+
+
         }
 
-        public async Task<ActionResult>  Validation()
+        public async Task<ActionResult> Validation()
         {
             var email = User.Identity.Name;
 
