@@ -68,17 +68,23 @@ namespace Treinreizen.Controllers
             return View("Index", cartList);
         }
 
-        [Authorize]
+       
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public IActionResult Payment(List<CartVM> cart)
         {
+            HashSet<Ticket> tickets = new HashSet<Ticket>();
+            HashSet<TreinenVanOrder> treinen = new HashSet<TreinenVanOrder>();
+
+
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             HotelsService hotelsService = new HotelsService();
             StatusService statusService = new StatusService();
             AspNetUsersService klantService = new AspNetUsersService();
             StedenService stedenService = new StedenService();
-           
+
+                       
             try
             {
                 
@@ -88,8 +94,7 @@ namespace Treinreizen.Controllers
                     order = new Order();
                     order.Klant = klantService.Get(userID);
                     order.KlantId = userID;
-                    
-                    order.OrderId = 1;
+                    //order.OrderId = 1;
                     order.AantalTickets = c.AantalTickets;
                     order.Class = c.Class;
                     order.Prijs = (decimal) c.Prijs;
@@ -99,6 +104,13 @@ namespace Treinreizen.Controllers
                     order.Status = statusService.Get(1);
                     order.StatusId = 1;
                     order.Boekingsdatum = DateTime.UtcNow;
+
+                    //treinen opvullen
+                    //tickets opvullen
+
+                    order.TreinenVanOrder = treinen;
+                    order.Ticket = tickets;
+
 
                     orderService.Create(order);
 
