@@ -124,22 +124,23 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.Vertrektijd)
+                        @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Vertrektijd)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.VertrekNavigation)
+                        @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Aankomsttijd)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.Aankomsttijd)
+                        Vertrek plaats
+                    </th>
+
+                    <th>
+                        Aankomst plaats
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.AankomstNavigation)
+                        Trein
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.Trein.TreinNaam)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.Prijs)
+                        @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Prijs)
                     </th>
                     <th>
                         Reistijd
@@ -189,16 +190,17 @@
                             @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Vertrektijd)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.VertrekNavigation)
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Aankomsttijd)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.AankomstNavigation)
+                            Vertrek plaats)
+                        </th>
+
+                        <th>
+                            Aankomst plaats
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Trein.TreinNaam)
+                            Trein
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Prijs)
@@ -318,30 +320,6 @@
                 }
             });
         })
-
-
-
-
-
-        @*var opties = document.getElementById("Naar").getElementsByTagName("option");
-        for (var i = 0; i < opties.length; i++) {
-            if (opties[i].value == document.getElementById("Van").getSelection) {
-                console.log(document.getElementById("Van").getSelection)
-                opties[i].disabled = true;
-            }
-            else {
-                opties[i].disabled = false;
-            }
-        }
-
-        function disableNext(Van, Naar) {
-            var van = document.getElementById(Van);
-            var naar = document.getElementById(Naar);
-
-            if (van == naar) {
-                naar.disabled = true;
-            }
-        }*@
     </script>
 
 }
