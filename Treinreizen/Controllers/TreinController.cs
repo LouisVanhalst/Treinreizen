@@ -113,7 +113,7 @@ namespace Treinreizen.Controllers
                 }
             }
 
-            var aankomstdatumheenreis = zoekListVM.HeenDate;
+            var aankomstdatumheenreis = Convert.ToDateTime(zoekListVM.HeenDate);
             //overstap gemist (eerst sorteren dat de volgorde van de reismogelijkheden klopt)
             if (zoekListVM.RoutesHeen.Count() > 1)
             {
@@ -121,12 +121,25 @@ namespace Treinreizen.Controllers
                 {
                     if (zoekListVM.RoutesHeen.ElementAt(i).ReisMogelijkheden.Aankomsttijd >= zoekListVM.RoutesHeen.ElementAt(i + 1).ReisMogelijkheden.Vertrektijd)
                     {
-                        aankomstdatumheenreis = aankomstdatumheenreis + 1;
+                        aankomstdatumheenreis = aankomstdatumheenreis.AddDays(1);
                     }
                 }
             }
+            ViewBag.Aankomstdatumheen = aankomstdatumheenreis;
 
-
+            var aankomstdatumterugreis = Convert.ToDateTime(zoekListVM.TerugDate);
+            //overstap gemist (eerst sorteren dat de volgorde van de reismogelijkheden klopt)
+            if (zoekListVM.RoutesTerug.Count() > 1)
+            {
+                for (int i = 0; i < zoekListVM.RoutesTerug.Count() - 1; i++)
+                {
+                    if (zoekListVM.RoutesTerug.ElementAt(i).ReisMogelijkheden.Aankomsttijd >= zoekListVM.RoutesTerug.ElementAt(i + 1).ReisMogelijkheden.Vertrektijd)
+                    {
+                        aankomstdatumheenreis = aankomstdatumheenreis.AddDays(1);
+                    }
+                }
+            }
+            ViewBag.Aankomstdatumterug = aankomstdatumterugreis;
 
             ViewBag.PrijsTicket = Convert.ToDouble(totalePrijs);// * (1 + zoekListVM.GeselecteerdeKlasse.Toeslag));// Convert.ToDouble(zoekListVM.GeselecteerdeKlasse.Toeslag));
 
@@ -141,65 +154,35 @@ namespace Treinreizen.Controllers
             }
 
         }
-
-
-        //public IActionResult Passagiers(ZoekListVM zoekListVM, Decimal prijs)
-        //{
-        //    return View(zoekListVM);
-        //}
-
-
-        //TODO: DEZE CODE INORDE MAKEN
+        
         [HttpPost]
-        public IActionResult Boeken(ZoekListVM zoekListVM, double prijs)
+        public IActionResult Boeken(ZoekListVM zoekListVM, double prijs, string aankomstdatumheen, string aankomstdatumterug)
         {
 
-            //if (boeken == null)
-            //{
-            //    return NotFound();
-            //}
+            if (zoekListVM == null)
+            {
+                return NotFound();
+            }
 
             TrajectService trajectService = new TrajectService();
-            Traject traject = trajectService.GetTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
+            Traject trajectheen = trajectService.GetTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
 
             KlasseService klasseService = new KlasseService();
             Klasse klasse = klasseService.GetKlasseVanId(zoekListVM.Klasse);
 
-            //double totalePrijs = 0;
-
-            //foreach (var item in zoekListVM.RoutesHeen)
-            //{
-            //    if (item.ReisMogelijkheden.Prijs != null)
-            //    {
-            //        totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
-            //    }
-
-            //}
-
-
-            //foreach (var item in zoekListVM.RoutesTerug)
-            //{
-            //    if (item.ReisMogelijkheden.Prijs != null)
-            //    {
-            //        totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
-            //    }
-            //}
-
-            //ViewBag.PrijsTicket = (totalePrijs * zoekListVM.Aantal) * (1 + zoekListVM.GeselecteerdeKlasse.Toeslag);
-
             double p = prijs * (1 + Convert.ToDouble(klasse.Toeslag));
             p = Math.Round(p, 2);
 
-            CartVM item = new CartVM
+            CartVM itemheen = new CartVM
             {
-                TrajectId = traject.TrajectId,
-                Van = traject.VertrekStadNavigation.Naam,
-                Naar = traject.AankomstStadNavigation.Naam,
+                TrajectId = trajectheen.TrajectId,
+                Van = trajectheen.VertrekStadNavigation.Naam,
+                Naar = trajectheen.AankomstStadNavigation.Naam,
                 AantalTickets = zoekListVM.Aantal,
                 Klasse = zoekListVM.Klasse,
                 Prijs = p,
                 Vertrekdatum = Convert.ToDateTime(zoekListVM.HeenDate),
-                Aankomstdatum = Convert.ToDateTime(zoekListVM.HeenDate)
+                Aankomstdatum = Convert.ToDateTime(aankomstdatumheen)
             };
 
 
@@ -215,41 +198,15 @@ namespace Treinreizen.Controllers
                 shopping.Cart = new List<CartVM>();
             }
 
-            shopping.Cart.Add(item);
+            shopping.Cart.Add(itemheen);
             HttpContext.Session.SetObject("ShoppingCart", shopping);
 
             if (zoekListVM.TerugDate != null)
             {
-                //TrajectService trajectService = new TrajectService();
+               
                 Traject trajectterug = trajectService.GetTraject(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van));
 
-                //KlasseService klasseService = new KlasseService();
-                //Klasse klasseterug = klasseService.GetKlasseVanId(zoekListVM.Klasse);
-
-                //double totalePrijs = 0;
-
-                //foreach (var item in zoekListVM.RoutesHeen)
-                //{
-                //    if (item.ReisMogelijkheden.Prijs != null)
-                //    {
-                //        totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
-                //    }
-
-                //}
-
-
-                //foreach (var item in zoekListVM.RoutesTerug)
-                //{
-                //    if (item.ReisMogelijkheden.Prijs != null)
-                //    {
-                //        totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
-                //    }
-                //}
-
-                //ViewBag.PrijsTicket = (totalePrijs * zoekListVM.Aantal) * (1 + zoekListVM.GeselecteerdeKlasse.Toeslag);
-
                 double pterug = prijs * (1 + Convert.ToDouble(klasse.Toeslag));
-
 
                 CartVM itemterug = new CartVM
                 {
@@ -258,11 +215,10 @@ namespace Treinreizen.Controllers
                     Naar = trajectterug.AankomstStadNavigation.Naam,
                     AantalTickets = zoekListVM.Aantal,
                     Klasse = zoekListVM.Klasse,
-                    Prijs = pterug
+                    Prijs = pterug,
+                    Vertrekdatum = Convert.ToDateTime(zoekListVM.TerugDate),
+                    Aankomstdatum = Convert.ToDateTime(aankomstdatumterug)
                 };
-
-
-                //ShoppingCartVM shopping;
 
                 if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
                 {
@@ -274,23 +230,12 @@ namespace Treinreizen.Controllers
                     shopping.Cart = new List<CartVM>();
                 }
 
-                shopping.Cart.Add(item);
+                shopping.Cart.Add(itemterug);
                 HttpContext.Session.SetObject("ShoppingCart", shopping);
 
             }
             return RedirectToAction("Index", "ShoppingCart");
         }
-
-
-        public IActionResult AlleRittenVanTraject()
-        {
-            RittenService rittenService = new RittenService();
-
-            var list = rittenService.GetRittenVanTraject(Convert.ToInt16(2), Convert.ToInt16(7));
-
-            return View(list);
-        }
-
     }
 }
 

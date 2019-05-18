@@ -33,7 +33,7 @@ namespace Treinreizen.Storage
                 .Include(r => r.ReisMogelijkheden.VertrekNavigation)
                 .Include(r => r.ReisMogelijkheden.AankomstNavigation)
                 .Include(r => r.ReisMogelijkheden.Trein)
-                .OrderBy(r => r.ReisMogelijkheden.Vertrektijd)
+                .OrderBy(r => r.Volgorde)
                 .ToList();
         }
 
