@@ -71,7 +71,7 @@ namespace Treinreizen.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public IActionResult Payment(List<CartVM> cart)
+        public IActionResult Payment(List<CartVM> cart, List<PassagierVM> passagiers)
         {
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             HotelsService hotelsService = new HotelsService();
@@ -81,9 +81,12 @@ namespace Treinreizen.Controllers
             OrderService orderService = new OrderService();
             KlasseService klasseService = new KlasseService();
 
+            TicketService ticketService = new TicketService();
+
             try
             {
-
+                var id = 0;
+                Order geboekteOrder = new Order();
 
                 foreach (CartVM c in cart)
                 {
@@ -91,17 +94,34 @@ namespace Treinreizen.Controllers
                     order.Klant = klantService.Get(userID);
                     order.KlantId = userID;
                     order.AantalTickets = c.AantalTickets;
-                    order.KlasseId = c.Klasse;
                     order.Klasse = klasseService.GetKlasseVanId(c.Klasse);
                     order.Prijs = (decimal)c.Prijs;
                     order.Status = statusService.Get(1);
                     order.StatusId = 1;
                     order.Boekingsdatum = DateTime.UtcNow;
-
+                    
                     orderService.Create(order);
+
+                    geboekteOrder = orderService.Get(order.OrderId);
+                    id = geboekteOrder.OrderId;
+
                 }
 
-                
+                //aanmaken van tickets
+                foreach (PassagierVM p in passagiers)
+                {
+
+                    Ticket ticket = new Ticket();
+
+                    ticket.OrderId = id;
+                    //ticket.Zetelnummer = 
+                    //ticket.VoornaamPassagier =
+                    //ticket.AchternaamPassagier =
+                    //ticket.ReisMogelijkheden = 
+                    ticketService.Create(ticket);
+                }
+
+
 
                 return RedirectToAction("Validation");
 

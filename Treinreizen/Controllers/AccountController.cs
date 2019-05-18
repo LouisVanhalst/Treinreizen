@@ -61,7 +61,7 @@ namespace Treinreizen.Controllers
         }
 
 
-        public ActionResult Annuleer(int? orderNr)
+        public ActionResult Annuleer(int orderNr)
         {
 
             //if (orderNr == null)
@@ -69,8 +69,7 @@ namespace Treinreizen.Controllers
             //    return NotFound();
             //}
             orderService = new OrderService();
-            Order order = new Order();
-            order = orderService.Get(orderNr);
+            Order order = orderService.Get(Convert.ToInt32(orderNr));
 
             orderService.Delete(order);
 

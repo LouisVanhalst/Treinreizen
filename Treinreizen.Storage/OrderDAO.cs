@@ -26,9 +26,10 @@ namespace Treinreizen.Storage
         public IEnumerable<Order> GetAllOrdersVanKlant(string klantId)
         {
             return _dbContext.Order.Where(i => i.KlantId.Equals(klantId))
-                .Include(i => i.Hotel)
                 .Include(i => i.Klant)
                 .Include(i => i.Status)
+                .Include(i => i.Klasse)
+                .Include(i => i.Ticket)
                 .ToList();
         }
 

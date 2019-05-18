@@ -13,7 +13,7 @@
         <form asp-action="Passagiers">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @{var i = 1; }
-            @foreach (var item in Model.passagiers)
+            @foreach (var item in Model.Passagiers)
             {
                 <p>Passagier @i :</p>
                 <div class="form-group">

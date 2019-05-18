@@ -7,7 +7,7 @@ namespace Treinreizen.ViewModel
 {
     public class PassagierslijstVM
     {
-        public List<PassagierVM> passagiers { get; set; }
+        public List<PassagierVM> Passagiers { get; set; }
     }
 
     public class PassagierVM

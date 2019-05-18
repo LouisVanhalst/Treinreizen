@@ -6,7 +6,7 @@ using Treinreizen.Storage;
 
 namespace Treinreizen.Service
 {
-    class TicketService
+    public class TicketService
     {
         private TicketDAO dao;
         public TicketService()
