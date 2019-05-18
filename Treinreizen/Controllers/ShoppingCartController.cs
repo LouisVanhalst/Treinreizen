@@ -177,12 +177,12 @@ namespace Treinreizen.Controllers
             //ViewBag.AantalPassagiers = 3;
 
             PassagierslijstVM passagierslijst = new PassagierslijstVM();
-            passagierslijst.passagiers = new List<PassagierVM>();
+            passagierslijst.Passagiers = new List<PassagierVM>();
 
             for (int i = 0; i < 3; i++)
             {
                 PassagierVM passagier = new PassagierVM();
-                passagierslijst.passagiers.Add(passagier);
+                passagierslijst.Passagiers.Add(passagier);
             }
 
             return View(passagierslijst);
