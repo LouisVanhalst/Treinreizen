@@ -196,7 +196,7 @@ namespace Treinreizen.Controllers
             //ViewBag.AantalPassagiers = 3;
 
             PassagierslijstVM passagierslijst = new PassagierslijstVM();
-            //passagierslijst.passagiers = new List<PassagierVM>();
+            passagierslijst.passagiers = new List<PassagierVM>();
 
             for (int i = 0; i < 3; i++)
             {
