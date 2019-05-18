@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Treinreizen.Domain.Entities;
 
 namespace Treinreizen.ViewModel
 {
@@ -19,6 +20,7 @@ namespace Treinreizen.ViewModel
         public double Prijs { get; set; }
         public DateTime Vertrekdatum { get; set; }
         public DateTime Aankomstdatum { get; set; }
+        public IEnumerable<Ritten> Reizen { get; set; }
     }
 
 

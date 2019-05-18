@@ -20,9 +20,9 @@ namespace Treinreizen.Service
             return rittenDAO.GetAll();
         }
 
-        public IEnumerable<Ritten> GetAlleRittenVanTraject()
+        public IEnumerable<Ritten> GetRittenVanTrajectId(int trajectId)
         {
-            return rittenDAO.GetAlleRittenVanTraject();
+            return rittenDAO.GetRittenVanTrajectId(trajectId);
         }
 
         public IEnumerable<Ritten> GetRittenVanTraject(int vertrekStad, int aankomstStad)

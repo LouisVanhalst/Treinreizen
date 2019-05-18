@@ -99,29 +99,48 @@ namespace Treinreizen.Controllers
                     order.Status = statusService.Get(1);
                     order.StatusId = 1;
                     order.Boekingsdatum = DateTime.UtcNow;
+                    order.TrajectId = c.TrajectId;
+                    order.Aankomstdatum = c.Aankomstdatum;
+                    order.Vertrekdatum = c.Vertrekdatum;
                     
                     orderService.Create(order);
 
                     geboekteOrder = orderService.Get(order.OrderId);
                     id = geboekteOrder.OrderId;
 
+                    //aanmaken van tickets
+                    for (int i = 0; i < c.AantalTickets; i++)
+                    {
+                        foreach (var item in c.Reizen)
+                        { 
+                            Ticket ticket = new Ticket();
+
+                            ticket.OrderId = id;
+                            ticket.Zetelnummer = 3;
+                            ticket.VoornaamPassagier = "Sophie";
+                            ticket.AchternaamPassagier = "De Waele";
+                            ticket.ReismogelijkhedenId = item.ReisMogelijkhedenId;
+                            ticketService.Create(ticket);
+                        }
+                    }
+
+
                 }
 
                 //aanmaken van tickets
-                foreach (PassagierVM p in passagiers)
-                {
 
-                    Ticket ticket = new Ticket();
+                //foreach (PassagierVM p in passagiers)
+                //{
 
-                    ticket.OrderId = id;
-                    //ticket.Zetelnummer = 
-                    //ticket.VoornaamPassagier =
-                    //ticket.AchternaamPassagier =
-                    //ticket.ReisMogelijkheden = 
-                    ticketService.Create(ticket);
-                }
+                //    Ticket ticket = new Ticket();
 
-
+                //    ticket.OrderId = id;
+                //    //ticket.Zetelnummer = 
+                //    //ticket.VoornaamPassagier =
+                //    //ticket.AchternaamPassagier =
+                //    //ticket.ReisMogelijkheden = 
+                //    ticketService.Create(ticket);
+                //}
 
                 return RedirectToAction("Validation");
 
@@ -177,12 +196,12 @@ namespace Treinreizen.Controllers
             //ViewBag.AantalPassagiers = 3;
 
             PassagierslijstVM passagierslijst = new PassagierslijstVM();
-            passagierslijst.passagiers = new List<PassagierVM>();
+            //passagierslijst.passagiers = new List<PassagierVM>();
 
             for (int i = 0; i < 3; i++)
             {
                 PassagierVM passagier = new PassagierVM();
-                passagierslijst.passagiers.Add(passagier);
+               // passagierslijst.passagiers.Add(passagier);
             }
 
             return View(passagierslijst);

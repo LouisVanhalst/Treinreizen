@@ -13,6 +13,8 @@ using Treinreizen.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Treinreizen
 {
@@ -44,7 +46,7 @@ namespace Treinreizen
                 options.Cookie.Name = ".Trein.Session";
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 //standaard is dit 20 minuten ipv van de 60 seconden hier
-                options.IdleTimeout = TimeSpan.FromSeconds(60);
+                //options.IdleTimeout = TimeSpan.FromSeconds(60);
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -54,6 +56,9 @@ namespace Treinreizen
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
