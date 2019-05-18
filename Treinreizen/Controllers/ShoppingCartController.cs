@@ -13,13 +13,19 @@ using Treinreizen.Services;
 using Treinreizen.Domain.Entities;
 using Treinreizen.Service;
 using System.Data;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Treinreizen.Controllers
 {
 
     public class ShoppingCartController : Controller
     {
+        IEmailSender emailSender;
 
+        public ShoppingCartController(IEmailSender emailSender)
+        {
+            this.emailSender = emailSender;
+        }
         public IActionResult Index()
         {
             //ShoppingCartVM shopping;
@@ -180,7 +186,7 @@ namespace Treinreizen.Controllers
                     body = "de bestelling werd met succes uitgevoerd";
 
                     EmailSender mail = new EmailSender();
-                    await mail.TaskEmailAsync(email, "Bevestiging Bestelling", body);
+                    await mail.SendEmailAsync(email, "Bevestiging Bestelling", body);
 
                 }
                 catch (Exception ex)

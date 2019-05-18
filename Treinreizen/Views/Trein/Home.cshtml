@@ -166,22 +166,23 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.Vertrektijd)
+                        @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Vertrektijd)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.VertrekNavigation)
+                        @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Aankomsttijd)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.Aankomsttijd)
+                        Vertrek plaats
+                    </th>
+
+                    <th>
+                        Aankomst plaats
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.AankomstNavigation)
+                        Trein
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.Trein.TreinNaam)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.RoutesHeen.First().ReisMogelijkheden.Prijs)
+                        @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Prijs)
                     </th>
                     <th>
                         Reistijd
@@ -192,16 +193,88 @@
             <tbody>
                 @foreach (var item in Model.RoutesHeen)
                 {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
+                    </td>
+                    <td>
+                        @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+                        }
+                        @tijd
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (Model.RoutesTerug != null)
+        {
+            <h3>Terugreis</h3>
+
+            <table class="borderTable table  table100-head" id="myTable">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Vertrektijd)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Aankomsttijd)
+                        </th>
+                        <th>
+                            Vertrek plaats)
+                        </th>
+
+                        <th>
+                            Aankomst plaats
+                        </th>
+                        <th>
+                            Trein
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Prijs)
+                        </th>
+                        <th>
+                            Reistijd
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.RoutesTerug)
+                    {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
                         </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
+                        </td>
+
                         <td>
                             @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
                         </td>
@@ -222,74 +295,6 @@
                             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                         </td>
                     </tr>
-                }
-            </tbody>
-        </table>
-
-        @if (Model.RoutesTerug != null)
-        {
-            <h3>Terugreis</h3>
-
-            <table class="borderTable table  table100-head" id="myTable">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Vertrektijd)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.VertrekNavigation)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Aankomsttijd)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.AankomstNavigation)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Trein.TreinNaam)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.RoutesTerug.First().ReisMogelijkheden.Prijs)
-                        </th>
-                        <th>
-                            Reistijd
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.RoutesTerug)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
-                            </td>
-                            <td>
-                                @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-                                }
-                                @tijd
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                            </td>
-                        </tr>
 
                     }
                 </tbody>
@@ -386,30 +391,6 @@
                 }
             });
         })
-
-
-
-
-
-        @*var opties = document.getElementById("Naar").getElementsByTagName("option");
-        for (var i = 0; i < opties.length; i++) {
-            if (opties[i].value == document.getElementById("Van").getSelection) {
-                console.log(document.getElementById("Van").getSelection)
-                opties[i].disabled = true;
-            }
-            else {
-                opties[i].disabled = false;
-            }
-        }
-
-        function disableNext(Van, Naar) {
-            var van = document.getElementById(Van);
-            var naar = document.getElementById(Naar);
-
-            if (van == naar) {
-                naar.disabled = true;
-            }
-        }*@
     </script>
 
 }
