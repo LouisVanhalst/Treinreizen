@@ -20,19 +20,5 @@ namespace Treinreizen.ViewModel
         public double Prijs { get; set; }
         public DateTime Vertrekdatum { get; set; }
         public DateTime Aankomstdatum { get; set; }
-        public IEnumerable<Ritten> Reizen { get; set; }
     }
-
-
-
-
-
-    //public class HotelOrderVM
-    //{
-    //    public int OrderId { get; set; }
-    //    public string HotelNaam { get; set; }
-    //    public string StadNaam { get; set; }
-    //    public string Foto { get; set; }
-    //}
-
 }

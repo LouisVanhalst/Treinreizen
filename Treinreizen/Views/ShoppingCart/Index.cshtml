@@ -36,10 +36,6 @@
                     @Html.DisplayNameFor(model => model.Cart[0].Prijs)
 
                 </th>
-
-                <th>
-                    Subtotaal
-                </th>
             </tr>
             @{ double total = 0;}
             @for (var i = 0; i < Model.Cart.Count; i++)
@@ -60,23 +56,14 @@
                     <input asp-for="@Model.Cart[i].Naar" readonly="readonly" class="form-control" />
                 </td>
                 <td>
-                    <input asp-for="@Model.Cart[i].AantalTickets" readonly="readonly" class="form-control" /> @*data-aantal=@i />*@
+                    <input asp-for="@Model.Cart[i].AantalTickets" readonly="readonly" class="form-control" />
                 </td>
                 <td>
                     <input asp-for="@Model.Cart[i].Klasse" readonly="readonly" class="form-control" />
                 </td>
                 <td>
                     <input asp-for="@Model.Cart[i].Prijs" readonly="readonly" class="form-control" />
-                </td>
-                <td>
-                    @{
-                        double subtotaal = 0;
-
-                        subtotaal = (@Model.Cart[i].Prijs * Model.Cart[i].AantalTickets);
-
-                        total += subtotaal;
-                    }
-                    <input value="@subtotaal" readonly="readonly" class="form-control" />
+                    @{ total += Model.Cart[i].Prijs;}
                 </td>
                 <td>
                     <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-trajectId="@Model.Cart[i].TrajectId">
@@ -91,7 +78,6 @@
                 <td>
                     Totaal
                 </td>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

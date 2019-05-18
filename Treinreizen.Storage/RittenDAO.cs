@@ -36,11 +36,11 @@ namespace Treinreizen.Storage
         {
             return _dbContext.Ritten.Where(r => r.Traject.VertrekStad == vertekStad && r.Traject.AankomstStad == aankomstStad)
                 .Include(r => r.ReisMogelijkheden)
-                //.Include(r => r.Traject)
-                //.Include(r => r.ReisMogelijkheden.VertrekNavigation)
-                //.Include(r => r.ReisMogelijkheden.AankomstNavigation)
-                //.Include(r => r.ReisMogelijkheden.Trein)
-                //.OrderBy(r => r.Volgorde)
+                .Include(r => r.Traject)
+                .Include(r => r.ReisMogelijkheden.VertrekNavigation)
+                .Include(r => r.ReisMogelijkheden.AankomstNavigation)
+                .Include(r => r.ReisMogelijkheden.Trein)
+                .OrderBy(r => r.Volgorde)
                 .ToList();
         }
 

@@ -24,6 +24,11 @@ namespace Treinreizen.Storage
             return _db.ReisMogelijkheden.Include(a => a.AankomstNavigation).Include(v => v.VertrekNavigation).ToList();
         }
 
+        //public IEnumerable<ReisMogelijkheden> Get(int trajectId)
+        //{
+        //    return _db.ReisMogelijkheden.Include(r => r.T).Include(r => r.Ritten).ToList();
+        //}
+
         public void Update(ReisMogelijkheden entity)
         {
             _db.Entry(entity).State = EntityState.Modified;
