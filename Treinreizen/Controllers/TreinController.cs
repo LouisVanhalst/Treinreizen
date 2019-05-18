@@ -179,10 +179,7 @@ namespace Treinreizen.Controllers
 
             KlasseService klasseService = new KlasseService();
             Klasse klasse = klasseService.GetKlasseVanId(zoekListVM.Klasse);
-
-            RittenService rittenService = new RittenService();
-            IEnumerable<Ritten> reisMogelijkhedenHeen = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
-
+            
             double p = prijs * (1 + Convert.ToDouble(klasse.Toeslag)) * zoekListVM.Aantal;
             p = Math.Round(p, 2);
 
@@ -195,8 +192,7 @@ namespace Treinreizen.Controllers
                 Klasse = zoekListVM.Klasse,
                 Prijs = p,
                 Vertrekdatum = Convert.ToDateTime(zoekListVM.HeenDate),
-                Aankomstdatum = Convert.ToDateTime(aankomstdatumheen),
-                Reizen = reisMogelijkhedenHeen
+                Aankomstdatum = Convert.ToDateTime(aankomstdatumheen)
             };
 
 
@@ -219,9 +215,9 @@ namespace Treinreizen.Controllers
             {
                
                 Traject trajectterug = trajectService.GetTraject(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van));
-                IEnumerable<Ritten> reisMogelijkhedenTerug = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van));
-
+                
                 double pterug = prijs * (1 + Convert.ToDouble(klasse.Toeslag)) * zoekListVM.Aantal;
+                pterug = Math.Round(pterug, 2);
 
                 CartVM itemterug = new CartVM
                 {
@@ -232,9 +228,8 @@ namespace Treinreizen.Controllers
                     Klasse = zoekListVM.Klasse,
                     Prijs = pterug,
                     Vertrekdatum = Convert.ToDateTime(zoekListVM.TerugDate),
-                    Aankomstdatum = Convert.ToDateTime(aankomstdatumterug),
-                    Reizen = reisMogelijkhedenTerug
-                };
+                    Aankomstdatum = Convert.ToDateTime(aankomstdatumterug)
+            };
 
                 if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
                 {

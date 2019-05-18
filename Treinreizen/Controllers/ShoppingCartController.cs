@@ -108,10 +108,13 @@ namespace Treinreizen.Controllers
                     geboekteOrder = orderService.Get(order.OrderId);
                     id = geboekteOrder.OrderId;
 
+                    RittenService rittenService = new RittenService();
+                    IEnumerable<Ritten> reisMogelijkhedenHeen = rittenService.GetRittenVanTrajectId(c.TrajectId);
+
                     //aanmaken van tickets
                     for (int i = 0; i < c.AantalTickets; i++)
                     {
-                        foreach (var item in c.Reizen)
+                        foreach (var item in reisMogelijkhedenHeen)
                         { 
                             Ticket ticket = new Ticket();
 
@@ -196,7 +199,7 @@ namespace Treinreizen.Controllers
             //ViewBag.AantalPassagiers = 3;
 
             PassagierslijstVM passagierslijst = new PassagierslijstVM();
-            passagierslijst.passagiers = new List<PassagierVM>();
+            //passagierslijst.passagiers = new List<PassagierVM>();
 
             for (int i = 0; i < 3; i++)
             {

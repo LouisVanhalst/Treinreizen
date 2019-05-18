@@ -19,6 +19,17 @@ namespace Treinreizen.Storage
         {
             return _dbContext.Ticket.ToList();
         }
+
+        public int GetAantalPlaatsenGereserveerd(int reisId, DateTime vertrekdatum)
+        {
+            var lijst = _dbContext.Ticket.Where(t => t.ReismogelijkhedenId == reisId && t.Order.Vertrekdatum == vertrekdatum && t.Order.StatusId == 1)
+                .Include(t => t.Order)
+                .ToList();
+
+            var aantalGereserveerdeTickets = lijst.Count();
+            return aantalGereserveerdeTickets;
+        }
+
         public void Update(Ticket entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
