@@ -89,8 +89,7 @@ namespace Treinreizen.Controllers
             TicketService ticketService = new TicketService();
 
             zoekListVM.RoutesHeen = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
-            //zoekListVM.TrajectId = trajectService.GetTrajectId(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
-
+           
             double totalePrijs = 0;
 
             foreach (var item in zoekListVM.RoutesHeen)
@@ -100,13 +99,14 @@ namespace Treinreizen.Controllers
                     totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
                 }
 
+                //controle nog genoeg plaatsen op de trein
                 if (zoekListVM.Klasse == 1)
                 {
                     var vrijePlaatsen = item.ReisMogelijkheden.Trein.AantalPlaatsenEc - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
 
                     if (vrijePlaatsen < zoekListVM.Aantal)
                     {
-                        return RedirectToAction("TreinOverboekt");
+                        return RedirectToAction("ErrorTreinOverboekt");
                     }
                 }
                 else
@@ -115,13 +115,15 @@ namespace Treinreizen.Controllers
 
                     if (vrijePlaatsen < zoekListVM.Aantal)
                     {
-                        return RedirectToAction("TreinOverboekt");
+                        return RedirectToAction("ErrorTreinOverboekt");
                     }
                 }
             }
 
+        
             var aankomstdatumheenreis = Convert.ToDateTime(zoekListVM.HeenDate);
-            //overstap gemist (eerst sorteren dat de volgorde van de reismogelijkheden klopt)
+
+            //overstap gemist
             if (zoekListVM.RoutesHeen.Count() > 1)
             {
                 for (int i = 0; i < zoekListVM.RoutesHeen.Count() - 1; i++)
@@ -149,13 +151,14 @@ namespace Treinreizen.Controllers
                         totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
                     }
 
+                    //controle nog genoeg plaatsen op de trein
                     if (zoekListVM.Klasse == 1)
                     {
                         var vrijePlaatsen = item.ReisMogelijkheden.Trein.AantalPlaatsenEc - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
 
                         if (vrijePlaatsen < zoekListVM.Aantal)
                         {
-                            return RedirectToAction("TreinOverboekt");
+                            return RedirectToAction("ErrorTreinOverboekt");
                         }
                     }
                     else
@@ -164,13 +167,13 @@ namespace Treinreizen.Controllers
 
                         if (vrijePlaatsen < zoekListVM.Aantal)
                         {
-                            return RedirectToAction("TreinOverboekt");
+                            return RedirectToAction("ErrorTreinOverboekt");
                         }
                     }
                 }
 
                 
-                //overstap gemist (eerst sorteren dat de volgorde van de reismogelijkheden klopt)
+                //overstap gemist
                 if (zoekListVM.RoutesTerug.Count() > 1)
                 {
                     for (int i = 0; i < zoekListVM.RoutesTerug.Count() - 1; i++)
@@ -264,7 +267,7 @@ namespace Treinreizen.Controllers
                     Prijs = pterug,
                     Vertrekdatum = Convert.ToDateTime(zoekListVM.TerugDate),
                     Aankomstdatum = Convert.ToDateTime(aankomstdatumterug)
-            };
+                 };
 
                 if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
                 {
@@ -280,11 +283,12 @@ namespace Treinreizen.Controllers
                 HttpContext.Session.SetObject("ShoppingCart", shopping);
 
             }
-            return RedirectToAction("Index", "ShoppingCart");
+
+            return RedirectToAction("Index", "ShoppingCart");//return RedirectToAction("Passagiers", "ShoppingCart, new {aantalpassagiers = zoekListVM.Aantal}
         }
 
         [Route("/CustomErrorPages/Overboekt")]
-        public IActionResult TreinOverboekt()
+        public IActionResult ErrorTreinOverboekt()
         {
             return View();
         }

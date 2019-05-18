@@ -135,6 +135,7 @@ namespace Treinreizen.Controllers
                     }
 
 
+                    Delete(c.TrajectId);
                 }
 
                 //aanmaken van tickets
@@ -167,6 +168,8 @@ namespace Treinreizen.Controllers
                 ModelState.AddModelError("", "call system administrator.");
 
             }
+
+            
 
             return View("Index");
 
@@ -201,43 +204,39 @@ namespace Treinreizen.Controllers
             return View();
         }
 
-        public IActionResult Passagiers()//int aantalPassagiers)
+        
+        public IActionResult Passagiers(int aantalPassagiers)
         {
             //ViewBag.AantalPassagiers = 3;
 
             PassagierslijstVM passagierslijst = new PassagierslijstVM();
-            //passagierslijst.passagiers = new List<PassagierVM>();
+            passagierslijst.Passagiers = new List<PassagierVM>();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < aantalPassagiers; i++)
             {
                 PassagierVM passagier = new PassagierVM();
-               // passagierslijst.passagiers.Add(passagier);
+                passagierslijst.Passagiers.Add(passagier);
             }
 
             return View(passagierslijst);
         }
 
         [HttpPost]
-        public IActionResult Passagiers(PassagierslijstVM passagierslijst)//int aantalPassagiers)
+        public IActionResult Passagiers(List<PassagierVM> passagiers)
         {
-            //PassagierslijstVM psl = new PassagierslijstVM();
-            //passagierslijst.passagiers = new List<PassagierVM>();
+            //passagierslijst.Passagiers = new List<PassagierVM>();
 
 
-            //foreach (var item in passagierslijst.passagiers)
+            //foreach (var item in passagierslijst.Passagiers)
             //{
             //    PassagierVM passagier = new PassagierVM();
             //    psl.passagiers.Add(item);
             //}
 
-            //return View(psl);
+            return View(passagiers);
 
-            return RedirectToAction("Ps", passagierslijst);
+           // return RedirectToAction("Ps", passagierslijst);
         }
 
-        public IActionResult Ps(PassagierslijstVM passagierslijst)
-        {
-            return View(passagierslijst);
-        }
     }
 }
