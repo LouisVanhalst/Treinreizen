@@ -61,17 +61,17 @@ namespace Treinreizen.Controllers
         }
 
 
-        public ActionResult Annuleer(int orderNr)
+        public ActionResult Annuleer(int? orderNr)
         {
 
-            //if (orderNr == null)
-            //{
-            //    return NotFound();
-            //}
+            if (orderNr == null)
+            {
+                return NotFound();
+            }
             orderService = new OrderService();
             Order order = orderService.Get(Convert.ToInt32(orderNr));
-
-            orderService.Delete(order);
+            order.StatusId = 3;
+            orderService.Update(order);
 
             return RedirectToAction("index","Account");
         }
