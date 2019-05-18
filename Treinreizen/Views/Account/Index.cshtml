@@ -55,8 +55,8 @@
                 @Html.DisplayFor(modelItem => item.Status.Naam)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
-                <a asp-action="Annuleer" asp-route-id="@item.OrderId">annuleer boeking</a>
+                <a asp-action="Details" asp-route-orderNr="@item.OrderId">Details</a> |
+                <a asp-action="Annuleer" asp-route-orderNr="@item.OrderId">annuleer boeking</a>
             </td>
         </tr>
 }
