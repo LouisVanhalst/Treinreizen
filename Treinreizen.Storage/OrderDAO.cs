@@ -15,10 +15,23 @@ namespace Treinreizen.Storage
         {
             _dbContext = new treinrittenDBContext();
         }
+        public Order Get(int? id)
+        {
+            return _dbContext.Order.Where(h => h.OrderId == id).First();
+        }
         public IEnumerable<Order> GetAll()
         {
             return _dbContext.Order.ToList();
         }
+        public IEnumerable<Order> GetAllOrdersVanKlant(string klantId)
+        {
+            return _dbContext.Order.Where(i => i.KlantId.Equals(klantId))
+                .Include(i => i.Hotel)
+                .Include(i => i.Klant)
+                .Include(i => i.Status)
+                .ToList();
+        }
+
         public void Update(Order entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
@@ -28,6 +41,12 @@ namespace Treinreizen.Storage
         {
             _dbContext.Entry(entity).State = EntityState.Added;
             _dbContext.Order.Add(entity);
+            _dbContext.SaveChanges();
+        }
+        public void Delete(Order entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Deleted;
+            _dbContext.Order.Remove(entity);
             _dbContext.SaveChanges();
         }
 

@@ -82,7 +82,7 @@ namespace Treinreizen.Controllers
             StatusService statusService = new StatusService();
             AspNetUsersService klantService = new AspNetUsersService();
             StedenService stedenService = new StedenService();
-            orderService = new OrderService();
+            OrderService orderService = new OrderService();
                        
             try
             {
@@ -96,7 +96,7 @@ namespace Treinreizen.Controllers
                     //order.OrderId = 1;
                     order.AantalTickets = c.AantalTickets;
                     order.Class = c.Class;
-                    order.Prijs = (decimal) c.Prijs;
+                    order.Prijs = (decimal)c.Prijs;
                     order.Hotel = hotelsService.Get(1);
                     order.Hotel.Stad = stedenService.Get(hotelsService.Get(1).StadId);
                     order.HotelId = 1;
@@ -112,13 +112,9 @@ namespace Treinreizen.Controllers
 
 
                     orderService.Create(order);
-
-                foreach (CartVM c in cart)
-                {
-                    
-
-                    
                 }
+
+                
 
                 return RedirectToAction("Validation");
 

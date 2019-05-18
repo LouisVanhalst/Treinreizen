@@ -13,6 +13,14 @@ namespace Treinreizen.Service
         {
             this.dao = new OrderDAO();
         }
+        public Order Get(int? id)
+        {
+            return dao.Get(id);
+        }
+        public IEnumerable<Order> GetAllOrdersVanKlant(string klantId)
+        {
+            return dao.GetAllOrdersVanKlant(klantId);
+        }
         public IEnumerable<Order> GetAll()
         {
             return dao.GetAll();
@@ -27,6 +35,10 @@ namespace Treinreizen.Service
 
             dao.Create(entity);
 
+        }
+        public void Delete(Order entity)
+        {
+            dao.Delete(entity);
         }
     }
 }

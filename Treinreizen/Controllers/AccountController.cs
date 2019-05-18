@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Treinreizen.Domain.Entities;
 using Treinreizen.Service;
 using Treinreizen.Services;
+using Treinreizen.ViewModel;
 
 namespace Treinreizen.Controllers
 {
     public class AccountController : Controller
     {
+        private OrderService orderService;
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult>  Wachtwoord(string gebruiker)
@@ -45,10 +49,32 @@ namespace Treinreizen.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            OrderService orderService = new OrderService();
-            var orderlijst = orderService.GetAll();
+            orderService = new OrderService();
+            string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var orderlijst = orderService.GetAllOrdersVanKlant(userID);
+            
+
+            
 
             return View(orderlijst);
+        }
+
+
+        public ActionResult Annuleer(int? orderNr)
+        {
+
+            //if (orderNr == null)
+            //{
+            //    return NotFound();
+            //}
+            orderService = new OrderService();
+            Order order = new Order();
+            order = orderService.Get(orderNr);
+
+            orderService.Delete(order);
+
+            return RedirectToAction("index","Account");
         }
     }
 }
