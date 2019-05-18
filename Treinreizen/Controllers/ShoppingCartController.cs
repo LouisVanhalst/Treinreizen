@@ -67,49 +67,36 @@ namespace Treinreizen.Controllers
             return View("Index", cartList);
         }
 
-       
+
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
         public IActionResult Payment(List<CartVM> cart)
         {
-            HashSet<Ticket> tickets = new HashSet<Ticket>();
-            HashSet<TreinenVanOrder> treinen = new HashSet<TreinenVanOrder>();
-
-
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             HotelsService hotelsService = new HotelsService();
             StatusService statusService = new StatusService();
             AspNetUsersService klantService = new AspNetUsersService();
             StedenService stedenService = new StedenService();
             OrderService orderService = new OrderService();
-                       
+            KlasseService klasseService = new KlasseService();
+
             try
             {
-                
-                Order order;
+
+
                 foreach (CartVM c in cart)
                 {
-                    order = new Order();
+                    Order order = new Order();
                     order.Klant = klantService.Get(userID);
                     order.KlantId = userID;
-                    //order.OrderId = 1;
                     order.AantalTickets = c.AantalTickets;
-                    order.Class = c.Class;
+                    order.KlasseId = c.Klasse;
+                    order.Klasse = klasseService.GetKlasseVanId(c.Klasse);
                     order.Prijs = (decimal)c.Prijs;
-                    order.Hotel = hotelsService.Get(1);
-                    order.Hotel.Stad = stedenService.Get(hotelsService.Get(1).StadId);
-                    order.HotelId = 1;
                     order.Status = statusService.Get(1);
                     order.StatusId = 1;
                     order.Boekingsdatum = DateTime.UtcNow;
-
-                    //treinen opvullen
-                    //tickets opvullen
-
-                    order.TreinenVanOrder = treinen;
-                    order.Ticket = tickets;
-
 
                     orderService.Create(order);
                 }
@@ -133,11 +120,11 @@ namespace Treinreizen.Controllers
             }
 
             return View("Index");
-            
-            
+
+
         }
 
-        public async Task<ActionResult>  Validation()
+        public async Task<ActionResult> Validation()
         {
             var email = User.Identity.Name;
 

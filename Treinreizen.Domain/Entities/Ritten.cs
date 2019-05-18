@@ -7,6 +7,7 @@ namespace Treinreizen.Domain.Entities
     {
         public int ReisMogelijkhedenId { get; set; }
         public int TrajectId { get; set; }
+        public int? Volgorde { get; set; }
 
         public ReisMogelijkheden ReisMogelijkheden { get; set; }
         public Traject Traject { get; set; }

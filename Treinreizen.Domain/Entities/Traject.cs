@@ -8,7 +8,6 @@ namespace Treinreizen.Domain.Entities
         public Traject()
         {
             Ritten = new HashSet<Ritten>();
-            TreinenVanOrder = new HashSet<TreinenVanOrder>();
         }
 
         public int TrajectId { get; set; }
@@ -18,6 +17,5 @@ namespace Treinreizen.Domain.Entities
         public Steden AankomstStadNavigation { get; set; }
         public Steden VertrekStadNavigation { get; set; }
         public ICollection<Ritten> Ritten { get; set; }
-        public ICollection<TreinenVanOrder> TreinenVanOrder { get; set; }
     }
 }

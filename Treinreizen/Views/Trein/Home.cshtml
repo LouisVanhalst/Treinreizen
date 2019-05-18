@@ -10,6 +10,7 @@
     //var reistijdHeenreis =  (TimeSpan) 00:00:00;
     //var reistijdTerugreis = 0;
     var prijs = 0.0;
+    //var aankomstdatumheen = ViewBag.Aankomstdatumheen;
     if (Model.RoutesHeen != null)
     {
 
@@ -109,7 +110,7 @@
             <div class="form-group">
 
                 @*<input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-aantal="@Model.Aantal" asp-route-prijs="@totalePrijs" value="Boeken" class="btn btn-default" />*@
-                <input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-prijs="@ViewBag.PrijsTicket" class="btn btn-default" value="Boeken"/>
+                <input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-prijs="@ViewBag.PrijsTicket" asp-route-aankomstdatumheen="@ViewBag.Aankomstdatumheen" asp-route-aankomstdatumterug="@ViewBag.Aankomstdatumterug" class="btn btn-default" value="Boeken"/>
             </div>
             <div class="form-group">
                 <input type="submit" value="Zoek Route" class="btn btn-default" />
@@ -215,9 +216,9 @@
                         @tijd
                     </td>
                     <td>
-                        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-                        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                     </td>
                 </tr>
             }
@@ -283,9 +284,9 @@
                             @tijd
                         </td>
                         <td>
-                            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-                            @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                         </td>
                     </tr>
 
@@ -304,10 +305,7 @@
 
         }
     </div>
-
     
-     
-
     <div>
         <div>
             <h1>Op zoek naar een hotel?</h1>

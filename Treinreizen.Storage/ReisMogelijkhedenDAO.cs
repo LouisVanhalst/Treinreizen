@@ -35,7 +35,7 @@ namespace Treinreizen.Storage
             _db.ReisMogelijkheden.Add(entity);
             _db.SaveChanges();
         }
-        
+
     }
-   
+
 }

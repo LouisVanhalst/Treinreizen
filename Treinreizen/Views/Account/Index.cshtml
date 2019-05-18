@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.AantalTickets)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Class)
+                @Html.DisplayNameFor(model => model.Klasse)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Boekingsdatum)
@@ -25,10 +25,7 @@
                 @Html.DisplayNameFor(model => model.Prijs)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Hotel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Klant.UserName)
+                @Html.DisplayNameFor(model => model.Klant)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -43,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.AantalTickets)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Class)
+                @Html.DisplayFor(modelItem => item.Klasse.Klassenaam)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Boekingsdatum)
@@ -52,10 +49,7 @@
                 @Html.DisplayFor(modelItem => item.Prijs)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Hotel.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Klant.UserName)
+                @Html.DisplayFor(modelItem => item.Klant.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status.Naam)
