@@ -111,6 +111,7 @@ namespace Treinreizen.Controllers
                     RittenService rittenService = new RittenService();
                     IEnumerable<Ritten> reisMogelijkhedenHeen = rittenService.GetRittenVanTrajectId(c.TrajectId);
 
+                    
                     //aanmaken van tickets
                     for (int i = 0; i < c.AantalTickets; i++)
                     {
@@ -119,7 +120,7 @@ namespace Treinreizen.Controllers
                             Ticket ticket = new Ticket();
 
                             ticket.OrderId = id;
-                            ticket.Zetelnummer = 3;
+                            ticket.Zetelnummer = ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, c.Vertrekdatum, c.Klasse) + 1;
                             ticket.VoornaamPassagier = "Sophie";
                             ticket.AchternaamPassagier = "De Waele";
                             ticket.ReismogelijkhedenId = item.ReisMogelijkhedenId;

@@ -13,10 +13,17 @@ namespace Treinreizen.Service
         {
             this.dao = new TicketDAO();
         }
+
         public IEnumerable<Ticket> GetAll()
         {
             return dao.GetAll();
         }
+
+        public int GetAantalPlaatsenGereserveerd(int reisId, DateTime vertrekdatum, int klasseId)
+        {
+            return dao.GetAantalPlaatsenGereserveerd(reisId, vertrekdatum, klasseId);
+        }
+
         public void Update(Ticket entity)
         {
             dao.Update(entity);
@@ -24,9 +31,7 @@ namespace Treinreizen.Service
 
         public void Create(Ticket entity)
         {
-
             dao.Create(entity);
-
         }
     }
 }

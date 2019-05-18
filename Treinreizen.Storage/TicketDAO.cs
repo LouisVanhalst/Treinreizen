@@ -20,9 +20,9 @@ namespace Treinreizen.Storage
             return _dbContext.Ticket.ToList();
         }
 
-        public int GetAantalPlaatsenGereserveerd(int reisId, DateTime vertrekdatum)
+        public int GetAantalPlaatsenGereserveerd(int reisId, DateTime vertrekdatum, int klasseId)
         {
-            var lijst = _dbContext.Ticket.Where(t => t.ReismogelijkhedenId == reisId && t.Order.Vertrekdatum == vertrekdatum && t.Order.StatusId == 1)
+            var lijst = _dbContext.Ticket.Where(t => t.ReismogelijkhedenId == reisId && t.Order.Vertrekdatum == vertrekdatum && t.Order.KlasseId == klasseId && t.Order.StatusId == 1)
                 .Include(t => t.Order)
                 .ToList();
 
