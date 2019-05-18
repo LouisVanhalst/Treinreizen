@@ -86,6 +86,7 @@ namespace Treinreizen.Controllers
 
             RittenService rittenService = new RittenService();
             TrajectService trajectService = new TrajectService();
+            TicketService ticketService = new TicketService();
 
             zoekListVM.RoutesHeen = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
             //zoekListVM.TrajectId = trajectService.GetTrajectId(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
@@ -99,6 +100,24 @@ namespace Treinreizen.Controllers
                     totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
                 }
 
+                if (zoekListVM.Klasse == 1)
+                {
+                    var vrijePlaatsen = item.ReisMogelijkheden.Trein.AantalPlaatsenEc - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
+
+                    if (vrijePlaatsen < zoekListVM.Aantal)
+                    {
+                        return RedirectToAction("TreinOverboekt");
+                    }
+                }
+                else
+                {
+                    var vrijePlaatsen = item.ReisMogelijkheden.Trein.AantalPlaatsenBus - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
+
+                    if (vrijePlaatsen < zoekListVM.Aantal)
+                    {
+                        return RedirectToAction("TreinOverboekt");
+                    }
+                }
             }
 
             var aankomstdatumheenreis = Convert.ToDateTime(zoekListVM.HeenDate);
@@ -129,6 +148,25 @@ namespace Treinreizen.Controllers
                     {
                         totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
                     }
+
+                    if (zoekListVM.Klasse == 1)
+                    {
+                        var vrijePlaatsen = item.ReisMogelijkheden.Trein.AantalPlaatsenEc - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
+
+                        if (vrijePlaatsen < zoekListVM.Aantal)
+                        {
+                            return RedirectToAction("TreinOverboekt");
+                        }
+                    }
+                    else
+                    {
+                        var vrijePlaatsen = item.ReisMogelijkheden.Trein.AantalPlaatsenBus - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
+
+                        if (vrijePlaatsen < zoekListVM.Aantal)
+                        {
+                            return RedirectToAction("TreinOverboekt");
+                        }
+                    }
                 }
 
                 
@@ -147,11 +185,9 @@ namespace Treinreizen.Controllers
             }
             ViewBag.Aankomstdatumterug = aankomstdatumterugreis;
 
-            
+            ViewBag.PrijsTicket = Convert.ToDouble(totalePrijs);
 
-            
-
-            ViewBag.PrijsTicket = Convert.ToDouble(totalePrijs);// * (1 + zoekListVM.GeselecteerdeKlasse.Toeslag));// Convert.ToDouble(zoekListVM.GeselecteerdeKlasse.Toeslag));
+           
 
             if (ModelState.IsValid)
             {
@@ -168,7 +204,6 @@ namespace Treinreizen.Controllers
         [HttpPost]
         public IActionResult Boeken(ZoekListVM zoekListVM, double prijs, string aankomstdatumheen, string aankomstdatumterug)
         {
-
             if (zoekListVM == null)
             {
                 return NotFound();
@@ -246,6 +281,12 @@ namespace Treinreizen.Controllers
 
             }
             return RedirectToAction("Index", "ShoppingCart");
+        }
+
+        [Route("/CustomErrorPages/Overboekt")]
+        public IActionResult TreinOverboekt()
+        {
+            return View();
         }
     }
 }
