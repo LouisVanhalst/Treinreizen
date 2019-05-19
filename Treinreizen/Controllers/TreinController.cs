@@ -308,7 +308,9 @@ namespace Treinreizen.Controllers
                     Klasse = zoekListVM.Klasse,
                     Prijs = pterug,
                     Vertrekdatum = Convert.ToDateTime(zoekListVM.TerugDate),
-                    Aankomstdatum = Convert.ToDateTime(aankomstdatumterug)
+                    Aankomstdatum = Convert.ToDateTime(aankomstdatumterug),
+                    Voornamen = vn,
+                    Achternamen = an
                 };
 
                 if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)

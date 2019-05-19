@@ -47,6 +47,7 @@
                 {
                 <tr>
                     @Html.HiddenFor(m => Model.Cart[i].TrajectId)
+
                     @for (var j = 0; j < Model.Cart[i].AantalTickets; j++)
                     {
                         @Html.HiddenFor(m => Model.Cart[i].Voornamen[j])
