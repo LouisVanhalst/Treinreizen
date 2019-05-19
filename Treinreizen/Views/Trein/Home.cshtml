@@ -74,7 +74,7 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-prijs="@ViewBag.PrijsTicket" asp-route-aankomstdatumheen="@ViewBag.Aankomstdatumheen" asp-route-aankomstdatumterug="@ViewBag.Aankomstdatumterug" class="btn btn-default homeButton" value="Boeken" />
+                <input style="display:none" type="submit" asp-controller="Trein" id="Hidden" asp-action="Boeken" asp-route-prijs="@ViewBag.PrijsTicket" asp-route-aankomstdatumheen="@ViewBag.Aankomstdatumheen" asp-route-aankomstdatumterug="@ViewBag.Aankomstdatumterug" class="btn btn-default homeButton" value="Boeken" />
             </div>
         </form>
     </div>
@@ -247,7 +247,7 @@
         }
             <div>
                 <p class="prijs">@totalePrijsMessage</p>
-                <input type="submit" asp-class="btn btn-default homeButton" value="Boeken" />
+                <input type="submit" onclick="hiddenVerwijs()"  id="Boeken" class="btn btn-default homeButton" value="Boeken" />
             </div>
         
         <div class="hotel">
@@ -278,6 +278,13 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+
+    <script>
+        const hiddenVerwijs = () => {
+            //document.getElementById("Boeken").value
+            document.getElementById("Hidden").click();
+        }
+    </script>
 
     <script>
         function disableSelected() {
