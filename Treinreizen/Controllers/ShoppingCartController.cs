@@ -47,7 +47,7 @@ namespace Treinreizen.Controllers
 
             //OM ER VOOR TE ZORGEN DAT EMPTYCART WERKT:
             ShoppingCartVM cartList = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
-
+           
             var SessionId = HttpContext.Session.Id;
 
             return View(cartList);
@@ -194,6 +194,7 @@ namespace Treinreizen.Controllers
             //ViewBag.AantalPassagiers = 3;
 
             PassagierslijstVM passagierslijst = new PassagierslijstVM();
+            //PassagierslijstVM passagierslijst = HttpContext.Session.GetObject<PassagierslijstVM>("ShoppingCart");
             passagierslijst.Passagiers = new List<PassagierVM>();
 
             for (int i = 0; i < aantalPassagiers; i++)
@@ -208,16 +209,21 @@ namespace Treinreizen.Controllers
         [HttpPost]
         public IActionResult Passagiers(List<PassagierVM> passagiers)
         {
-            //passagierslijst.Passagiers = new List<PassagierVM>();
+            PassagierslijstVM passagierslijst = new PassagierslijstVM();
+            passagierslijst.Passagiers = new List<PassagierVM>();
+            
+            PassagierVM passagier;
+            foreach (PassagierVM p in passagiers)
+            {
 
+                passagier = new PassagierVM();
+                passagier.Voornaam = p.Voornaam;
+                passagier.Achternaam = p.Achternaam;
+                passagierslijst.Passagiers.Add(passagier);
 
-            //foreach (var item in passagierslijst.Passagiers)
-            //{
-            //    PassagierVM passagier = new PassagierVM();
-            //    psl.passagiers.Add(item);
-            //}
+            }
 
-            return View(passagiers);
+            return View(passagierslijst);
 
             // return RedirectToAction("Ps", passagierslijst);
         }
