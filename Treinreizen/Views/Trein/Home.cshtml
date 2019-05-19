@@ -84,9 +84,9 @@
                 {
                     var nr = i;
                     nr++;
-                <p>Passagier @nr :</p>
-                <p>@Html.TextBoxFor(x => Model.Passagierslijst.Passagiers[i].Voornaam)</p>
-                <p>@Html.TextBoxFor(x => Model.Passagierslijst.Passagiers[i].Achternaam)</p>
+                <p style="font-weight:bold;">Passagier @nr :</p>
+                <p>Voornaam: @Html.TextBoxFor(x => Model.Passagierslijst.Passagiers[i].Voornaam)</p>
+                <p>Familienaam: @Html.TextBoxFor(x => Model.Passagierslijst.Passagiers[i].Achternaam)</p>
                 }
             }
 
