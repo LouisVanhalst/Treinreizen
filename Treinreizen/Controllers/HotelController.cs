@@ -21,8 +21,6 @@ namespace Treinreizen.Controllers
             return View(hotelList);
         }
 
-        //CODE NOG NIET CORRECT
-
         public IActionResult Select(int? id)
         {
             if (id == null)
@@ -35,32 +33,6 @@ namespace Treinreizen.Controllers
 
             return View();
 
-            //Order aanmaken?
-            //HotelOrderVM item = new HotelOrderVM
-            //{
-            //    HotelNaam = hotel.Naam,
-            //    StadNaam = hotel.Stad.Naam,
-            //    Foto = hotel.Foto
-
-            //};
-
-            //HotelOrderVM hotelOrderVM;
-
-            //if (HttpContext.Session.GetObject<HotelOrderVM>("ShoppingCart") != null)
-            //{
-            //    hotelOrderVM = HttpContext.Session.GetObject<HotelOrderVM>("ShoppingCart");
-            //}
-            //else
-            //{
-            //    hotelOrderVM = new HotelOrderVM();
-
-            //}
-
-            ////hotelOrderVM.Add(item);
-            //HttpContext.Session.SetObject("ShoppingCart", hotelOrderVM);
-
-
-            //return RedirectToAction("Index", "ShoppingCart");
         }
 
 

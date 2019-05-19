@@ -28,32 +28,12 @@ namespace Treinreizen.Controllers
         }
         public IActionResult Index()
         {
-            //ShoppingCartVM shopping;
-
-            //if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
-            //{
-            //    shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
-            //}
-            //else
-            //{
-            //    shopping = new ShoppingCartVM();
-            //    shopping.Cart = new List<CartVM>();
-
-            //}
-
-            //var SessionId = HttpContext.Session.Id;
-
-            //return View(shopping);
-
-            //OM ER VOOR TE ZORGEN DAT EMPTYCART WERKT:
             ShoppingCartVM cartList = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
            
             var SessionId = HttpContext.Session.Id;
 
             return View(cartList);
         }
-
-        //nog de implementeren
 
         public ActionResult Delete(int? trajectId)
         {
@@ -77,7 +57,7 @@ namespace Treinreizen.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public IActionResult Payment(List<CartVM> cart, List<PassagierVM> passagiers)
+        public IActionResult Payment(List<CartVM> cart)
         {
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             HotelsService hotelsService = new HotelsService();
@@ -191,28 +171,7 @@ namespace Treinreizen.Controllers
         }
 
 
-        public IActionResult Passagiers()//int aantalPassagiers)
-        {
-            //ViewBag.AantalPassagiers = 3;
-
-            PassagierslijstVM passagierslijst = new PassagierslijstVM();
-            //passagierslijst.Passagiers = new List<PassagierVM>();
-
-            //for (int i = 0; i < aantalPassagiers; i++)
-            //{
-            //    PassagierVM passagier = new PassagierVM();
-            //    passagierslijst.Passagiers.Add(passagier);
-            //}
-
-            return View(passagierslijst);
-        }
-
-        [HttpPost]
-        public IActionResult Passagiers(PassagierslijstVM passagierslijst)
-        {
-            return View(passagierslijst);
-
-        }
+        
 
     }
 }
