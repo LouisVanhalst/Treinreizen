@@ -17,7 +17,15 @@ namespace Treinreizen.Storage
         }
         public Order Get(int? id)
         {
-            return _dbContext.Order.Where(h => h.OrderId == id).First();
+            return _dbContext.Order.Where(h => h.OrderId == id)
+                .Include(i => i.Klant)
+                .Include(i => i.Status)
+                .Include(i => i.Klasse)
+                .Include(i => i.Ticket)
+                .Include(i => i.Traject)
+                .Include(i => i.Traject.VertrekStadNavigation)
+                .Include(i => i.Traject.AankomstStadNavigation)
+                .First();
         }
         public IEnumerable<Order> GetAll()
         {

@@ -115,13 +115,14 @@ namespace Treinreizen.Controllers
                     id = geboekteOrder.OrderId;
 
                     RittenService rittenService = new RittenService();
-                    IEnumerable<Ritten> reisMogelijkhedenHeen = rittenService.GetRittenVanTrajectId(c.TrajectId);
+                    IEnumerable<Ritten> reisMogelijkheden = rittenService.GetRittenVanTrajectId(c.TrajectId);
 
+                    ReisMogelijkhedenService reisMogelijkhedenService = new ReisMogelijkhedenService();
 
                     //aanmaken van tickets
                     for (int i = 0; i < c.AantalTickets; i++)
                     {
-                        foreach (var item in reisMogelijkhedenHeen)
+                        foreach (var item in reisMogelijkheden)
                         {
                             Ticket ticket = new Ticket();
 
@@ -130,6 +131,7 @@ namespace Treinreizen.Controllers
                             ticket.VoornaamPassagier = "Sophie";
                             ticket.AchternaamPassagier = "De Waele";
                             ticket.ReismogelijkhedenId = item.ReisMogelijkhedenId;
+                            ticket.Reismogelijkheden = reisMogelijkhedenService.Get(item.ReisMogelijkhedenId);
                             ticketService.Create(ticket);
                         }
                     }

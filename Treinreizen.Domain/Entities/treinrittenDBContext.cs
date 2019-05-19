@@ -359,7 +359,7 @@ namespace Treinreizen.Domain.Entities
                 entity.HasOne(d => d.Reismogelijkheden)
                     .WithMany(p => p.Ticket)
                     .HasForeignKey(d => d.ReismogelijkhedenId)
-                    .HasConstraintName("ticket van reis");
+                    .HasConstraintName("Ticket voor rit");
             });
 
             modelBuilder.Entity<Traject>(entity =>

@@ -83,6 +83,10 @@ namespace Treinreizen.Controllers
             orderService = new OrderService();
             Order order = orderService.Get(Convert.ToInt16(orderNr));
 
+            RittenService rittenService = new RittenService();
+
+            ViewBag.ReisMogelijkheden = rittenService.GetRittenVanTrajectId(Convert.ToInt16(order.TrajectId));
+
             return View(order);
         }
     }
