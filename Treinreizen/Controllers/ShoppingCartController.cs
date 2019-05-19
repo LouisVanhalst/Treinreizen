@@ -128,8 +128,8 @@ namespace Treinreizen.Controllers
 
                             ticket.OrderId = id;
                             ticket.Zetelnummer = ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, c.Vertrekdatum, c.Klasse) + 1;
-                            ticket.VoornaamPassagier = "Sophie"; //c.Voornamen[i];
-                            ticket.AchternaamPassagier = "De Waele"; //c.Achternamen[i];
+                            ticket.VoornaamPassagier = c.Voornamen.ElementAt(i);
+                            ticket.AchternaamPassagier = c.Achternamen.ElementAt(i);
                             ticket.ReismogelijkhedenId = item.ReisMogelijkhedenId;
                             ticket.Reismogelijkheden = reisMogelijkhedenService.Get(item.ReisMogelijkhedenId);
                             ticketService.Create(ticket);
