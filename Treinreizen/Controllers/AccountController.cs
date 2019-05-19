@@ -71,8 +71,11 @@ namespace Treinreizen.Controllers
 
             orderService = new OrderService();
             Order order = orderService.Get(Convert.ToInt16(orderNr));
-            order.StatusId = 3;
-            orderService.Update(order);
+            if (DateTime.Compare(Convert.ToDateTime(order.Vertrekdatum), DateTime.Now.AddDays(3)) > 0)
+            { 
+                order.StatusId = 3;
+                orderService.Update(order);
+            }
 
             return RedirectToAction("index", "Account");
         }

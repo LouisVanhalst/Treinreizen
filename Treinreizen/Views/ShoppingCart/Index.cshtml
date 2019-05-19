@@ -45,38 +45,44 @@
                 @{ double total = 0;}
                 @for (var i = 0; i < Model.Cart.Count; i++)
                 {
-                    <tr>
-                        @Html.HiddenFor(m => Model.Cart[i].TrajectId)
-                        <td>
-                            <input asp-for="@Model.Cart[i].Vertrekdatum" readonly="readonly" class="form-control" />
-                        </td>
-                        <td>
+                <tr>
+                    @Html.HiddenFor(m => Model.Cart[i].TrajectId)
+                    @for (var j = 0; j < Model.Cart[i].AantalTickets; j++)
+                    {
+                        @Html.HiddenFor(m => Model.Cart[i].Voornamen[j])
+                        @Html.HiddenFor(m => Model.Cart[i].Achternamen[j])
+                    }
+                    
+                    <td>
+                        <input asp-for="@Model.Cart[i].Vertrekdatum" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
 
-                            <input asp-for="@Model.Cart[i].Aankomstdatum" readonly="readonly" class="form-control" />
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].Van" readonly="readonly" class="form-control" />
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].Naar" readonly="readonly" class="form-control" />
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].AantalTickets" readonly="readonly" class="form-control" />
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].Klasse" readonly="readonly" class="form-control" />
-                        </td>
-                        <td>
-                            <input asp-for="@Model.Cart[i].Prijs" readonly="readonly" class="form-control" />
-                            @{ total += Model.Cart[i].Prijs;}
-                        </td>
-                        <td>
-                            <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-trajectId="@Model.Cart[i].TrajectId">
-                                <img src="~/images/delete.jpg" style="width:30px" />
-                            </a>
+                        <input asp-for="@Model.Cart[i].Aankomstdatum" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Van" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Naar" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].AantalTickets" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Klasse" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Prijs" readonly="readonly" class="form-control" />
+                        @{ total += Model.Cart[i].Prijs;}
+                    </td>
+                    <td>
+                        <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-trajectId="@Model.Cart[i].TrajectId">
+                            <img src="~/images/delete.jpg" style="width:30px" />
+                        </a>
 
-                        </td>
-                    </tr>
+                    </td>
+                </tr>
 
                 }
                 <tr>

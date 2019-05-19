@@ -6,15 +6,22 @@
 
 @{
     var totalePrijsMessage = "";
-    var prijs = 0.0;
-   
+    var prijs1 = 0.0;
+    var prijs2 = 0.0;
+
     if (Model.RoutesHeen != null)
     {
-        prijs = ViewBag.PrijsTicket * (1 + Model.GeselecteerdeKlasse.Toeslag) * Model.Aantal;
-        prijs = Math.Round(prijs, 2);
+        prijs1 = ViewBag.PrijsTicket * (1 + Model.GeselecteerdeKlasse.Toeslag) * Model.Aantal;
+        prijs1 = Math.Round(prijs1, 2);
     }
 
-    totalePrijsMessage += "Prijs: € " + prijs;
+    if (Model.RoutesTerug != null)
+    {
+        prijs2 = ViewBag.PrijsTicket * (1 + Model.GeselecteerdeKlasse.Toeslag) * Model.Aantal;
+        prijs2 = Math.Round(prijs2, 2);
+    }
+
+    totalePrijsMessage += "Prijs: € " + (prijs1 + prijs2);
 }
 
 
@@ -68,6 +75,15 @@
                     <option selected disabled>Please select </option>
                 </select>
             </div>
+            @if (Model.Aantal != null)
+            {
+                for (var i = 0; i < Model.Aantal; i++)
+                {
+                <p>Passagier @i :</p>
+                <p>@Html.TextBoxFor(x => Model.Passagierslijst.Passagiers[i].Voornaam)</p>
+                <p>@Html.TextBoxFor(x => Model.Passagierslijst.Passagiers[i].Achternaam)</p>
+                }
+            }
 
             <div class="form-group">
                 <input type="submit" value="Zoek Route" class="btn btn-default homeButton" />

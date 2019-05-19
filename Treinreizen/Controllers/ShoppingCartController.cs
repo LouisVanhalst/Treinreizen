@@ -128,8 +128,8 @@ namespace Treinreizen.Controllers
 
                             ticket.OrderId = id;
                             ticket.Zetelnummer = ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, c.Vertrekdatum, c.Klasse) + 1;
-                            ticket.VoornaamPassagier = "Sophie";
-                            ticket.AchternaamPassagier = "De Waele";
+                            ticket.VoornaamPassagier = c.Voornamen.ElementAt(i);
+                            ticket.AchternaamPassagier = c.Achternamen.ElementAt(i);
                             ticket.ReismogelijkhedenId = item.ReisMogelijkhedenId;
                             ticket.Reismogelijkheden = reisMogelijkhedenService.Get(item.ReisMogelijkhedenId);
                             ticketService.Create(ticket);
@@ -191,43 +191,27 @@ namespace Treinreizen.Controllers
         }
 
 
-        public IActionResult Passagiers(int aantalPassagiers)
+        public IActionResult Passagiers()//int aantalPassagiers)
         {
             //ViewBag.AantalPassagiers = 3;
 
             PassagierslijstVM passagierslijst = new PassagierslijstVM();
-            //PassagierslijstVM passagierslijst = HttpContext.Session.GetObject<PassagierslijstVM>("ShoppingCart");
-            passagierslijst.Passagiers = new List<PassagierVM>();
+            //passagierslijst.Passagiers = new List<PassagierVM>();
 
-            for (int i = 0; i < aantalPassagiers; i++)
-            {
-                PassagierVM passagier = new PassagierVM();
-                passagierslijst.Passagiers.Add(passagier);
-            }
+            //for (int i = 0; i < aantalPassagiers; i++)
+            //{
+            //    PassagierVM passagier = new PassagierVM();
+            //    passagierslijst.Passagiers.Add(passagier);
+            //}
 
             return View(passagierslijst);
         }
 
         [HttpPost]
-        public IActionResult Passagiers(List<PassagierVM> passagiers)
+        public IActionResult Passagiers(PassagierslijstVM passagierslijst)
         {
-            PassagierslijstVM passagierslijst = new PassagierslijstVM();
-            passagierslijst.Passagiers = new List<PassagierVM>();
-            
-            PassagierVM passagier;
-            foreach (PassagierVM p in passagiers)
-            {
-
-                passagier = new PassagierVM();
-                passagier.Voornaam = p.Voornaam;
-                passagier.Achternaam = p.Achternaam;
-                passagierslijst.Passagiers.Add(passagier);
-
-            }
-
             return View(passagierslijst);
 
-            // return RedirectToAction("Ps", passagierslijst);
         }
 
     }
