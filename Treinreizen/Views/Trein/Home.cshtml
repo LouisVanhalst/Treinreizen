@@ -68,6 +68,15 @@
                     <option selected disabled>Please select </option>
                 </select>
             </div>
+            @if (Model.Aantal != null)
+            {
+                for (var i = 0; i < Model.Aantal; i++)
+                {
+                <p>Passagier @i :</p>
+                <p>@Html.TextBoxFor(x => Model.Passagierslijst.Passagiers[i].Voornaam)</p>
+                <p>@Html.TextBoxFor(x => Model.Passagierslijst.Passagiers[i].Achternaam)</p>
+                }
+            }
 
             <div class="form-group">
                 <input type="submit" value="Zoek Route" class="btn btn-default homeButton" />

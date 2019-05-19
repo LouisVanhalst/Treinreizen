@@ -128,8 +128,8 @@ namespace Treinreizen.Controllers
 
                             ticket.OrderId = id;
                             ticket.Zetelnummer = ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, c.Vertrekdatum, c.Klasse) + 1;
-                            ticket.VoornaamPassagier = "Sophie";
-                            ticket.AchternaamPassagier = "De Waele";
+                            ticket.VoornaamPassagier = "Sophie"; //c.Voornamen[i];
+                            ticket.AchternaamPassagier = "De Waele"; //c.Achternamen[i];
                             ticket.ReismogelijkhedenId = item.ReisMogelijkhedenId;
                             ticket.Reismogelijkheden = reisMogelijkhedenService.Get(item.ReisMogelijkhedenId);
                             ticketService.Create(ticket);
@@ -191,37 +191,27 @@ namespace Treinreizen.Controllers
         }
 
 
-        public IActionResult Passagiers(int aantalPassagiers)
+        public IActionResult Passagiers()//int aantalPassagiers)
         {
             //ViewBag.AantalPassagiers = 3;
 
             PassagierslijstVM passagierslijst = new PassagierslijstVM();
-            passagierslijst.Passagiers = new List<PassagierVM>();
+            //passagierslijst.Passagiers = new List<PassagierVM>();
 
-            for (int i = 0; i < aantalPassagiers; i++)
-            {
-                PassagierVM passagier = new PassagierVM();
-                passagierslijst.Passagiers.Add(passagier);
-            }
+            //for (int i = 0; i < aantalPassagiers; i++)
+            //{
+            //    PassagierVM passagier = new PassagierVM();
+            //    passagierslijst.Passagiers.Add(passagier);
+            //}
 
             return View(passagierslijst);
         }
 
         [HttpPost]
-        public IActionResult Passagiers(List<PassagierVM> passagiers)
+        public IActionResult Passagiers(PassagierslijstVM passagierslijst)
         {
-            //passagierslijst.Passagiers = new List<PassagierVM>();
+            return View(passagierslijst);
 
-
-            //foreach (var item in passagierslijst.Passagiers)
-            //{
-            //    PassagierVM passagier = new PassagierVM();
-            //    psl.passagiers.Add(item);
-            //}
-
-            return View(passagiers);
-
-            // return RedirectToAction("Ps", passagierslijst);
         }
 
     }

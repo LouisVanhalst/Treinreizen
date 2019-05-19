@@ -88,6 +88,8 @@ namespace Treinreizen.Controllers
             TrajectService trajectService = new TrajectService();
             TicketService ticketService = new TicketService();
 
+            VakantiesService vakantiesService = new VakantiesService();
+
             zoekListVM.RoutesHeen = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
 
             double totalePrijs = 0;
@@ -99,10 +101,24 @@ namespace Treinreizen.Controllers
                     totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
                 }
 
+                var vakantie = new Vakanties();
+                var extraPlaatsen = 1.0;
+                //controle vakantie
+                if (item.ReisMogelijkheden.Kerstvakantie == true && vakantiesService.DatumInVakantie(Convert.ToDateTime(zoekListVM.HeenDate), true)==true)
+                {
+                    vakantie = vakantiesService.Get(Convert.ToDateTime(zoekListVM.HeenDate), true);
+                    extraPlaatsen = 1 + vakantie.PercentExtraPlaatsen;
+                }
+                else if (item.ReisMogelijkheden.Paasvakantie == true && vakantiesService.DatumInVakantie(Convert.ToDateTime(zoekListVM.HeenDate), false)==true)
+                {
+                    vakantie = vakantiesService.Get(Convert.ToDateTime(zoekListVM.HeenDate), false);
+                    extraPlaatsen = 1 + vakantie.PercentExtraPlaatsen;       
+                }
+
                 //controle nog genoeg plaatsen op de trein
                 if (zoekListVM.Klasse == 1)
                 {
-                    var vrijePlaatsen = item.ReisMogelijkheden.Trein.AantalPlaatsenEc - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
+                    var vrijePlaatsen = Convert.ToInt16(item.ReisMogelijkheden.Trein.AantalPlaatsenEc * extraPlaatsen) - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
 
                     if (vrijePlaatsen < zoekListVM.Aantal)
                     {
@@ -111,7 +127,8 @@ namespace Treinreizen.Controllers
                 }
                 else
                 {
-                    var vrijePlaatsen = item.ReisMogelijkheden.Trein.AantalPlaatsenBus - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
+                    var vrijePlaatsen = (item.ReisMogelijkheden.Trein.AantalPlaatsenBus * extraPlaatsen) - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
+
 
                     if (vrijePlaatsen < zoekListVM.Aantal)
                     {
@@ -151,10 +168,24 @@ namespace Treinreizen.Controllers
                         totalePrijs += Convert.ToDouble(item.ReisMogelijkheden.Prijs);
                     }
 
+                    var vakantie = new Vakanties();
+                    var extraPlaatsen = 1.0;
+                    //controle vakantie
+                    if (item.ReisMogelijkheden.Kerstvakantie == true && vakantiesService.DatumInVakantie(Convert.ToDateTime(zoekListVM.TerugDate), true) == true)
+                    {
+                        vakantie = vakantiesService.Get(Convert.ToDateTime(zoekListVM.TerugDate), true);
+                        extraPlaatsen = 1 + vakantie.PercentExtraPlaatsen;
+                    }
+                    else if (item.ReisMogelijkheden.Paasvakantie == true && vakantiesService.DatumInVakantie(Convert.ToDateTime(zoekListVM.TerugDate), false) == true)
+                    {
+                        vakantie = vakantiesService.Get(Convert.ToDateTime(zoekListVM.TerugDate), false);
+                        extraPlaatsen = 1 + vakantie.PercentExtraPlaatsen;
+                    }
+
                     //controle nog genoeg plaatsen op de trein
                     if (zoekListVM.Klasse == 1)
                     {
-                        var vrijePlaatsen = item.ReisMogelijkheden.Trein.AantalPlaatsenEc - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
+                        var vrijePlaatsen = Convert.ToInt16(item.ReisMogelijkheden.Trein.AantalPlaatsenEc * extraPlaatsen) - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
 
                         if (vrijePlaatsen < zoekListVM.Aantal)
                         {
@@ -163,7 +194,7 @@ namespace Treinreizen.Controllers
                     }
                     else
                     {
-                        var vrijePlaatsen = item.ReisMogelijkheden.Trein.AantalPlaatsenBus - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
+                        var vrijePlaatsen = Convert.ToInt16(item.ReisMogelijkheden.Trein.AantalPlaatsenBus * extraPlaatsen) - ticketService.GetAantalPlaatsenGereserveerd(item.ReisMogelijkhedenId, Convert.ToDateTime(zoekListVM.HeenDate), zoekListVM.Klasse);
 
                         if (vrijePlaatsen < zoekListVM.Aantal)
                         {
@@ -189,8 +220,6 @@ namespace Treinreizen.Controllers
             ViewBag.Aankomstdatumterug = aankomstdatumterugreis;
 
             ViewBag.PrijsTicket = Convert.ToDouble(totalePrijs);
-
-
 
             if (ModelState.IsValid)
             {
@@ -221,6 +250,14 @@ namespace Treinreizen.Controllers
             double p = prijs * (1 + Convert.ToDouble(klasse.Toeslag)) * zoekListVM.Aantal;
             p = Math.Round(p, 2);
 
+            List<string> vn = new List<string>();
+            List<string> an = new List<string>();
+            for (int i = 0; i < zoekListVM.Aantal; i++)
+            {
+                vn.Add(zoekListVM.Passagierslijst.Passagiers[i].Voornaam);
+                an.Add(zoekListVM.Passagierslijst.Passagiers[i].Achternaam);
+            }
+
             CartVM itemheen = new CartVM
             {
                 TrajectId = trajectheen.TrajectId,
@@ -230,7 +267,10 @@ namespace Treinreizen.Controllers
                 Klasse = zoekListVM.Klasse,
                 Prijs = p,
                 Vertrekdatum = Convert.ToDateTime(zoekListVM.HeenDate),
-                Aankomstdatum = Convert.ToDateTime(aankomstdatumheen)
+                Aankomstdatum = Convert.ToDateTime(aankomstdatumheen),
+                Voornamen = vn,
+                Achternamen = an
+                
             };
 
 

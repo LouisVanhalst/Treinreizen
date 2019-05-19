@@ -20,5 +20,7 @@ namespace Treinreizen.ViewModel
         public double Prijs { get; set; }
         public DateTime Vertrekdatum { get; set; }
         public DateTime Aankomstdatum { get; set; }
+        public List<string> Voornamen { get; set; }
+        public List<string> Achternamen { get; set; }
     }
 }

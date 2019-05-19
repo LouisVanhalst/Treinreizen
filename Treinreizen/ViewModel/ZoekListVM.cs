@@ -40,5 +40,15 @@ namespace Treinreizen.ViewModel
         public IEnumerable<Ritten> RoutesHeen { get; set; }
 
         public IEnumerable<Ritten> RoutesTerug { get; set; }
-    }
+
+        public PassagierslijstVM Passagierslijst { get; set; }
+    
+
+    //public class PassagierVM
+    //{
+
+    //    public string Voornaam { get; set; }
+    //    public string Achternaam { get; set; }
+    //}
+}
 }
