@@ -77,7 +77,7 @@ namespace Treinreizen.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public IActionResult Payment(List<CartVM> cart, List<PassagierVM> passagiers)
+        public IActionResult Payment(List<CartVM> cart)
         {
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             HotelsService hotelsService = new HotelsService();

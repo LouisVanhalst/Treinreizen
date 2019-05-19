@@ -11,17 +11,20 @@
 
     if (Model.RoutesHeen != null)
     {
-        prijs1 = ViewBag.PrijsTicket * (1 + Model.GeselecteerdeKlasse.Toeslag) * Model.Aantal;
+        prijs1 = ViewBag.PrijsTicketh * (1 + Model.GeselecteerdeKlasse.Toeslag) * Model.Aantal;
         prijs1 = Math.Round(prijs1, 2);
     }
 
     if (Model.RoutesTerug != null)
     {
-        prijs2 = ViewBag.PrijsTicket * (1 + Model.GeselecteerdeKlasse.Toeslag) * Model.Aantal;
+        prijs2 = ViewBag.PrijsTickett * (1 + Model.GeselecteerdeKlasse.Toeslag) * Model.Aantal;
         prijs2 = Math.Round(prijs2, 2);
     }
 
+    //if (Model.RoutesHeen != null)
+    //{
     totalePrijsMessage += "Prijs: € " + (prijs1 + prijs2);
+@*}*@
 }
 
 
@@ -90,7 +93,7 @@
             </div>
 
             <div class="form-group">
-                <input style="display:none" type="submit" asp-controller="Trein" id="Hidden" asp-action="Boeken" asp-route-prijs="@ViewBag.PrijsTicket" asp-route-aankomstdatumheen="@ViewBag.Aankomstdatumheen" asp-route-aankomstdatumterug="@ViewBag.Aankomstdatumterug" class="btn btn-default homeButton" value="Boeken" />
+                <input style="display:none" type="submit" asp-controller="Trein" id="Hidden" asp-action="Boeken" asp-route-prijsh="@ViewBag.PrijsTicketh" asp-route-prijst="@ViewBag.PrijsTickett" asp-route-aankomstdatumheen="@ViewBag.Aankomstdatumheen" asp-route-aankomstdatumterug="@ViewBag.Aankomstdatumterug" class="btn btn-default homeButton" value="Boeken" />
             </div>
         </form>
     </div>
