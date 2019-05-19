@@ -47,7 +47,7 @@ namespace Treinreizen.Controllers
 
             //OM ER VOOR TE ZORGEN DAT EMPTYCART WERKT:
             ShoppingCartVM cartList = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
-
+           
             var SessionId = HttpContext.Session.Id;
 
             return View(cartList);

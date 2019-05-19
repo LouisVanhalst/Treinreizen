@@ -324,7 +324,8 @@ namespace Treinreizen.Controllers
 
             }
 
-            return RedirectToAction("Index", "ShoppingCart");//return RedirectToAction("Passagiers", "ShoppingCart, new {aantalpassagiers = zoekListVM.Aantal}
+            return RedirectToAction("Index", "ShoppingCart");
+            //return RedirectToAction("Passagiers", "ShoppingCart", new {aantalpassagiers = zoekListVM.Aantal});
         }
 
         [Route("/CustomErrorPages/Overboekt")]

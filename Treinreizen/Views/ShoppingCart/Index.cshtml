@@ -7,38 +7,41 @@
 <div="formulier">
 
 
-    <h2>Uw Winkelmand</h2>
+    <h2 style="margin-top:30px;" class="centreer">Uw Winkelmand</h2>
 
 @if (Model != null)
 {
 
         <form asp-action="Payment">
             <table class="table table100-head">
-                <tr>
-                    <th>
-                        Vertrekdatum
-                    </th>
-                    <th>
-                        Aankomstdatum
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cart[0].Van)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cart[0].Naar)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cart[0].AantalTickets)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cart[0].Klasse)
+                <thead>
+                    <tr>
+                        <th>
+                            Vertrekdatum
+                        </th>
+                        <th>
+                            Aankomstdatum
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cart[0].Van)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cart[0].Naar)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cart[0].AantalTickets)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cart[0].Klasse)
 
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cart[0].Prijs)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cart[0].Prijs)
 
-                    </th>
-                </tr>
+                        </th>
+                    </tr>
+                </thead>
+                
                 @{ double total = 0;}
                 @for (var i = 0; i < Model.Cart.Count; i++)
                 {
@@ -90,31 +93,33 @@
                     </td>
 
                 </tr>
+            </table>
 
-                <tr>
-                    <td>
 
                         <input type="submit" value="Checkout" class="btn btn-default" />
 
-                    </td>
-                </tr>
+                
 
 
 
-            </table>
+            
         </form>
 
     }
     else
     {
-        @Html.Raw("Your shoppingcart is empty at the moment")
+        <div class="centreer">
+            @Html.Raw("Uw winkelmand is voor het moment leeg")
+            <a asp-controller="Trein"
+               asp-action="Home">
+
+                Continue
+            </a>
+        </div>
+       
     }
 
-    <a asp-controller="Trein"
-       asp-action="Home">
-
-        Continue
-    </a>
+   
 </div="formulier">
 
 @section Scripts{
