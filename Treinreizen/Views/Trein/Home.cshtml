@@ -151,31 +151,32 @@
             <tbody>
                 @foreach (var item in Model.RoutesHeen)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
-                        </td>
-                        <td>
-                            @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-                            }
-                            @tijd
-                        </td> 
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
+                    </td>
+                    <td>
+                        @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+                        }
+                        @tijd
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
