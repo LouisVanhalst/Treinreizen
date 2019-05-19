@@ -172,35 +172,38 @@
             <tbody>
                 @foreach (var item in Model.RoutesHeen)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
-                    </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
+                        </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
-                    </td>
-                    <td>
-                        @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-                        }
-                        @tijd
-                    </td>
-                </tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
+                        </td>
+                        <td>
+                            @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+                            }
+                            @tijd
+                        </td>
+
+                    </tr>
+
                 }
             </tbody>
         </table>
+        <h4 class="margin">Prijs heenreis: € @prijs1</h4>
 
         @if (Model.RoutesTerug != null)
         {
@@ -236,42 +239,44 @@
                 <tbody>
                     @foreach (var item in Model.RoutesTerug)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
-                        </td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
+                            </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
-                        </td>
-                        <td>
-                            @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-                            }
-                            @tijd
-                        </td>
-                    </tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
+                            </td>
+                            <td>
+                                @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+                                }
+                                @tijd
+                            </td>
+                        </tr>
+
 
                     }
                 </tbody>
             </table>
+            <h4 class="margin">Prijs terugreis: € @prijs2</h4>
         }
-            <div>
-                <p class="prijs">@totalePrijsMessage</p>
-                <input type="submit" onclick="hiddenVerwijs()"  id="Boeken" class="btn btn-default homeButton" value="Boeken" />
-            </div>
-        
+        <div>
+            <p class="prijs">@totalePrijsMessage</p>
+            <input type="submit" onclick="hiddenVerwijs()" id="Boeken" class="btn btn-default homeButton" value="Boeken" />
+        </div>
+
         <div class="hotel">
             <div class="content">
                 <div>
@@ -286,7 +291,7 @@
                     <input type="submit" asp-controller="Hotel" asp-action="Hotels" asp-route-stadId="@Model.Naar" value="Bekijk Hotels" class="btn btn-default" />
                 </form>
             </div>
-           
+
         </div>
 
     }
