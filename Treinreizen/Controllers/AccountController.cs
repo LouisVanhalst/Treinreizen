@@ -53,14 +53,14 @@ namespace Treinreizen.Controllers
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var orderlijst = orderService.GetAllOrdersVanKlant(userID);
-            
 
-            
+
+
 
             return View(orderlijst);
         }
 
-
+        [Authorize]
         public ActionResult Annuleer(int orderNr)
         {
 
@@ -68,12 +68,22 @@ namespace Treinreizen.Controllers
             {
                 return NotFound();
             }
+
             orderService = new OrderService();
             Order order = orderService.Get(Convert.ToInt16(orderNr));
             order.StatusId = 3;
             orderService.Update(order);
 
-            return RedirectToAction("index","Account");
+            return RedirectToAction("index", "Account");
+        }
+
+        [Authorize]
+        public ActionResult Details(int orderNr)
+        {
+            orderService = new OrderService();
+            Order order = orderService.Get(Convert.ToInt16(orderNr));
+
+            return View(order);
         }
     }
 }

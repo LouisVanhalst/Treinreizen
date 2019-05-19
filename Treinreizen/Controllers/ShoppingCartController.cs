@@ -108,7 +108,7 @@ namespace Treinreizen.Controllers
                     order.TrajectId = c.TrajectId;
                     order.Aankomstdatum = c.Aankomstdatum;
                     order.Vertrekdatum = c.Vertrekdatum;
-                    
+
                     orderService.Create(order);
 
                     geboekteOrder = orderService.Get(order.OrderId);
@@ -117,12 +117,12 @@ namespace Treinreizen.Controllers
                     RittenService rittenService = new RittenService();
                     IEnumerable<Ritten> reisMogelijkhedenHeen = rittenService.GetRittenVanTrajectId(c.TrajectId);
 
-                    
+
                     //aanmaken van tickets
                     for (int i = 0; i < c.AantalTickets; i++)
                     {
                         foreach (var item in reisMogelijkhedenHeen)
-                        { 
+                        {
                             Ticket ticket = new Ticket();
 
                             ticket.OrderId = id;
@@ -135,25 +135,10 @@ namespace Treinreizen.Controllers
                     }
 
 
+                    Delete(c.TrajectId);
                 }
 
-                //aanmaken van tickets
-
-                //foreach (PassagierVM p in passagiers)
-                //{
-
-                //    Ticket ticket = new Ticket();
-
-                //    ticket.OrderId = id;
-                //    //ticket.Zetelnummer = 
-                //    //ticket.VoornaamPassagier =
-                //    //ticket.AchternaamPassagier =
-                //    //ticket.ReisMogelijkheden = 
-                //    ticketService.Create(ticket);
-                //}
-
                 return RedirectToAction("Validation");
-
             }
             catch (DataException ex)
             {
@@ -167,6 +152,8 @@ namespace Treinreizen.Controllers
                 ModelState.AddModelError("", "call system administrator.");
 
             }
+
+
 
             return View("Index");
 
@@ -201,43 +188,39 @@ namespace Treinreizen.Controllers
             return View();
         }
 
-        public IActionResult Passagiers()//int aantalPassagiers)
+
+        public IActionResult Passagiers(int aantalPassagiers)
         {
             //ViewBag.AantalPassagiers = 3;
 
             PassagierslijstVM passagierslijst = new PassagierslijstVM();
-            //passagierslijst.passagiers = new List<PassagierVM>();
+            passagierslijst.Passagiers = new List<PassagierVM>();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < aantalPassagiers; i++)
             {
                 PassagierVM passagier = new PassagierVM();
-               // passagierslijst.passagiers.Add(passagier);
+                passagierslijst.Passagiers.Add(passagier);
             }
 
             return View(passagierslijst);
         }
 
         [HttpPost]
-        public IActionResult Passagiers(PassagierslijstVM passagierslijst)//int aantalPassagiers)
+        public IActionResult Passagiers(List<PassagierVM> passagiers)
         {
-            //PassagierslijstVM psl = new PassagierslijstVM();
-            //passagierslijst.passagiers = new List<PassagierVM>();
+            //passagierslijst.Passagiers = new List<PassagierVM>();
 
 
-            //foreach (var item in passagierslijst.passagiers)
+            //foreach (var item in passagierslijst.Passagiers)
             //{
             //    PassagierVM passagier = new PassagierVM();
             //    psl.passagiers.Add(item);
             //}
 
-            //return View(psl);
+            return View(passagiers);
 
-            return RedirectToAction("Ps", passagierslijst);
+            // return RedirectToAction("Ps", passagierslijst);
         }
 
-        public IActionResult Ps(PassagierslijstVM passagierslijst)
-        {
-            return View(passagierslijst);
-        }
     }
 }

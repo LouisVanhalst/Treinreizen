@@ -1,0 +1,72 @@
+﻿@model Treinreizen.Domain.Entities.Order
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AantalTickets)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AantalTickets)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Boekingsdatum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Boekingsdatum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Prijs)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Prijs)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TrajectId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TrajectId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Vertrekdatum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Vertrekdatum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Aankomstdatum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Aankomstdatum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Klant)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Klant.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Klasse)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Klasse.Klassenaam)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status.Naam)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

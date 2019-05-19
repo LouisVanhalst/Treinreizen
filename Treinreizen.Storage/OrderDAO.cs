@@ -30,6 +30,9 @@ namespace Treinreizen.Storage
                 .Include(i => i.Status)
                 .Include(i => i.Klasse)
                 .Include(i => i.Ticket)
+                .Include(i => i.Traject)
+                .Include(i => i.Traject.VertrekStadNavigation)
+                .Include(i => i.Traject.AankomstStadNavigation)
                 .ToList();
         }
 

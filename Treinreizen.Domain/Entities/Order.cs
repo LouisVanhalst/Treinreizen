@@ -24,6 +24,7 @@ namespace Treinreizen.Domain.Entities
         public AspNetUsers Klant { get; set; }
         public Klasse Klasse { get; set; }
         public Status Status { get; set; }
+        public Traject Traject { get; set; }
         public ICollection<Ticket> Ticket { get; set; }
     }
 }

@@ -5,48 +5,15 @@
 }
 
 @{
-    //decimal totalePrijs = 0;
     var totalePrijsMessage = "";
-    //var reistijdHeenreis =  (TimeSpan) 00:00:00;
-    //var reistijdTerugreis = 0;
     var prijs = 0.0;
-    //var aankomstdatumheen = ViewBag.Aankomstdatumheen;
+   
     if (Model.RoutesHeen != null)
     {
-
-
-        //    var tijdHeen = Model.RoutesHeen.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesHeen.ElementAt(Model.RoutesHeen.Count() - 1).ReisMogelijkheden.Vertrektijd;
-
-        //    //foreach (var item in Model.RoutesHeen)
-        //    //{
-        //    //    if (item.ReisMogelijkheden.Prijs != null)
-        //    //    {
-        //    //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
-        //    //    }
-        //    //    //var tijd += item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-        //    //}
-
-        //    reistijdHeenreis = "Duur van de heenreis: " + tijdHeen + " uur";
-
-        //    if (Model.RoutesTerug != null)
-        //    {
-        //        var tijdTerug = Model.RoutesTerug.ElementAt(0).ReisMogelijkheden.Aankomsttijd - Model.RoutesTerug.ElementAt(Model.RoutesTerug.Count() - 1).ReisMogelijkheden.Vertrektijd;
-
-        //        //foreach (var item in Model.RoutesTerug)
-        //        //{
-        //        //    if (item.ReisMogelijkheden.Prijs != null)
-        //        //    {
-        //        //        totalePrijs += Convert.ToDecimal(item.ReisMogelijkheden.Prijs);
-        //        //    }
-        //        //}
-
-        //        reistijdTerugreis = "Duur van de terugreis: " + tijdTerug + " uur";
         prijs = ViewBag.PrijsTicket * (1 + Model.GeselecteerdeKlasse.Toeslag) * Model.Aantal;
         prijs = Math.Round(prijs, 2);
     }
 
-    //    //totalePrijs = totalePrijs * (1 + Convert.ToDecimal(Model.GeselecteerdeKlasse.Toeslag));
-    //    //totalePrijs = totalePrijs * Model.Aantal;
     totalePrijsMessage += "Prijs: € " + prijs;
 }
 
@@ -58,13 +25,6 @@
         <h2>Plan je reis</h2>
         <form asp-action="Home">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input checked asp-for="isEnkel" /> @Html.DisplayNameFor(model => model.isEnkel)
-                    </label>
-                </div>
-            </div>*@
             <div class="form-group">
                 <label asp-for="Van" class="control-label"></label>
                 <select asp-for="Van" asp-items="@Model.Steden" class="form-control " id="vanAdres" onchange="disableSelected()">
@@ -79,12 +39,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="HeenDate" class="control-label"></label>
-                <input asp-for="HeenDate" class="form-control" />
+                <input asp-for="HeenDate" readonly class="form-control" />
                 <span asp-validation-for="HeenDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TerugDate" class="control-label"></label>
-                <input asp-for="TerugDate" class="form-control" />
+                <input asp-for="TerugDate" readonly class="form-control" />
                 <span asp-validation-for="TerugDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -108,15 +68,14 @@
                     <option selected disabled>Please select </option>
                 </select>
             </div>
-            <div class="form-group">
 
-                @*<input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-aantal="@Model.Aantal" asp-route-prijs="@totalePrijs" value="Boeken" class="btn btn-default" />*@
-                <input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-prijs="@ViewBag.PrijsTicket" asp-route-aankomstdatumheen="@ViewBag.Aankomstdatumheen" asp-route-aankomstdatumterug="@ViewBag.Aankomstdatumterug" class="btn btn-default homeButton" value="Boeken" />
-            </div>
             <div class="form-group">
                 <input type="submit" value="Zoek Route" class="btn btn-default homeButton" />
             </div>
 
+            <div class="form-group">
+                <input type="submit" asp-controller="Trein" asp-action="Boeken" asp-route-prijs="@ViewBag.PrijsTicket" asp-route-aankomstdatumheen="@ViewBag.Aankomstdatumheen" asp-route-aankomstdatumterug="@ViewBag.Aankomstdatumterug" class="btn btn-default homeButton" value="Boeken" />
+            </div>
         </form>
     </div>
 
@@ -187,44 +146,36 @@
                     <th>
                         Reistijd
                     </th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.RoutesHeen)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
-                    </td>
-
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
-                    </td>
-                    <td>
-                        @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-                        }
-                        @tijd
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
+                        </td>
+                        <td>
+                            @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+                            }
+                            @tijd
+                        </td> 
+                    </tr>
                 }
             </tbody>
         </table>
@@ -258,43 +209,36 @@
                         <th>
                             Reistijd
                         </th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model.RoutesTerug)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
-                        </td>
-                        <td>
-                            @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
-                            }
-                            @tijd
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Vertrektijd)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.VertrekNavigation.Naam)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Aankomsttijd)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.AankomstNavigation.Naam)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Trein.TreinNaam)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReisMogelijkheden.Prijs)
+                            </td>
+                            <td>
+                                @{ var tijd = item.ReisMogelijkheden.Aankomsttijd - item.ReisMogelijkheden.Vertrektijd;
+                                }
+                                @tijd
+                            </td>
+                        </tr>
 
                     }
                 </tbody>
@@ -303,37 +247,23 @@
         <div>
             <p class="prijs">@totalePrijsMessage</p>
         </div>
-        <div class="row" id="personenLoop">
-            @for (int i = 1; i <= Model.Aantal; i++)
-            {
-
-                // <h3>Persoon @i: </h3> @await Html.PartialAsync("_PersoonVeld")
-
-            }
-        </div>
-
-
-
-
-
+        
         <div class="hotel">
             <div class="content">
                 <div>
                     <h1>Op zoek naar een hotel?</h1>
                     <p>
                         Op zoek naar een hotel op je aankomst?
-                        Ga een kijkje nemen in ons assortiment van hotels bij jouw in de buurt!
+                        Ga een kijkje nemen in ons assortiment van hotels in de buurt van jouw bestemming!
                     </p>
                 </div>
 
                 <form method="post">
-                    <input type="submit" asp-controller="Hotel" asp-action="Hotels" asp-route-stadId="@Model.Naar" value="Boek nu!" class="btn btn-default" />
+                    <input type="submit" asp-controller="Hotel" asp-action="Hotels" asp-route-stadId="@Model.Naar" value="Bekijk Hotels" class="btn btn-default" />
                 </form>
             </div>
            
         </div>
-
-
 
     }
 </div>
@@ -359,7 +289,6 @@
             });
             $("#naarAdres").val(0)
         }
-
 
         $(function () {
             $("#HeenDate").datepicker({

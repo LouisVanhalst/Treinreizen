@@ -9,8 +9,8 @@
 
     <h2>Uw Winkelmand</h2>
 
-    @if (Model != null)
-    {
+@if (Model != null)
+{
 
         <form asp-action="Payment">
             <table class="table table100-head">
@@ -119,37 +119,37 @@
 
 @section Scripts{
     @*<script>
-            //is het zelfde als window.addlistener(load,script)... van vorig jaar
-            $(() => {
-                //selecteer alle input elementen die eindigen met aantal
-                //selecteer alle ids die eindigen met 'aantal' en plaats daar een change listerner op
-                $("[id$=Aantal]").on('change', (e) =>{
-                    console.log("change");
-                    //geef het object en neem het dataatribuut "AANTAL"
-                    let number = $(e.currentTarget).data("aantal");
-                    let selectorPrice = "Cart_" + number + "_Prijs";
-                    //geef mij de waarde van selectorPrice
-                    let price = $("#" + selectorPrice).val();
+                    //is het zelfde als window.addlistener(load,script)... van vorig jaar
+                    $(() => {
+                        //selecteer alle input elementen die eindigen met aantal
+                        //selecteer alle ids die eindigen met 'aantal' en plaats daar een change listerner op
+                        $("[id$=Aantal]").on('change', (e) =>{
+                            console.log("change");
+                            //geef het object en neem het dataatribuut "AANTAL"
+                            let number = $(e.currentTarget).data("aantal");
+                            let selectorPrice = "Cart_" + number + "_Prijs";
+                            //geef mij de waarde van selectorPrice
+                            let price = $("#" + selectorPrice).val();
 
-                    let selector = "txtSubTotal" + number;
-                    //toont de waarde op de console (hoeft niet)
-                    console.log($(e.currentTarget).val() * price);
-                    //plaatst de waarde van de hoeveelheid * de prijs in het subtotaaal.
-                    $("#" + selector).val($(e.currentTarget).val() * price);
+                            let selector = "txtSubTotal" + number;
+                            //toont de waarde op de console (hoeft niet)
+                            console.log($(e.currentTarget).val() * price);
+                            //plaatst de waarde van de hoeveelheid * de prijs in het subtotaaal.
+                            $("#" + selector).val($(e.currentTarget).val() * price);
 
-                    //selecteer alle subtotalen en tel deze op
-                    let sum = 0;
-                    $('[id^=txtSubTotal]').each((e) => {
-                        //zit er wele iets in de current target, zo ja dan begin ik ze pas op te tellen!
-                        if (!isNaN(e.currentTarget.value) && e.currentTarget.value.length != 0) {
+                            //selecteer alle subtotalen en tel deze op
+                            let sum = 0;
+                            $('[id^=txtSubTotal]').each((e) => {
+                                //zit er wele iets in de current target, zo ja dan begin ik ze pas op te tellen!
+                                if (!isNaN(e.currentTarget.value) && e.currentTarget.value.length != 0) {
 
-                            sum += parseFloat(e.currentTarget.value);
+                                    sum += parseFloat(e.currentTarget.value);
+                                }
+                            });
+                            //ik steek het totaal in het veld Total
+                            $('#txtTotal').val(sum);
                         }
-                    });
-                    //ik steek het totaal in het veld Total
-                    $('#txtTotal').val(sum);
-                }
-        </script>*@
-}
+                </script>*@
+        }
 
 
