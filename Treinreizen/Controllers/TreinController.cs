@@ -89,7 +89,7 @@ namespace Treinreizen.Controllers
             TicketService ticketService = new TicketService();
 
             zoekListVM.RoutesHeen = rittenService.GetRittenVanTraject(Convert.ToInt16(zoekListVM.Van), Convert.ToInt16(zoekListVM.Naar));
-           
+
             double totalePrijs = 0;
 
             foreach (var item in zoekListVM.RoutesHeen)
@@ -120,7 +120,7 @@ namespace Treinreizen.Controllers
                 }
             }
 
-        
+
             var aankomstdatumheenreis = Convert.ToDateTime(zoekListVM.HeenDate);
 
             //overstap gemist
@@ -136,7 +136,7 @@ namespace Treinreizen.Controllers
             }
             ViewBag.Aankomstdatumheen = aankomstdatumheenreis;
 
-        
+
 
             var aankomstdatumterugreis = Convert.ToDateTime(zoekListVM.TerugDate);
 
@@ -172,7 +172,7 @@ namespace Treinreizen.Controllers
                     }
                 }
 
-                
+
                 //overstap gemist
                 if (zoekListVM.RoutesTerug.Count() > 1)
                 {
@@ -184,13 +184,13 @@ namespace Treinreizen.Controllers
                         }
                     }
                 }
-                
+
             }
             ViewBag.Aankomstdatumterug = aankomstdatumterugreis;
 
             ViewBag.PrijsTicket = Convert.ToDouble(totalePrijs);
 
-           
+
 
             if (ModelState.IsValid)
             {
@@ -203,7 +203,7 @@ namespace Treinreizen.Controllers
             }
 
         }
-        
+
         [HttpPost]
         public IActionResult Boeken(ZoekListVM zoekListVM, double prijs, string aankomstdatumheen, string aankomstdatumterug)
         {
@@ -217,7 +217,7 @@ namespace Treinreizen.Controllers
 
             KlasseService klasseService = new KlasseService();
             Klasse klasse = klasseService.GetKlasseVanId(zoekListVM.Klasse);
-            
+
             double p = prijs * (1 + Convert.ToDouble(klasse.Toeslag)) * zoekListVM.Aantal;
             p = Math.Round(p, 2);
 
@@ -251,9 +251,9 @@ namespace Treinreizen.Controllers
 
             if (zoekListVM.TerugDate != null)
             {
-               
+
                 Traject trajectterug = trajectService.GetTraject(Convert.ToInt16(zoekListVM.Naar), Convert.ToInt16(zoekListVM.Van));
-                
+
                 double pterug = prijs * (1 + Convert.ToDouble(klasse.Toeslag)) * zoekListVM.Aantal;
                 pterug = Math.Round(pterug, 2);
 
@@ -267,7 +267,7 @@ namespace Treinreizen.Controllers
                     Prijs = pterug,
                     Vertrekdatum = Convert.ToDateTime(zoekListVM.TerugDate),
                     Aankomstdatum = Convert.ToDateTime(aankomstdatumterug)
-                 };
+                };
 
                 if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
                 {

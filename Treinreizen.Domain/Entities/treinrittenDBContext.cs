@@ -258,6 +258,11 @@ namespace Treinreizen.Domain.Entities
                     .HasForeignKey(d => d.StatusId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FKOrder512612");
+
+                entity.HasOne(d => d.Traject)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.TrajectId)
+                    .HasConstraintName("Heeft traject geboekt");
             });
 
             modelBuilder.Entity<ReisMogelijkheden>(entity =>

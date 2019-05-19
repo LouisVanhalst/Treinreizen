@@ -18,6 +18,8 @@ namespace Treinreizen.Domain.Entities
         public TimeSpan? Aankomsttijd { get; set; }
         public decimal? Prijs { get; set; }
         public int? TreinId { get; set; }
+        public bool? Paasvakantie { get; set; }
+        public bool? Kerstvakantie { get; set; }
 
         public Steden AankomstNavigation { get; set; }
         public Treinen Trein { get; set; }

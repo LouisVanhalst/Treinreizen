@@ -13,6 +13,18 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Vertrekdatum)
+            </th>
+            <th>
+                Vertrek
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aankomstdatum)
+            </th>
+            <th>
+                Bestemming
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.AantalTickets)
             </th>
             <th>
@@ -25,9 +37,6 @@
                 @Html.DisplayNameFor(model => model.Prijs)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Klant)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th></th>
@@ -36,6 +45,18 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vertrekdatum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Traject.VertrekStadNavigation.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aankomstdatum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Traject.AankomstStadNavigation.Naam)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AantalTickets)
             </td>
@@ -47,16 +68,13 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Prijs)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Klant.UserName)
-            </td>
+            </td> 
             <td>
                 @Html.DisplayFor(modelItem => item.Status.Naam)
             </td>
             <td>
                 <a asp-action="Details" asp-route-orderNr="@item.OrderId">Details</a> |
-                <a asp-action="Annuleer" asp-route-orderNr="@item.OrderId">annuleer boeking</a>
+                <a asp-action="Annuleer" asp-route-orderNr="@item.OrderId">Annuleer</a>
             </td>
         </tr>
 }
