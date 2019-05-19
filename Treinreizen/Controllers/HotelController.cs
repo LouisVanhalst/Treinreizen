@@ -21,8 +21,6 @@ namespace Treinreizen.Controllers
             return View(hotelList);
         }
 
-        //CODE NOG NIET CORRECT
-
         public IActionResult Select(int? id)
         {
             if (id == null)
