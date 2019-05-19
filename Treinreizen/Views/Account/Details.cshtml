@@ -4,6 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
+@{ 
+    var reisMogelijkheden = ViewBag.ReisMogelijkheden;
+}
 <h2>Details</h2>
 
 <div>
@@ -11,34 +14,16 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.AantalTickets)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AantalTickets)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Boekingsdatum)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Boekingsdatum)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Prijs)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Prijs)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TrajectId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TrajectId)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Vertrekdatum)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Vertrekdatum)
+        </dd>
+        <dt>
+            Vertrek
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Traject.VertrekStadNavigation.Naam)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Aankomstdatum)
@@ -47,10 +32,22 @@
             @Html.DisplayFor(model => model.Aankomstdatum)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Klant)
+            Bestemming
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Klant.Id)
+            @Html.DisplayFor(model => model.Traject.AankomstStadNavigation.Naam)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AantalTickets)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AantalTickets)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Prijs)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Prijs)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Klasse)
@@ -59,14 +56,117 @@
             @Html.DisplayFor(model => model.Klasse.Klassenaam)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Boekingsdatum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Boekingsdatum)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Status)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Status.Naam)
         </dd>
     </dl>
+
+    @*<table class="table table100-head" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    Tijdstip vertrek
+                </th>
+                <th>
+                    Vertrek plaats
+                </th>
+                <th>
+                    Tijdstip aankomst
+                </th>
+                <th>
+                    Aankomst plaats
+                </th>
+                <th>
+                    Trein
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Ticket)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reismogelijkheden.Vertrektijd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reismogelijkheden.ReisMogelijkhedenId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reismogelijkheden.Aankomsttijd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReismogelijkhedenId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reismogelijkheden.TreinId)
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+    <div>
+        <table class="table table100-head">
+            <thead>
+                <tr>
+                    <th>
+                        Reismogelijkheid
+                    </th>
+                    <th>
+                        Tijdstip vertrek
+                    </th>
+                    <th>
+                        Tijdstip aankomst
+                    </th>
+                    <th>
+                        Voornaam
+                    </th>
+                    <th>
+                        Achternaam
+                    </th>
+                    <th>
+                        Zitplaats
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Ticket)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReismogelijkhedenId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reismogelijkheden.Vertrektijd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reismogelijkheden.Aankomsttijd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VoornaamPassagier)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AchternaamPassagier)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Zetelnummer)
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

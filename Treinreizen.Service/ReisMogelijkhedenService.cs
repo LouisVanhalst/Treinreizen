@@ -17,10 +17,12 @@ namespace Treinreizen.Service
         {
             return reisMogelijkhedenDAO.GetAll();
         }
-        /*public IEnumerable<ReisMogelijkheden>GetAllLocaties()
+
+        public ReisMogelijkheden Get(int reisMogelijkhedenId)
         {
-            return dao.GetAllLocaties();
-        }*/
+            return reisMogelijkhedenDAO.Get(reisMogelijkhedenId);
+        }
+
         public void Update(ReisMogelijkheden entity)
         {
             reisMogelijkhedenDAO.Update(entity);

@@ -17,7 +17,10 @@ namespace Treinreizen.Storage
         }
         public IEnumerable<Ticket> GetAll()
         {
-            return _dbContext.Ticket.ToList();
+            return _dbContext.Ticket
+                .Include(t => t.Reismogelijkheden)
+                .OrderBy(t => t.ReismogelijkhedenId)
+                .ToList();
         }
 
         public int GetAantalPlaatsenGereserveerd(int reisId, DateTime vertrekdatum, int klasseId)
